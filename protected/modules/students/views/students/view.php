@@ -64,14 +64,11 @@ $this->breadcrumbs=array(
 								}
 								else
 								echo $model->admission_date; ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','City');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->city; ?></td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
   </tr>
-
   <tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Class Roll No');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->class_roll_no; ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Date of Birth');?></td>
+	      <td class="listbx_subhdng"><?php echo Yii::t('students','Date of Birth');?></td>
     <td class="subhdng_nrmal"><?php 
 									if($settings!=NULL)
 								{	
@@ -82,45 +79,48 @@ $this->breadcrumbs=array(
 								else
 								echo $model->date_of_birth; 
 								 ?></td>
-  </tr>
-  <tr>
-    <td class="listbx_subhdng"> <?php echo Yii::t('students','Birth Place');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->birth_place; ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Blood Group');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->blood_group; ?></td>
-  </tr>
-  <tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','State');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->state; ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Country');?></td>
-    <td class="subhdng_nrmal"><?php 
-	$count = Countries::model()->findByAttributes(array('id'=>$model->country_id));
-	if(count($count)!=0)
-	echo $count->name; ?></td>
-  </tr>
-  <tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Nationality');?></td>
-    <td class="subhdng_nrmal"><?php
-	$natio_id=Countries::model()->findByAttributes(array('id'=>$model->nationality_id));
-	echo $natio_id->name;?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Gender');?></td>
+	    <td class="listbx_subhdng"><?php echo Yii::t('students','Gender');?></td>
     <td class="subhdng_nrmal">
 	<?php if($model->gender=='M')
 			echo 'Male';
 		else 
 			echo 'Female';	 ?></td>
   </tr>
-  <tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Pin Code');?>  </td>
-    <td class="subhdng_nrmal"><?php echo $model->pin_code; ?></td>
-    <td class="listbx_subhdng">&nbsp;</td>
-    <td class="subhdng_nrmal">&nbsp;</td>
+    <tr>
+    <td class="listbx_subhdng"><?php echo Yii::t('students','Class Roll No');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->class_roll_no; ?></td>
+      <td class="listbx_subhdng"><?php echo Yii::t('students','Category');?></td>
+    <td class="subhdng_nrmal"><?php 
+	$cat =StudentCategories::model()->findByAttributes(array('id'=>$model->student_category_id));
+	if($cat !=NULL)
+	 echo $cat->name; ?></td>
   </tr>
-  <tr>
+  <tr class="listbxtop_hdng">
+    <td><?php echo Yii::t('students','Contact');?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+	<tr>
     <td class="listbx_subhdng"><?php echo Yii::t('students','Address Line1');?>  </td>
     <td class="subhdng_nrmal"><?php echo $model->address_line1; ?></td>
     <td class="listbx_subhdng"><?php echo Yii::t('students','Address Line 2');?></td>
     <td class="subhdng_nrmal"><?php echo $model->address_line2; ?></td>
+  </tr>
+  <tr>
+    <td class="listbx_subhdng"><?php echo Yii::t('students','City');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->city; ?></td>
+	<td class="listbx_subhdng"><?php echo Yii::t('students','State');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->state; ?></td>
+  </tr>
+  <tr>
+	<td class="listbx_subhdng"><?php echo Yii::t('students','ZIP Code');?>  </td>
+    <td class="subhdng_nrmal"><?php echo $model->pin_code; ?></td>
+	<td class="listbx_subhdng"><?php echo Yii::t('students','Country');?></td>
+    <td class="subhdng_nrmal"><?php 
+	$count = Countries::model()->findByAttributes(array('id'=>$model->country_id));
+	if(count($count)!=0)
+	echo $count->name; ?></td>
   </tr>
  <tr>
     <td class="listbx_subhdng"><?php echo Yii::t('students','Phone 1');?></td>
@@ -129,20 +129,12 @@ $this->breadcrumbs=array(
     <td class="subhdng_nrmal"><?php echo $model->phone2; ?></td>
   </tr>
   <tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Language');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->language; ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Email');?></td>
+	<td class="listbx_subhdng"><?php echo Yii::t('students','Email');?></td>
     <td class="subhdng_nrmal"><?php echo $model->email; ?></td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
   </tr>
-  <tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Category');?></td>
-    <td class="subhdng_nrmal"><?php 
-	$cat =StudentCategories::model()->findByAttributes(array('id'=>$model->student_category_id));
-	if($cat !=NULL)
-	 echo $cat->name; ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Religion');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->religion; ?></td>
-  </tr>
+<!--
   <tr class="listbxtop_hdng">
     <td><?php echo Yii::t('students','Emergeny Contact');?></td>
     <td>&nbsp;</td>
@@ -169,7 +161,7 @@ $this->breadcrumbs=array(
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
-  <!--<tr class="table_listbxlast">-->
+  <!--<tr class="table_listbxlast">
     
     <?php
     $previous=StudentPreviousDatas::model()->findAllByAttributes(array('student_id'=>$model->id));
@@ -222,7 +214,7 @@ $this->breadcrumbs=array(
 		?>
         
     <?php } ?>
-    
+    -->
   <!--</tr>-->
   </table>
  <div class="ea_pdf" style="top:4px; right:6px;">

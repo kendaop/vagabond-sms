@@ -139,7 +139,7 @@ class Students extends CActiveRecord {
 			'address_line2' => 'Address Line2',
 			'city' => 'City',
 			'state' => 'State',
-			'pin_code' => 'Post Code',
+			'pin_code' => 'ZIP Code',
 			'country_id' => 'Country',
 			'phone1' => 'Phone 1',
 			'phone2' => 'Phone 2',

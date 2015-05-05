@@ -214,7 +214,7 @@ class StudentsController extends RController
 					  }
 				  }
 				
-				$this->redirect(array('guardians/create','id'=>$model->id));
+				$this->redirect(array('students/view','id'=>$model->id));
 			}
 		}
 

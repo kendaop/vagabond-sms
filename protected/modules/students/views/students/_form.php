@@ -11,8 +11,8 @@ if (Yii::app()->controller->action->id == 'create') {
 	<div class="captionWrapper">
 		<ul>
 			<li><h2 class="cur">Student Details</h2></li>
-			<li><h2>Previous Details</h2></li>
-			<li class="last"><h2>Student Profile</h2></li>
+			<!--<li><h2>Previous Details</h2></li>
+			<li class="last"><h2>Student Profile</h2></li>-->
 		</ul>
 	</div>
 	<?php
@@ -403,6 +403,6 @@ if ($form->errorSummary($model)) {
 </div><!-- form -->
 <div class="clear"></div>
 <div style="padding:0px 0 0 0px; text-align:left">
-	<?php echo CHtml::submitButton($model->isNewRecord ? 'Parent Details »' : 'Save', array('class' => 'formbut')); ?>
+	<?php echo CHtml::submitButton('Save', array('class' => 'formbut')); ?>
 </div>
 <?php $this->endWidget(); ?>
