@@ -213,9 +213,15 @@ class DefaultController extends CController
 
         if (isset($_POST['install']) === true) {
             if (is_object($connection) === true) {
+				$dbName = [];
+				preg_match("/dbname=(.*)$/", DB_CONNECTION, $dbName);
+				$dbName = $dbName[1];
+				
                 //create db schema
                 $sql = $this->getSql($this->module->structuresPath);
-                $sqlArr =  $this->splitQueries($sql);
+//                $sqlArr = array_merge(["DROP DATABASE IF EXISTS $dbName;" ], $this->splitQueries($sql));
+				
+				set_time_limit(1000);
                 foreach ($sqlArr as $script) {
                     if (preg_match('/(CREATE\s+TABLE|DROP\s+TABLE|ALTER\s+TABLE|CREATE\s+VIEW|DROP\s+VIEW)/i', $script))
                         $result = $connection->createCommand($script)->execute();
