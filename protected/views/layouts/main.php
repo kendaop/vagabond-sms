@@ -266,7 +266,7 @@ $(".navigationbtm_wrapper_outer").show();
 				}
 				?>
                  </li>
-                  <li>
+                  <!--<li>
                  <?php 
 				if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='examination')
 				{
@@ -277,7 +277,7 @@ $(".navigationbtm_wrapper_outer").show();
 					echo CHtml::link(Yii::t('app','Examination'), array('/examination'),array('class'=>'ic12'));
 				}
 				?>
-                </li>
+                </li>-->
                    <li>
                  <?php 
 				if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='attendance')
@@ -340,7 +340,29 @@ $(".navigationbtm_wrapper_outer").show();
 				}
 				?>
                  </li>
-              
+				<li>
+				<?php
+				 if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='library')
+				 {
+				 echo CHtml::link(Yii::t('app','Library'), array('/library'),array('class'=>'ic10 active'));
+				 }else{
+					 echo CHtml::link(Yii::t('app','Library'), array('/library'),array('class'=>'ic10'));
+				 }
+				
+				?>
+               </li>
+               
+               <li>
+				<?php 
+				 if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='downloads')
+				 {
+				 echo CHtml::link(Yii::t('app','Downloads'), array('/downloads'),array('class'=>'ic18 active'));
+				 }else{
+					 echo CHtml::link(Yii::t('app','Downloads'), array('/downloads'),array('class'=>'ic18'));
+				 }
+				
+				?>
+               </li>
             </ul>
             
         </div>	
@@ -349,10 +371,10 @@ $(".navigationbtm_wrapper_outer").show();
      
         
          <div id="jobDialog"></div>
-      <div class="nav_drop_but"></div>
+      <!-- <div class="nav_drop_but"></div> -->
      </div> 
     
-     <div class="navigationbtm_wrapper_outer">
+     <!--<div class="navigationbtm_wrapper_outer">
       <div class="navigation_wrapper">
       	<div class="nav">
         	<ul id="sortable2" class="connectedSortable">
@@ -381,33 +403,6 @@ $(".navigationbtm_wrapper_outer").show();
 				}
 				?>
                 </li>
-                <li>
-				<?php 
-				
-					
-				 if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='library')
-				 {
-				 echo CHtml::link(Yii::t('app','Library'), array('/library'),array('class'=>'ic10 active'));
-				 }else{
-					 echo CHtml::link(Yii::t('app','Library'), array('/library'),array('class'=>'ic10'));
-				 }
-				
-				?>
-               </li>
-               
-               <li>
-				<?php 
-				
-					
-				 if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='downloads')
-				 {
-				 echo CHtml::link(Yii::t('app','Downloads'), array('/downloads'),array('class'=>'ic18 active'));
-				 }else{
-					 echo CHtml::link(Yii::t('app','Downloads'), array('/downloads'),array('class'=>'ic18'));
-				 }
-				
-				?>
-               </li>
     
                  <?php /*?><li>
                  <?php 
@@ -455,7 +450,7 @@ $(".navigationbtm_wrapper_outer").show();
         </div>	
       </div>
       
-     </div>
+     </div> -->
       <!--<div class="midnav">
       <ul>
       <li>
