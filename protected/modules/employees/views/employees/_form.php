@@ -1,6 +1,6 @@
 <div class="captionWrapper">
 	<ul>
-		<li><h2  class="cur">Employee Details</h2></li>
+		<li><h2  class="cur">Teacher Details</h2></li>
 	</ul>
 </div>
 <?php
@@ -348,7 +348,7 @@ if ($form->errorSummary($model)) {
 </div>
 <div class="clear"></div>
 <div style="padding:0px 0 0 0px; text-align:left">
-	<?php echo CHtml::submitButton($model->isNewRecord ? 'Create Employee' : 'Save', array('class' => 'formbut')); ?>
+	<?php echo CHtml::submitButton($model->isNewRecord ? 'Create Teacher' : 'Save', array('class' => 'formbut')); ?>
 </div>
 
 

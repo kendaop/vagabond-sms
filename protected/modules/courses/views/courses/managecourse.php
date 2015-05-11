@@ -49,7 +49,7 @@ function rowdelete(id)
     </td>
     <td valign="top">
     <div class="cont_right formWrapper">
-<h1><?php echo Yii::t('Courses','Manage Courses & Batches');?></h1>
+<h1><?php echo Yii::t('Courses','Manage Courses & Offerings');?></h1>
  <div id="jobDialog">
  <div id="jobDialog1">
  <?php 
@@ -83,16 +83,16 @@ function rowdelete(id)
 			$course=Courses::model()->findByAttributes(array('id'=>$posts_1->id,'is_deleted'=>0));
 		   $batch=Batches::model()->findAll("course_id=:x AND is_deleted=:y AND is_active=:z", array(':x'=>$posts_1->id,':y'=>0,':z'=>1));
 		 ?>
-        <span><?php echo count($batch); ?> - Batch(es)</span>
+        <span><?php echo count($batch); ?> - Offering(s)</span>
         </li>
         <li class="col2">
         <?php echo CHtml::ajaxLink(Yii::t('Courses','Edit'),$this->createUrl('courses/Edit'),array(
         'onclick'=>'$("#jobDialog11").dialog("open"); return false;',
         'update'=>'#jobDialog1','type' =>'GET','data' => array( 'val1' =>$posts_1->id ),'dataType' => 'text'),array('id'=>'showJobDialog123'.$posts_1->id, 'class'=>'edit')); ?>
         </li>
-        <li class="col3"><?php echo CHtml::link(Yii::t('Courses','Delete'),array('deactivate','id'=>$posts_1->id),array('confirm'=>"Are you sure?\n\n Note: All details (batches, students, timetable, fees, exam) related to this course will be deleted.",'class'=>'delete'));?></li>
+        <li class="col3"><?php echo CHtml::link(Yii::t('Courses','Delete'),array('deactivate','id'=>$posts_1->id),array('confirm'=>"Are you sure?\n\n Note: All details (offerings, students, timetable, fees, exam) related to this course will be deleted.",'class'=>'delete'));?></li>
         <li class="col4">
-         <?php echo CHtml::ajaxLink(Yii::t('Courses','Add Batch'),$this->createUrl('batches/Addnew'),array(
+         <?php echo CHtml::ajaxLink(Yii::t('Courses','Add Offering'),$this->createUrl('batches/Addnew'),array(
         'onclick'=>'$("#jobDialog").dialog("open"); return false;',
         'update'=>'#jobDialog','type' =>'GET','data' => array( 'val1' =>$posts_1->id ),'dataType' => 'text',),array('id'=>'showJobDialog1'.$posts_1->id,'class'=>'add')); ?>
         </li>
@@ -110,8 +110,8 @@ function rowdelete(id)
 		  <tbody>
           <!--class="cbtablebx_topbg"  class="sub_act"-->
 		  <tr class="pdtab-h">
-			<td align="center"><?php echo Yii::t('Courses','Batch Name');?></td>
-            <td align="center"><?php echo Yii::t('Courses','Class Teacher');?></td>
+			<td align="center"><?php echo Yii::t('Courses','Offering');?></td>
+            <td align="center"><?php echo Yii::t('Courses','Teacher');?></td>
 			<td align="center"><?php echo Yii::t('Courses','Start Date');?></td>
 			<td align="center"><?php echo Yii::t('Courses','End Date');?></td>
 			<td align="center"><?php echo Yii::t('Courses','Actions');?></td>
