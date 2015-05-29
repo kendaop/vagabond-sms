@@ -131,7 +131,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     	<!-- Filter List -->
                         <div class="filterbxcntnt_inner" style="border-bottom:#ddd solid 1px;">
                             <ul>
-                                <li style="font-size:12px"><?php echo Yii::t('students','Filter Your Students:');?></li>
+                                <li style="font-size:12px"><?php echo Yii::t('students','Filter Students:');?></li>
                                 
                                 <?php $form=$this->beginWidget('CActiveForm', array(
                                 'method'=>'get',
@@ -161,7 +161,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                 
                                 <!-- Batch Filter -->
                                 <li>
-                                    <div onClick="hide('batch')" style="cursor:pointer;"><?php echo Yii::t('students','Batch');?></div>
+                                    <div onClick="hide('batch')" style="cursor:pointer;"><?php echo Yii::t('students','Offering');?></div>
                                     <div id="batch" style="display:none; color:#000; width:406px; height:30px; padding-left:10px; padding-top:0px; left:-200px" class="drop">
                                         <div class="droparrow" style="left:210px;"></div>
                                         <?php
@@ -198,7 +198,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                 <!-- End Gender Filter -->
                                 
                                 <!-- Blood Group Filter -->
-                                <li>
+                                <!--<li>
                                     <div onClick="hide('bloodgroup')" style="cursor:pointer;"><?php echo Yii::t('students','Blood Group');?></div>
                                     <div id="bloodgroup" style="display:none;width:191px; padding-top:0px; height:30px" class="drop" >
                                         <div class="droparrow" style="left:10px;"></div>
@@ -207,18 +207,18 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                         array('prompt' => 'Select')); ?>
                                         <input type="submit" value="Apply" />
                                     </div>
-                                </li>
+                                </li>-->
                                 <!-- END Blood Group Filter -->
                                 
                                 <!-- Nationality Filter -->
-                                <li>
+                                <!--<li>
                                     <div onClick="hide('nationality')" style="cursor:pointer;"><?php echo Yii::t('students','Country');?></div>
                                     <div id="nationality" style="display:none;width:191px; padding-top:0px; left:-180px; height:30px;" class="drop">
                                         <div class="droparrow" style="left:189px;"></div>
                                         <?php echo CHtml::activeDropDownList($model,'nationality_id',CHtml::listData(Countries::model()->findAll(),'id','name'),array('prompt'=>'Select')); ?>
                                         <input type="submit" value="Apply" />
                                     </div>
-                                </li>
+                                </li>-->
                                 <!-- END Nationality Filter -->
                                 
                                 <!-- Date of Birth Filter -->
@@ -291,7 +291,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                  <!-- END Admission Date Filter -->
                                  
                                 <!-- Status Filter -->
-                                <li>
+                                <!--<li>
                                 <div onClick="hide('status')" style="cursor:pointer;"><?php echo Yii::t('students','Status');?></div>
                                     <div id="status" style="display:none; width:191px; min-height:30px; left:-120px; padding-top:0px;" class="drop">
                                     <div class="droparrow"  style="left:140px"></div>
@@ -300,7 +300,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                     ?>
                                     <input type="submit" value="Apply" />
                                     </div>
-                                </li>
+                                </li>-->
                                 <!-- END Status Filter -->
                                 <?php $this->endWidget(); ?>
                                 

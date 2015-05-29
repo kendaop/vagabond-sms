@@ -21,8 +21,8 @@
 			),
 			array('label' => '' . Yii::t('students', 'Create New Student') . '<span>' . Yii::t('students', 'New Admission') . '</span>', 'url' => array('students/create'), 'linkOptions' => array('class' => 'sl_ico'), 'active' => (Yii::app()->controller->action->id == 'create' or Yii::app()->controller->id == 'studentPreviousDatas' or Yii::app()->controller->id == 'studentAdditionalFields'), 'itemOptions' => array('id' => 'menu_1')
 			),
-			array('label' => Yii::t('students', 'Manage Student Category') . '<span>' . Yii::t('students', 'Manage Students Category' . '</span>'), 'url' => array('/students/studentCategory'), 'linkOptions' => array('class' => 'sm_ico'), 'active' => (Yii::app()->controller->id == 'studentCategory'),),
-		/*	array('label' => '' . t('<h1>Manage Guardians</h1>')),
+		/*	array('label' => Yii::t('students', 'Manage Student Category') . '<span>' . Yii::t('students', 'Manage Students Category' . '</span>'), 'url' => array('/students/studentCategory'), 'linkOptions' => array('class' => 'sm_ico'), 'active' => (Yii::app()->controller->id == 'studentCategory'),),
+			array('label' => '' . t('<h1>Manage Guardians</h1>')),
 			array('label' => '' . Yii::t('students', 'List Guardians') . '<span>' . Yii::t('students', 'All Guardians Details') . '</span>', 'url' => array('guardians/admin'), 'active' => ((Yii::app()->controller->id == 'guardians') && (in_array(Yii::app()->controller->action->id, array('update', 'view', 'admin', 'index'))) ? true : false), 'linkOptions' => array('id' => 'menu_2', 'class' => 'lbook_ico')),
 		   array('label'=>t('Create New Guardian'), 'url'=>'#',
 		  'active'=> ((Yii::app()->controller->id=='guardians') && (in_array(Yii::app()->controller->action->id,array('update','view','admin','index'))) ? true : false)

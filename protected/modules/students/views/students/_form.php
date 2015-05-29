@@ -3,6 +3,7 @@ if (Yii::app()->controller->action->id == 'create') {
 	$config = Configurations::model()->findByPk(7);
 	$adm_no = '';
 	$adm_no_1 = '';
+	$adm_date = date('m/d/Y');
 	if ($config->config_value == 1) {
 		$adm_no = Students::model()->findAll(array('order' => 'id DESC', 'limit' => 1));
 		$adm_no_1 = $adm_no[0]['id'] + 1;
@@ -20,6 +21,10 @@ if (Yii::app()->controller->action->id == 'create') {
 	echo '<br><br>';
 	$adm_no = Students::model()->findByAttributes(array('id' => $_REQUEST['id']));
 	$adm_no_1 = $adm_no->admission_no;
+	$adm_date = DateTime::createFromFormat('Y-m-d', $adm_no->admission_date);
+	$adm_date = $adm_date->format('m/d/Y');
+	$dob = DateTime::createFromFormat('Y-m-d', $adm_no->date_of_birth);
+	$dob = $dob->format('m/d/Y');
 }
 ?>
 
@@ -63,22 +68,25 @@ if ($form->errorSummary($model)) {
 					if ($settings != NULL) {
 						$date = $settings->dateformat;
 					} else
-						$date = 'dd-mm-yy';
+						$date = 'mm-dd-yy';
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 						//'name'=>'Students[admission_date]',
 						'model' => $model,
 						'attribute' => 'admission_date',
+						'value' => $adm_date,
 						// additional javascript options for the date picker plugin
 						'options' => array(
 							'showAnim' => 'fold',
 							'dateFormat' => $date,
 							'changeMonth' => true,
 							'changeYear' => true,
-							'yearRange' => '1900:'
+							'yearRange' => '1900:',
+							'defaultDate' => $adm_date
 						),
 						'htmlOptions' => array(
-							'style' => 'height:16px;'
-						),
+							'style' => 'height:16px;',
+							'value' => $adm_date
+						)
 					));
 					?>
 					<?php echo $form->error($model, 'admission_date'); ?>
@@ -120,7 +128,7 @@ if ($form->errorSummary($model)) {
                 <td>&nbsp;</td>
                 <td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'gender')); ?></td>
 				<td>&nbsp;</td>
-                <td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'batch_id')); ?></td>
+                <td valign="bottom"><?php echo $form->labelEx($model, 'Offering'); ?></td>
 			</tr>
 			<tr>
 				<td valign="top">
@@ -144,10 +152,12 @@ if ($form->errorSummary($model)) {
 							'dateFormat' => $date,
 							'changeMonth' => true,
 							'changeYear' => true,
-							'yearRange' => '1900:'
+							'yearRange' => '1900:',
+							'defaultDate' => $dob
 						),
 						'htmlOptions' => array(
-							'style' => 'width:92px;'
+							'style' => 'width:92px;',
+							'value' => $dob
 						),
 					));
 					?>
@@ -256,12 +266,12 @@ if ($form->errorSummary($model)) {
 			</tr>
 			<tr>
 				<td valign="top">
-					<?php echo $form->textField($model, 'phone1', array('size' => 15, 'maxlength' => 255)); ?>
+					<?php echo $form->textField($model, 'phone1', array('size' => 15, 'maxlength' => 10)); ?>
 					<?php echo $form->error($model, 'phone1'); ?>
 				</td>
 				<td>&nbsp;</td>
 				<td valign="top">
-					<?php echo $form->textField($model, 'phone2', array('size' => 15, 'maxlength' => 255)); ?>
+					<?php echo $form->textField($model, 'phone2', array('size' => 15, 'maxlength' => 10)); ?>
 					<?php echo $form->error($model, 'phone2'); ?>
 				</td>
 				<td>&nbsp;</td>

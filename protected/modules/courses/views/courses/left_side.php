@@ -43,10 +43,10 @@
 			'activeCssClass'=>'list_active',
 			'items'=>array(
 					
-                                                         
+                    /*                                  
 					array('label'=>''.Yii::t('Courses','General Settings').'<span>'.Yii::t('Courses','Manage Settings').'</span>',  'url'=>array('/configurations/index'), 'linkOptions'=>array('class'=>'gs_ico' ), 'itemOptions'=>array('id'=>'menu_1') 
 					       ),
-						   
+					*/	   
 					
 					      
 						array('label'=>Yii::t('Courses','List Courses & Offerings').'<span>'.Yii::t('Courses','All Course & Offering Details').'</span>', 'url'=>array('courses/managecourse'), 'active'=> ((Yii::app()->controller->id=='courses') and (in_array(Yii::app()->controller->action->id,array('managecourse'))) ? true : false),'linkOptions'=>array('class'=>'lbook_ico' )),

@@ -124,9 +124,9 @@ $this->breadcrumbs=array(
   </tr>
  <tr>
     <td class="listbx_subhdng"><?php echo Yii::t('students','Phone 1');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->phone1; ?></td>
+    <td class="subhdng_nrmal"><?php echo $model->getPhone(1); ?></td>
     <td class="listbx_subhdng"><?php echo Yii::t('students','Phone 2');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->phone2; ?></td>
+    <td class="subhdng_nrmal"><?php echo $model->getPhone(2); ?></td>
   </tr>
   <tr>
 	<td class="listbx_subhdng"><?php echo Yii::t('students','Email');?></td>
