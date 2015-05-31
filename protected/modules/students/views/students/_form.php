@@ -80,7 +80,7 @@ if ($form->errorSummary($model)) {
 							'dateFormat' => $date,
 							'changeMonth' => true,
 							'changeYear' => true,
-							'yearRange' => '1900:',
+							'yearRange' => '1970:',
 							'defaultDate' => $adm_date
 						),
 						'htmlOptions' => array(
@@ -107,7 +107,7 @@ if ($form->errorSummary($model)) {
 				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'last_name')); ?></td>
 			</tr>
 			<tr>
-				<td valign="top"><?php echo $form->textField($model, 'first_name', array('size' => 30, 'maxlength' => 255)); ?>
+				<td valign="top"><?php echo $form->textField($model, 'first_name', array('size' => 25, 'maxlength' => 255)); ?>
 					<?php echo $form->error($model, 'first_name'); ?></td>
 				<td>&nbsp;</td>
 				<td valign="top"><?php echo $form->textField($model, 'middle_name', array('size' => 10, 'maxlength' => 255)); ?>
@@ -124,13 +124,19 @@ if ($form->errorSummary($model)) {
                 <td>&nbsp;</td>
 			</tr>
 			<tr>
-                <td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'date_of_birth')); ?></td>
-                <td>&nbsp;</td>
                 <td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'gender')); ?></td>
+                <td>&nbsp;</td>
+                <td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'date_of_birth')); ?></td>
 				<td>&nbsp;</td>
                 <td valign="bottom"><?php echo $form->labelEx($model, 'Offering'); ?></td>
 			</tr>
 			<tr>
+				<td style="padding-left:2px;" valign="top">    
+					<?php //echo $form->textField($model,'gender',array('size'=>60,'maxlength'=>255)); ?>
+					<?php echo $form->dropDownList($model, 'gender', array('M' => 'Male', 'F' => 'Female'), array('empty' => 'Select Gender')); ?>
+					<?php echo $form->error($model, 'gender'); ?>
+				</td>
+				<td>&nbsp;</td>
 				<td valign="top">
 					<?php
 					$models = Batches::model()->findAll("is_deleted=:x", array(':x' => '0'));
@@ -152,22 +158,16 @@ if ($form->errorSummary($model)) {
 							'dateFormat' => $date,
 							'changeMonth' => true,
 							'changeYear' => true,
-							'yearRange' => '1900:',
+							'yearRange' => '1970:',
 							'defaultDate' => $dob
 						),
 						'htmlOptions' => array(
-							'style' => 'width:92px;',
+							'size' => 10,
 							'value' => $dob
 						),
 					));
 					?>
 					<?php echo $form->error($model, 'date_of_birth'); ?>
-				</td>
-				<td>&nbsp;</td>
-				<td style="padding-left:2px;" valign="top">    
-					<?php //echo $form->textField($model,'gender',array('size'=>60,'maxlength'=>255)); ?>
-					<?php echo $form->dropDownList($model, 'gender', array('M' => 'Male', 'F' => 'Female'), array('empty' => 'Select Gender')); ?>
-					<?php echo $form->error($model, 'gender'); ?>
 				</td>
 				<td>&nbsp;</td>
 				<td valign="top">
@@ -207,45 +207,37 @@ if ($form->errorSummary($model)) {
 		<h3>Contact Details</h3>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'address_line1')); ?></td>
-				<td>&nbsp;</td>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'address_line2')); ?></td>
-				<td>&nbsp;</td>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'city')); ?></td>
-			</tr>
-			<tr>
-				<td valign="top"><?php echo $form->textField($model, 'address_line1', array('size' => 25, 'maxlength' => 255)); ?>
+				<td><?php echo $form->labelEx($model, Yii::t('students', 'address_line1')); ?></td>
+				<td><?php echo $form->textField($model, 'address_line1', array('size' => 25, 'maxlength' => 255)); ?>
 					<?php echo $form->error($model, 'address_line1'); ?></td>
-				<td>&nbsp;</td>
-				<td valign="top"><?php echo $form->textField($model, 'address_line2', array('size' => 25, 'maxlength' => 255)); ?>
+				<td><?php echo $form->labelEx($model, Yii::t('students', 'address_line2')); ?></td>
+				<td><?php echo $form->textField($model, 'address_line2', array('size' => 25, 'maxlength' => 255)); ?>
 					<?php echo $form->error($model, 'address_line2'); ?></td>
-				<td>&nbsp;</td>
-				<td valign="top"><?php echo $form->textField($model, 'city', array('size' => 25, 'maxlength' => 255)); ?>
-					<?php echo $form->error($model, 'city'); ?></td>
 			</tr>
 			<tr>
 				<td colspan="5">&nbsp;</td>
 			</tr>
 			<tr>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'state')); ?></td>
-				<td>&nbsp;</td>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'pin_code')); ?></td>
-				<td>&nbsp;</td>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'country_id')); ?></td>
-			</tr>
-			<tr>
-				<td valign="top">
-					<?php echo $form->textField($model, 'state', array('size' => 25, 'maxlength' => 255)); ?>
+				<td><?php echo $form->labelEx($model, Yii::t('students', 'city')); ?></td>
+				<td><?php echo $form->textField($model, 'city', array('size' => 25, 'maxlength' => 35)); ?>
+					<?php echo $form->error($model, 'city'); ?></td>
+				<td><?php echo $form->labelEx($model, Yii::t('students', 'state')); ?></td>
+				<td>
+					<?php echo $form->textField($model, 'state', array('size' => 15, 'maxlength' => 25)); ?>
 					<?php echo $form->error($model, 'state'); ?>
 				</td>
-				<td>&nbsp;</td>
-				<td valign="top">
-					<?php echo $form->textField($model, 'pin_code', array('size' => 15, 'maxlength' => 255)); ?>
+			</tr>			
+			<tr>
+				<td colspan="5">&nbsp;</td>
+			</tr>
+			<tr>
+				<td><?php echo $form->labelEx($model, Yii::t('students', 'pin_code')); ?></td>
+				<td>
+					<?php echo $form->textField($model, 'pin_code', array('size' => 15, 'maxlength' => 15)); ?>
 					<?php echo $form->error($model, 'pin_code'); ?>
 				</td>
-				<td>&nbsp;</td>
-				<td valign="top">
-					<?php //echo $form->textField($model,'country_id'); ?>
+				<td><?php echo $form->labelEx($model, Yii::t('students', 'country_id')); ?></td>
+				<td>
 					<?php
 					echo $form->dropDownList($model, 'country_id', CHtml::listData(Countries::model()->findAll(), 'id', 'name'), array(
 						'style' => 'width:140px;', 'empty' => 'Select Country'
@@ -258,27 +250,28 @@ if ($form->errorSummary($model)) {
 				<td colspan="5">&nbsp;</td>
 			</tr>
 			<tr>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'phone1')); ?></td>
-				<td>&nbsp;</td>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'phone2')); ?></td>
-				<td>&nbsp;</td>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'email')); ?></td>
-			</tr>
-			<tr>
-				<td valign="top">
-					<?php echo $form->textField($model, 'phone1', array('size' => 15, 'maxlength' => 10)); ?>
+				<td><?php echo $form->labelEx($model, Yii::t('students', 'phone1')); ?></td>
+				<td>
+					<?php echo $form->textField($model, 'phone1', array('size' => 15, 'maxlength' => 25)); ?>
 					<?php echo $form->error($model, 'phone1'); ?>
 				</td>
-				<td>&nbsp;</td>
-				<td valign="top">
-					<?php echo $form->textField($model, 'phone2', array('size' => 15, 'maxlength' => 10)); ?>
+				<td><?php echo $form->labelEx($model, Yii::t('students', 'phone2')); ?></td>
+				<td>
+					<?php echo $form->textField($model, 'phone2', array('size' => 15, 'maxlength' => 25)); ?>
 					<?php echo $form->error($model, 'phone2'); ?>
 				</td>
-				<td>&nbsp;</td>
-				<td valign="top">
+			</tr>
+			<tr>
+				<td colspan="5">&nbsp;</td>
+			</tr>
+			<tr>
+				<td><?php echo $form->labelEx($model, Yii::t('students', 'email')); ?></td>
+				<td>
 					<?php echo $form->textField($model, 'email', array('size' => 25, 'maxlength' => 255)); ?>
 					<?php echo $form->error($model, 'email'); ?>
 				</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
 			</tr>
 		</table>
     </div>

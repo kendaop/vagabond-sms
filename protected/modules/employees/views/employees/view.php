@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
     </td>
     <td valign="top">
     <div class="cont_right formWrapper">
-<h1 ><?php echo Yii::t('employees','Employee Profile :');?><?php echo $model->first_name.'&nbsp;'.$model->last_name; ?><br /></h1>
+<h1 ><?php echo Yii::t('employees','Employee Profile : ');?><?php echo $model->first_name.'&nbsp;'.$model->last_name; ?><br /></h1>
 <div class="edit_bttns">
     <ul>
     <li><?php echo CHtml::link(Yii::t('employees','<span>Edit</span>'), array('update', 'id'=>$_REQUEST['id']),array('class'=>'edit last')); ?><!--<a class=" edit last" href="">Edit</a>--></li>
@@ -26,9 +26,6 @@ $this->breadcrumbs=array(
     <div class="emp_tab_nav">
     <ul style="width:698px;">
     <li><?php echo CHtml::link(Yii::t('employees','Profile'), array('view', 'id'=>$_REQUEST['id']),array('class'=>'active')); ?></li>
-    <li><?php echo CHtml::link(Yii::t('employees','Address'), array('address', 'id'=>$_REQUEST['id'])); ?></li>
-    <li><?php echo CHtml::link(Yii::t('employees','Contact'), array('contact', 'id'=>$_REQUEST['id'])); ?></li>
-    <li><?php echo CHtml::link(Yii::t('employees','Additional Info'), array('addinfo', 'id'=>$_REQUEST['id'])); ?></li>
     </ul>
     </div>
     <div class="clear"></div>
@@ -52,16 +49,16 @@ $this->breadcrumbs=array(
 										}
 										else
 										echo $model->joining_date;  ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('employees','Department');?></td>
-    <td class="subhdng_nrmal"><?php $dep=EmployeeDepartments::model()->findByAttributes(array('id'=>$model->employee_department_id));
+    <td class="listbx_subhdng"><?php //echo Yii::t('employees','Department');?></td>
+    <td class="subhdng_nrmal"><?php /*$dep=EmployeeDepartments::model()->findByAttributes(array('id'=>$model->employee_department_id));
 							  if($dep!=NULL)
 							  {
 							  echo $dep->name;	
-							  }
+							  }*/
 							  ?></td>
   </tr>
 
-  <tr>
+  <!--<tr>
     <td class="listbx_subhdng"><?php echo Yii::t('employees','Category');?></td>
     <td class="subhdng_nrmal"><?php $cat=EmployeeCategories::model()->findByAttributes(array('id'=>$model->employee_category_id));
 							  if($cat!=NULL)
@@ -76,8 +73,8 @@ $this->breadcrumbs=array(
 							  echo $pos->name;	
 							  }
 							  ?></td>
-  </tr>
-  <tr>
+  </tr>-->
+  <!--<tr>
     <td class="listbx_subhdng"><?php echo Yii::t('employees','Grade');?> </td>
     <td class="subhdng_nrmal"><?php $grd=EmployeeGrades::model()->findByAttributes(array('id'=>$model->employee_grade_id));
 							  if($grd!=NULL)
@@ -87,17 +84,25 @@ $this->breadcrumbs=array(
 							  ?></td>
     <td class="listbx_subhdng"><?php echo Yii::t('employees','Job Title');?></td>
     <td class="subhdng_nrmal"><?php echo $model->job_title; ?></td>
-  </tr>
+  </tr>-->
   <tr>
-    
+	<td class="listbx_subhdng"><?php echo Yii::t('employees','Date of Birth');?></td>
+    <td class="subhdng_nrmal"><?php 
+										$settings=UserSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
+										if($settings!=NULL)
+										{	
+											$date1=date($settings->displaydate,strtotime($model->date_of_birth));
+											echo $date1;
+		
+										}
+										else
+										echo $model->date_of_birth; 
+										?></td>
     <td class="listbx_subhdng"><?php echo Yii::t('employees','Gender');?></td>
     <td class="subhdng_nrmal"><?php if($model->gender=='M')
 										echo 'Male';
 									else 
 										echo 'Female';	 ?></td>
-                                        
-    <td class="listbx_subhdng"></td>
-    <td class="subhdng_nrmal"></td>
   </tr>
   <tr>
     <td class="listbx_subhdng"><?php echo Yii::t('employees','Status');?></td>
@@ -106,11 +111,44 @@ $this->breadcrumbs=array(
     <td class="subhdng_nrmal"><?php echo $model->qualification; ?>
 	</td>
   </tr>
+  <tr class="listbxtop_hdng">
+    <td><?php echo Yii::t('employees','Contact');?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
   <tr>
-    <td class="listbx_subhdng"> <?php echo Yii::t('employees','Total Experience');?> </td>
-    <td class="subhdng_nrmal"><?php echo $model->experience_year; ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('employees','Experience Info');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->experience_detail; ?></td>
+    <td class="listbx_subhdng"><?php echo Yii::t('employees','Address Line 1');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->home_address_line1; ?></td>
+    <td class="listbx_subhdng"><?php echo Yii::t('employees','Address Line 2');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->home_address_line2; ?></td>
+  </tr>
+  <tr>    
+	<td class="listbx_subhdng"><?php echo Yii::t('employees','City');?> </td>
+    <td class="subhdng_nrmal"><?php echo $model->home_city; ?></td>
+    <td class="listbx_subhdng"><?php echo Yii::t('employees','State');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->home_state; ?></td>
+  </tr>
+
+  <tr>
+    <td class="listbx_subhdng"><?php echo Yii::t('employees','ZIP Code');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->home_pin_code; ?></td>
+	<td class="listbx_subhdng"><?php echo Yii::t('employees','Country');?></td>
+    <td class="subhdng_nrmal"><?php 
+	$count = Countries::model()->findByAttributes(array('id'=>$model->home_country_id));
+	if(count($count)!=0)
+	echo $count->name; ?></td>
+  </tr>
+  <tr>
+    <td class="listbx_subhdng"><?php echo Yii::t('employees','Phone 1');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->getPhone(1); ?></td>
+    <td class="listbx_subhdng"><?php echo Yii::t('employees','Phone 2');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->getPhone(2); ?></td>
+  </tr>
+  <tr>
+    <td class="listbx_subhdng"><?php echo Yii::t('employees','Email');?></td>
+    <td class="subhdng_nrmal"><?php echo $model->email; ?></td>
+	<td>&nbsp;</td><td>&nbsp;</td>
   </tr>
   </table>
   <div class="ea_pdf" style="top:4px; right:6px;"><?php echo CHtml::link('<img src="images/pdf-but.png">', array('Employees/pdf','id'=>$_REQUEST['id']),array('target'=>'_blank')); ?></div>

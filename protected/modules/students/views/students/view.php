@@ -23,7 +23,7 @@ $this->breadcrumbs=array(
     
     </div>-->
     
-    <h1 style="margin-top:.67em;"><?php echo Yii::t('students','Student Profile :');?> <?php echo ucfirst($model->first_name).'&nbsp;'.ucfirst($model->middle_name).' '.ucfirst($model->last_name); ?><br /></h1>
+    <h1 style="margin-top:.67em;"><?php echo Yii::t('students','Student Profile : ');?> <?php echo ucfirst($model->first_name).'&nbsp;'.ucfirst($model->middle_name).' '.ucfirst($model->last_name); ?><br /></h1>
         
     <div class="edit_bttns last">
     <ul>

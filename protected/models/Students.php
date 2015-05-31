@@ -73,7 +73,7 @@ class Students extends CActiveRecord {
 		// will receive user inputs.
 		return array(
 			array('admission_no, parent_id, batch_id, nationality_id, student_category_id, country_id, immediate_contact_id, is_sms_enabled, is_active, is_deleted, has_paid_fees, photo_file_size, phone1, phone2, user_id, uid', 'numerical', 'integerOnly' => true),
-			array('admission_no, admission_date, first_name, last_name, address_line1, city, state, pin_code, phone1, email, date_of_birth, gender', 'required',),
+			array('admission_no, admission_date, first_name, last_name, address_line1, city, state, pin_code, country_id, phone1, email, date_of_birth, gender', 'required',),
 			array('admission_no', 'unique'),
 			array('email', 'check'),
 			array('admission_no, class_roll_no, first_name, middle_name, last_name, gender, address_line1, address_line2, city, state, email, photo_file_name, photo_content_type, status_description', 'length', 'max' => 255),
@@ -230,7 +230,7 @@ class Students extends CActiveRecord {
 	}
 	
 	public function getPhone($num = 1) {
-		if(!is_int($num) || $int > 2) {
+		if(!is_int($num) || $num > 2) {
 			$num = 1;
 		}
 		$var = "phone$num";

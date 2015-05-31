@@ -132,7 +132,7 @@ $(".navigationbtm_wrapper_outer").show();
 <!--<div class="cont_left_logo"><a href="#"><img src="images/openschool-l-logo.png" alt="" width="208" height="141" border="0" /></a></div>-->
     <div class="header">
      <?php 
-		 echo CHtml::ajaxLink('OPEN APP EXPLORER',array('/site/explorer'),array('update'=>'#explorer_handler'),array('id'=>'open_apps','class'=>'explorer_but'));
+		 // echo CHtml::ajaxLink('OPEN APP EXPLORER',array('/site/explorer'),array('update'=>'#explorer_handler'),array('id'=>'open_apps','class'=>'explorer_but'));
 		 ?>
    
      <div class="lo_drop" id="account_drop">
@@ -244,11 +244,11 @@ $(".navigationbtm_wrapper_outer").show();
                 <?php 
 				if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='employees')
 				{
-				    echo CHtml::link(Yii::t('app','Employees'), array('/employees'),array('class'=>'ic3 active'));
+				    echo CHtml::link(Yii::t('app','Teachers'), array('/employees'),array('class'=>'ic3 active'));
 				}
 				else
 				{
-					echo CHtml::link(Yii::t('app','Employees'), array('/employees'),array('class'=>'ic3'));
+					echo CHtml::link(Yii::t('app','Teachers'), array('/employees'),array('class'=>'ic3'));
 				}
 				?>
                 </li>

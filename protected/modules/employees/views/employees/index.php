@@ -84,14 +84,14 @@ $(document).ready(function() {
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td valign="top" width="75%"><div style="padding-left:20px;">
-<h1><?php echo Yii::t('employees','Employees Dashboard');?></h1>
+<h1><?php echo Yii::t('employees','Teacher Dashboard');?></h1>
 <div class="overview">
 	<div class="overviewbox ovbox1">
-    	<h1><?php echo Yii::t('employees','<strong>Total Employees</strong>');?></h1>
+    	<h1><?php echo Yii::t('employees','<strong>Total Teachers</strong>');?></h1>
         <div class="ovrBtm"><?php echo $total ?></div>
     </div>
     <div class="overviewbox ovbox2">
-    	<h1><?php echo Yii::t('employees','<strong>New Admissions</strong>');?></h1>
+    	<h1><?php echo Yii::t('employees','<strong>New Additions</strong>');?></h1>
         <div class="ovrBtm"><?php echo count($list) ?></div>
     </div>
     <div class="overviewbox ovbox3">
@@ -104,7 +104,7 @@ $(document).ready(function() {
 <div class="clear"></div>
   <div style="margin-top:20px; width:90%" id="container"></div>
   <div class="pdtab_Con" style="width:97%">
-                <div style="font-size:13px; padding:5px 0px"><?php echo Yii::t('employees','<strong>Recent Employee Admissions</strong>');?></div>
+                <div style="font-size:13px; padding:5px 0px"><?php echo Yii::t('employees','<strong>New Teachers</strong>');?></div>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody>
                     <tr class="pdtab-h">
