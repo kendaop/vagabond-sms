@@ -193,7 +193,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     
     <div class="bttns_addstudent ">
     <ul>
-    <li><?php echo CHtml::link(Yii::t('employees','Add Employee'), array('create'),array('class'=>'addbttn last')); ?></li>
+    <li><?php echo CHtml::link(Yii::t('employees','Add Teacher'), array('create'),array('class'=>'addbttn last')); ?></li>
     </ul>
     </div>
     </div>

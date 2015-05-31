@@ -132,7 +132,7 @@ $(".navigationbtm_wrapper_outer").show();
 <!--<div class="cont_left_logo"><a href="#"><img src="images/openschool-l-logo.png" alt="" width="208" height="141" border="0" /></a></div>-->
     <div class="header">
      <?php 
-		 echo CHtml::ajaxLink('OPEN APP EXPLORER',array('/site/explorer'),array('update'=>'#explorer_handler'),array('id'=>'open_apps','class'=>'explorer_but'));
+		 // echo CHtml::ajaxLink('OPEN APP EXPLORER',array('/site/explorer'),array('update'=>'#explorer_handler'),array('id'=>'open_apps','class'=>'explorer_but'));
 		 ?>
    
      <div class="lo_drop" id="account_drop">
@@ -244,11 +244,11 @@ $(".navigationbtm_wrapper_outer").show();
                 <?php 
 				if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='employees')
 				{
-				    echo CHtml::link(Yii::t('app','Employees'), array('/employees'),array('class'=>'ic3 active'));
+				    echo CHtml::link(Yii::t('app','Teachers'), array('/employees'),array('class'=>'ic3 active'));
 				}
 				else
 				{
-					echo CHtml::link(Yii::t('app','Employees'), array('/employees'),array('class'=>'ic3'));
+					echo CHtml::link(Yii::t('app','Teachers'), array('/employees'),array('class'=>'ic3'));
 				}
 				?>
                 </li>
@@ -266,7 +266,7 @@ $(".navigationbtm_wrapper_outer").show();
 				}
 				?>
                  </li>
-                  <li>
+                  <!--<li>
                  <?php 
 				if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='examination')
 				{
@@ -277,7 +277,7 @@ $(".navigationbtm_wrapper_outer").show();
 					echo CHtml::link(Yii::t('app','Examination'), array('/examination'),array('class'=>'ic12'));
 				}
 				?>
-                </li>
+                </li>-->
                    <li>
                  <?php 
 				if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='attendance')
@@ -340,7 +340,29 @@ $(".navigationbtm_wrapper_outer").show();
 				}
 				?>
                  </li>
-              
+				<li>
+				<?php
+				 if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='library')
+				 {
+				 echo CHtml::link(Yii::t('app','Library'), array('/library'),array('class'=>'ic10 active'));
+				 }else{
+					 echo CHtml::link(Yii::t('app','Library'), array('/library'),array('class'=>'ic10'));
+				 }
+				
+				?>
+               </li>
+               
+               <li>
+				<?php 
+				 if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='downloads')
+				 {
+				 echo CHtml::link(Yii::t('app','Downloads'), array('/downloads'),array('class'=>'ic18 active'));
+				 }else{
+					 echo CHtml::link(Yii::t('app','Downloads'), array('/downloads'),array('class'=>'ic18'));
+				 }
+				
+				?>
+               </li>
             </ul>
             
         </div>	
@@ -349,10 +371,10 @@ $(".navigationbtm_wrapper_outer").show();
      
         
          <div id="jobDialog"></div>
-      <div class="nav_drop_but"></div>
+      <!-- <div class="nav_drop_but"></div> -->
      </div> 
     
-     <div class="navigationbtm_wrapper_outer">
+     <!--<div class="navigationbtm_wrapper_outer">
       <div class="navigation_wrapper">
       	<div class="nav">
         	<ul id="sortable2" class="connectedSortable">
@@ -381,33 +403,6 @@ $(".navigationbtm_wrapper_outer").show();
 				}
 				?>
                 </li>
-                <li>
-				<?php 
-				
-					
-				 if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='library')
-				 {
-				 echo CHtml::link(Yii::t('app','Library'), array('/library'),array('class'=>'ic10 active'));
-				 }else{
-					 echo CHtml::link(Yii::t('app','Library'), array('/library'),array('class'=>'ic10'));
-				 }
-				
-				?>
-               </li>
-               
-               <li>
-				<?php 
-				
-					
-				 if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='downloads')
-				 {
-				 echo CHtml::link(Yii::t('app','Downloads'), array('/downloads'),array('class'=>'ic18 active'));
-				 }else{
-					 echo CHtml::link(Yii::t('app','Downloads'), array('/downloads'),array('class'=>'ic18'));
-				 }
-				
-				?>
-               </li>
     
                  <?php /*?><li>
                  <?php 
@@ -455,7 +450,7 @@ $(".navigationbtm_wrapper_outer").show();
         </div>	
       </div>
       
-     </div>
+     </div> -->
       <!--<div class="midnav">
       <ul>
       <li>

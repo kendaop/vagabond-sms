@@ -87,7 +87,7 @@ class Employees extends CActiveRecord {
 			array('employee_category_id, employee_position_id, employee_department_id, reporting_manager_id, employee_grade_id, office_country_id, photo_file_size, is_deleted, user_id, uid', 'numerical', 'integerOnly' => true),
 			array('employee_number, gender, first_name, middle_name, last_name, job_title, qualification, status_description, marital_status, father_name, mother_name, husband_name, blood_group, home_address_line1, home_address_line2, home_city, home_state, home_pin_code, office_address_line1, office_address_line2, office_city, office_state, office_pin_code, office_phone1, office_phone2, mobile_phone, home_phone, email, fax, photo_file_name, photo_content_type', 'length', 'max' => 255),
 			array('joining_date, date_of_birth, created_at, updated_at', 'safe'),
-			array('employee_number, first_name, last_name, home_address_line1, home_city, home_state, home_country_id, home_pin_code', 'required'),
+			array('employee_number, first_name, last_name, home_address_line1, home_city, home_state, home_country_id, home_pin_code, joining_date, gender, date_of_birth, email, mobile_phone', 'required'),
 			array('employee_number', 'unique'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -114,18 +114,18 @@ class Employees extends CActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
-			'employee_category_id' => 'Employee Category',
-			'employee_number' => 'Employee Number',
-			'joining_date' => 'Joining Date',
+			'employee_category_id' => 'Teacher Category',
+			'employee_number' => 'Teacher ID',
+			'joining_date' => 'Hire Date',
 			'first_name' => 'First Name',
 			'middle_name' => 'Middle Name',
 			'last_name' => 'Last Name',
 			'gender' => 'Gender',
 			'job_title' => 'Job Title',
-			'employee_position_id' => 'Employee Position',
-			'employee_department_id' => 'Employee Department',
+			'employee_position_id' => 'Teacher Position',
+			'employee_department_id' => 'Teacher Department',
 			'reporting_manager_id' => 'Reporting Manager',
-			'employee_grade_id' => 'Employee Grade',
+			'employee_grade_id' => 'Teacher Grade',
 			'qualification' => 'Qualification',
 			'experience_detail' => 'Experience Detail',
 			'experience_year' => 'Experience Year',
@@ -140,12 +140,12 @@ class Employees extends CActiveRecord {
 			'husband_name' => 'Husband Name',
 			'blood_group' => 'Blood Group',
 			'nationality_id' => 'Nationality',
-			'home_address_line1' => 'Home Address Line1',
-			'home_address_line2' => 'Home Address Line2',
-			'home_city' => 'Home City',
-			'home_state' => 'Home State',
-			'home_country_id' => 'Home Country',
-			'home_pin_code' => 'Home Post Code',
+			'home_address_line1' => 'Address Line 1',
+			'home_address_line2' => 'Address Line 2',
+			'home_city' => 'City',
+			'home_state' => 'State',
+			'home_country_id' => 'Country',
+			'home_pin_code' => 'ZIP Code',
 			'office_address_line1' => 'Office Address Line1',
 			'office_address_line2' => 'Office Address Line2',
 			'office_city' => 'Office City',
@@ -154,8 +154,8 @@ class Employees extends CActiveRecord {
 			'office_pin_code' => 'Office Post Code',
 			'office_phone1' => 'Office Phone1',
 			'office_phone2' => 'Office Phone2',
-			'mobile_phone' => 'Mobile Phone',
-			'home_phone' => 'Home Phone',
+			'mobile_phone' => 'Phone 1',
+			'home_phone' => 'Phone 2',
 			'email' => 'Email',
 			'fax' => 'Fax',
 			'photo_file_name' => 'Photo File Name',
@@ -238,6 +238,26 @@ class Employees extends CActiveRecord {
 
 	public function getConcatened() {
 		return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+	}
+	
+	public function getPhone($num = 1) {
+		$num = is_int($num) ? $num : 1;
+		
+		$var = $num === 2 ? 'home_phone' : 'mobile_phone';
+		$number = $this->$var;
+		
+		switch(strlen($number)) {
+			case 10:
+				$number = sprintf("(%d) %d-%d", substr($number, 0, 3), substr($number, 3, 3), substr($number, 6, 4));
+				break;
+			case 7:
+				$number = sprintf("%d-%d", substr($number, 0, 3), substr($number, 3, 4));
+				break;
+			default:
+				break;
+		}
+		
+		return $number;
 	}
 
 }

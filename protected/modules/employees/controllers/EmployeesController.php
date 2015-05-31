@@ -126,7 +126,7 @@ class EmployeesController extends RController
 				
 				if($model->save())
 				{
-				$this->redirect(array('create2','id'=>$model->id));
+				$this->redirect(array('employees/view','id'=>$model->id));
 				}
 			//}
 		}
@@ -313,7 +313,7 @@ class EmployeesController extends RController
 					$model->photo_data=file_get_contents($file->tempName);
 					  }
 			if($model->save())
-				$this->redirect(array('update2','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(

@@ -76,7 +76,7 @@
 	 if(Yii::app()->controller->action->id == 'create')
 		{
 		?>
-    <h3>Batch</h3>
+    <h3>Offering</h3>
     <!-- Batch Form -->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>

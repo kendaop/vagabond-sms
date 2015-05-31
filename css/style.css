@@ -381,7 +381,7 @@ box-shadow:  0px 1px 1px #4b4b4b;
 	text-align:center;
 	color:#674d03;
 	font-size:12px;
-	width:95px;
+	width:86px;
 	height:24px;
 	display:block;
 	padding:38px 0px 0px 0px;
@@ -4547,7 +4547,7 @@ a.cmntbut:hover{
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
 	padding:0px 0px 0px 10px;
-	margin-top:15px;
+	/*margin-top:15px;*/
 	background:url(../images/msnav.png) repeat-x;
 }
 .midnav ul{
