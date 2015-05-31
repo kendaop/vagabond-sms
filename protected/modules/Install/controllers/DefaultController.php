@@ -219,12 +219,17 @@ class DefaultController extends CController
 				
                 //create db schema
                 $sql = $this->getSql($this->module->structuresPath);
-//                $sqlArr = array_merge(["DROP DATABASE IF EXISTS $dbName;" ], $this->splitQueries($sql));
+                $sqlArr = $this->splitQueries($sql);
 				
 				set_time_limit(1000);
                 foreach ($sqlArr as $script) {
-                    if (preg_match('/(CREATE\s+TABLE|DROP\s+TABLE|ALTER\s+TABLE|CREATE\s+VIEW|DROP\s+VIEW)/i', $script))
+                    if (preg_match('/(CREATE\s+TABLE|DROP\s+TABLE|ALTER\s+TABLE|CREATE\s+VIEW|DROP\s+VIEW)/i', $script)) {
                         $result = $connection->createCommand($script)->execute();
+						
+						if($result === false) {
+							$error = mysql_error();
+						}
+					}
                 }
                 
                 //insert example data
@@ -240,9 +245,12 @@ class DefaultController extends CController
                     foreach ($sqlDataArr as $index => $script) {
                         if (preg_match('/insert\s+into/i', $script)) {
 //                            Yii::trace('$script:'.$script);
-                            if (mysql_query($script,$db) === true) {
+							$result = mysql_query($script,$db);
+                            if ($result === true) {
                                 $remove[] = $index;
-                            }
+                            } else {
+								$error = mysql_error();
+							}
                         } else {
                             $remove[] = $index;
                         }

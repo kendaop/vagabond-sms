@@ -2331,7 +2331,6 @@ CREATE TABLE IF NOT EXISTS `students` (
   `first_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `middle_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `batch_id` int(11) DEFAULT NULL,
   `date_of_birth` date DEFAULT NULL,
   `gender` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `blood_group` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,

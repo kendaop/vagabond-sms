@@ -257,7 +257,7 @@ if ($form->errorSummary($model)) {
 				</td>
 				<td><?php echo $form->textField($model, 'home_city', array('size' => 25, 'maxlength' => 35)); ?>
 					<?php echo $form->error($model, 'home_city'); ?></td>
-				<td><?php echo $form->labelEx($model, Yii::t('employees', 'home_state')); ?>
+				<td><?php echo $form->labelEx($model, Yii::t('employees', 'home_state'));?>
 				</td>
 				<td><?php echo $form->textField($model, 'home_state', array('size' => 15, 'maxlength' => 25)); ?>
 					<?php echo $form->error($model, 'home_state'); ?></td>

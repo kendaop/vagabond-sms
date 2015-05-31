@@ -64,6 +64,15 @@ class Courses extends CActiveRecord
 		 'batches'=>array(self::HAS_MANY, 'Batches', 'course_id'),
 		);
 	}
+	
+	public function getBatches() {
+		$batches = Yii::app()->db->createCommand()
+				->selectDistinct('*')
+				->from('batches')
+				->where('course_id=:courseId', array(':courseId' => $this->id))
+				->queryAll(true);
+		return $batches;
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)

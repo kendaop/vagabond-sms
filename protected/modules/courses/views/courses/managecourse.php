@@ -71,7 +71,6 @@ function rowdelete(id)
  <div class="clear"></div>
 </div>-->
 
-
 <?php foreach($posts as $posts_1)
 { ?>
 <div class="mcbrow" id="jobDialog1">
@@ -112,6 +111,7 @@ function rowdelete(id)
 		  <tr class="pdtab-h">
 			<td align="center"><?php echo Yii::t('Courses','Offering');?></td>
             <td align="center"><?php echo Yii::t('Courses','Teacher');?></td>
+			<td align="center"><?php echo Yii::t('Courses','Students');?></td>
 			<td align="center"><?php echo Yii::t('Courses','Start Date');?></td>
 			<td align="center"><?php echo Yii::t('Courses','End Date');?></td>
 			<td align="center"><?php echo Yii::t('Courses','Actions');?></td>
@@ -137,7 +137,7 @@ function rowdelete(id)
 					{
 						echo '-';
 					}
-					echo '</td>';					
+					echo '</td>';
 					echo '<td align="center">'.$date1.'</td>';
 					echo '<td align="center">'.$date2.'</td>';
 					echo '<td align="center"  class="sub_act">'; ?> 

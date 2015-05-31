@@ -11,7 +11,6 @@
  * @property string $first_name
  * @property string $middle_name
  * @property string $last_name
- * @property integer $batch_id
  * @property string $date_of_birth
  * @property string $gender
  * @property string $blood_group
@@ -72,7 +71,7 @@ class Students extends CActiveRecord {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('admission_no, parent_id, batch_id, nationality_id, student_category_id, country_id, immediate_contact_id, is_sms_enabled, is_active, is_deleted, has_paid_fees, photo_file_size, phone1, phone2, user_id, uid', 'numerical', 'integerOnly' => true),
+			array('admission_no, parent_id, nationality_id, student_category_id, country_id, immediate_contact_id, is_sms_enabled, is_active, is_deleted, has_paid_fees, photo_file_size, phone1, phone2, user_id, uid', 'numerical', 'integerOnly' => true),
 			array('admission_no, admission_date, first_name, last_name, address_line1, city, state, pin_code, country_id, phone1, email, date_of_birth, gender', 'required',),
 			array('admission_no', 'unique'),
 			array('email', 'check'),
@@ -90,7 +89,7 @@ class Students extends CActiveRecord {
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('photo_data', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
-			array('id, admission_no, parent_id, class_roll_no, admission_date, first_name, middle_name, last_name, batch_id, date_of_birth, gender, blood_group, birth_place, nationality_id, language, religion, student_category_id, address_line1, address_line2, city, state, pin_code, country_id, phone1, phone2, email, immediate_contact_id, is_sms_enabled, photo_file_name, photo_content_type, photo_data, status_description, is_active, is_deleted, created_at, updated_at, has_paid_fees, photo_file_size, user_id', 'safe', 'on' => 'search'),
+			array('id, admission_no, parent_id, class_roll_no, admission_date, first_name, middle_name, last_name, date_of_birth, gender, blood_group, birth_place, nationality_id, language, religion, student_category_id, address_line1, address_line2, city, state, pin_code, country_id, phone1, phone2, email, immediate_contact_id, is_sms_enabled, photo_file_name, photo_content_type, photo_data, status_description, is_active, is_deleted, created_at, updated_at, has_paid_fees, photo_file_size, user_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -126,7 +125,6 @@ class Students extends CActiveRecord {
 			'first_name' => 'First Name',
 			'middle_name' => 'Middle Name',
 			'last_name' => 'Last Name',
-			'batch_id' => 'Offering',
 			'date_of_birth' => 'Date Of Birth',
 			'gender' => 'Gender',
 			'blood_group' => 'Blood Group',
@@ -177,7 +175,6 @@ class Students extends CActiveRecord {
 		$criteria->compare('first_name', $this->first_name, true);
 		$criteria->compare('middle_name', $this->middle_name, true);
 		$criteria->compare('last_name', $this->last_name, true);
-		$criteria->compare('batch_id', $this->batch_id);
 		$criteria->compare('date_of_birth', $this->date_of_birth, true);
 		$criteria->compare('gender', $this->gender, true);
 		$criteria->compare('blood_group', $this->blood_group, true);
