@@ -219,4 +219,11 @@ class CoursesController extends RController
 			Yii::app()->end();
 		}
 	}
+	
+	public function getBatches($id) {
+		$model = Courses::model()->findByPk($id);
+		$batches = $model->getRelated('batches');
+		
+		return $batches;
+	}
 }

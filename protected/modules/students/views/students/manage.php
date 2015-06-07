@@ -178,7 +178,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                         echo '&nbsp;&nbsp;&nbsp;';
                                         echo Yii::t('students','Batch');
                                         $data1 = CHtml::listData(Batches::model()->findAll('is_active=:x AND is_deleted=:y',array(':x'=>'1',':y'=>0),array('order'=>'name DESC')),'id','name');
-                                        echo CHtml::activeDropDownList($model,'batch_id',$data1,array('prompt'=>'Select','id'=>'batch_id')); ?>
+                                        // echo CHtml::activeDropDownList($model,'batch_id',$data1,array('prompt'=>'Select','id'=>'batch_id'));?>
                                         <input type="submit" value="Apply" />
                                     </div>
                                 </li>

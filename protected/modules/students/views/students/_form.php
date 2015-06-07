@@ -173,13 +173,15 @@ if ($form->errorSummary($model)) {
 				<td valign="top">
 					<?php
 					if (isset($_REQUEST['bid']) and $_REQUEST['bid'] != NULL) {
-						echo $form->dropDownList($model, 'batch_id', $data, array('options' => array($_REQUEST['bid'] => array('selected' => true)),
-							'style' => 'width:170px;', 'empty' => 'Select Batch'
-						));
+//						echo $form->dropDownList($model, 'batch_id', $data, array('options' => array($_REQUEST['bid'] => array('selected' => true)),
+//							'style' => 'width:170px;', 'empty' => 'Select Batch'
+//						));
+						$data = CHtml::listData($models, $valueField, $textField);
+//						echo CHtml::dropDownList('offerings', '', $data, $htmlOptions);
 					} else {
-						echo $form->dropDownList($model, 'batch_id', $data, array(
-							'style' => 'width:170px;', 'empty' => 'Select Batch'
-						));
+//						echo $form->dropDownList($model, 'batch_id', $data, array(
+//							'style' => 'width:170px;', 'empty' => 'Select Batch'
+//						));
 					}
 					?>
 					<?php echo $form->error($model, 'batch_id'); ?>
