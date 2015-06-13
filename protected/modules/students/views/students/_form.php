@@ -1,4 +1,40 @@
 <?php
+Yii::app()->clientScript->registerScript('offeringButtons', '
+	$("button#addBatch").click(function(event) {
+		event.preventDefault();
+		
+		$("#unenrolled_batches option:selected").each(function() {
+			$("#new_batches").append($("<option/>", {
+				value: $(this).val(),
+				text:  $(this).text()
+			}));
+			
+			value = $("#new_enrollments").val();
+			value = value ? (value + "," + $(this).val()) : $(this).val();
+			$("#new_enrollments").val(value);
+			
+			$(this).remove();
+		});
+	});
+	
+	$("button#removeBatch").click(function(event) {
+		event.preventDefault();
+		$("#new_batches option:selected").each(function() {
+			$("#unenrolled_batches").append($("<option/>", {
+				value: $(this).val(),
+				text:  $(this).text()
+			}));
+			
+			value = $("#new_enrollments").val();
+			value = value.replace($(this).val(), "");
+			value = value.replace(/^,|,,|,$/g, "");
+			$("#new_enrollments").val(value);
+			
+			$(this).remove();
+		});
+	});
+', CClientScript::POS_READY);
+
 if (Yii::app()->controller->action->id == 'create') {
 	$config = Configurations::model()->findByPk(7);
 	$adm_no = '';
@@ -26,9 +62,7 @@ if (Yii::app()->controller->action->id == 'create') {
 	$dob = DateTime::createFromFormat('Y-m-d', $adm_no->date_of_birth);
 	$dob = $dob->format('m/d/Y');
 }
-?>
 
-<?php
 $form = $this->beginWidget('CActiveForm', array(
 	'id' => 'students-form',
 	'enableAjaxValidation' => false,
@@ -125,10 +159,10 @@ if ($form->errorSummary($model)) {
 			</tr>
 			<tr>
                 <td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'gender')); ?></td>
-                <td>&nbsp;</td>
+                <td valign="bottom">&nbsp;</td>
                 <td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'date_of_birth')); ?></td>
-				<td>&nbsp;</td>
-                <td valign="bottom"><?php echo $form->labelEx($model, 'Offering'); ?></td>
+				<td valign="bottom">&nbsp;</td>
+                <td valign="bottom">&nbsp;</td>
 			</tr>
 			<tr>
 				<td style="padding-left:2px;" valign="top">    
@@ -139,14 +173,9 @@ if ($form->errorSummary($model)) {
 				<td>&nbsp;</td>
 				<td valign="top">
 					<?php
-					$models = Batches::model()->findAll("is_deleted=:x", array(':x' => '0'));
-					$data = array();
-					foreach ($models as $model_1) {
-						//$posts=Batches::model()->findByPk($model_1->id);
-						$data[$model_1->id] = $model_1->course123->course_name . '-' . $model_1->name;
-					}
-					?>
-					<?php
+					$unenrolledBatches = Batches::model()->getUnenrolledBatches($adm_no_1);
+					$enrolledBatches = Batches::model()->getEnrolledBatches($adm_no_1, true);
+															
 					//echo $form->textField($model,'date_of_birth');
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 						//'name'=>'Students[date_of_birth]',
@@ -168,36 +197,6 @@ if ($form->errorSummary($model)) {
 					));
 					?>
 					<?php echo $form->error($model, 'date_of_birth'); ?>
-				</td>
-				<td>&nbsp;</td>
-				<td valign="top">
-					<?php
-					if (isset($_REQUEST['bid']) and $_REQUEST['bid'] != NULL) {
-//						echo $form->dropDownList($model, 'batch_id', $data, array('options' => array($_REQUEST['bid'] => array('selected' => true)),
-//							'style' => 'width:170px;', 'empty' => 'Select Batch'
-//						));
-						$data = CHtml::listData($models, $valueField, $textField);
-//						echo CHtml::dropDownList('offerings', '', $data, $htmlOptions);
-					} else {
-//						echo $form->dropDownList($model, 'batch_id', $data, array(
-//							'style' => 'width:170px;', 'empty' => 'Select Batch'
-//						));
-					}
-					?>
-					<?php echo $form->error($model, 'batch_id'); ?>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="5">&nbsp;</td>
-			</tr>
-			<tr>
-				<td valign="bottom"><?php echo $form->labelEx($model, Yii::t('students', 'student_category_id')); ?></td>
-			</tr>
-			<tr>
-				<td valign="top">
-					<?php //echo $form->textField($model,'student_category_id'); ?>
-					<?php echo $form->dropDownList($model, 'student_category_id', CHtml::listData(StudentCategories::model()->findAll(), 'id', 'name')); ?>
-					<?php echo $form->error($model, 'student_category_id'); ?>
 				</td>
 			</tr>
 		</table>
@@ -277,6 +276,46 @@ if ($form->errorSummary($model)) {
 			</tr>
 		</table>
     </div>
+</div>
+
+<div class="formCon add-remove-offerings" >
+    <div class="formConInner">
+		<h3>Courses</h3>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>Available Classes</th>
+				<th>&nbsp;</th>
+				<th>Enroll in Classes</th>
+				<th>Enrolled Classes</th>
+			</tr>
+			
+			<tr>
+				<td valign="top">
+					<?php
+					echo CHtml::listBox('unenrolled_batches', [], $unenrolledBatches, array(
+							'multiple' => 'multiple'
+						));
+					?>
+				</td>
+				<td valign="top">
+					<button id="addBatch">&#x21E8;</button>
+					<br/>
+					<button id="removeBatch">&#x21E6;</button>
+				</td>
+				<td valign="top">
+					<?php echo CHtml::listBox('new_batches', [], [], array(
+						'multiple' => 'multiple'
+					)); ?>
+				</td>
+				<td valign="top">
+					<?php
+					echo CHtml::listBox('enrolled_batches', [], $enrolledBatches, array());
+					
+					// echo $form->error($model, 'batch_id'); ?>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
 
 <div class="formCon" style=" background:#EDF1D1 url(images/green-bg.png); border:0px #c4da9b solid; color:#393; ">
@@ -403,6 +442,7 @@ if ($form->errorSummary($model)) {
 			<?php //echo $form->labelEx($model,'user_id');  ?>
 			<?php echo $form->hiddenField($model, 'user_id', array('value' => '1')); ?>
 			<?php echo $form->error($model, 'user_id'); ?>
+			<?php echo CHtml::hiddenField('new_enrollments'); ?>
 		</div>
 	</div>
 </div><!-- form -->

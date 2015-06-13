@@ -1,3 +1,19 @@
+/* Kendall */
+.formCon th{
+	text-align: left;
+	vertical-align: bottom;
+}
+
+.add-remove-offerings select{
+	min-height: 76px;
+	width: 195px!important;
+}
+
+td.enrollment-buttons button {
+	position: relative;
+}
+/////////////
+
 .required
 {
 	color:#F00;

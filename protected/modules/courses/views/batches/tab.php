@@ -108,9 +108,9 @@ $(document).click(function() {
         <div class="cb_right">
         	<div class="status_bx">
     			<ul>
-        			<li><span><?php echo count(Students::model()->findAll("batch_id=:x and is_deleted=:y", array(':x'=>$_REQUEST['id'],':y'=>0))); ?></span><?php echo Yii::t('Batch','Students');?></li>
-            		<li><span><?php echo count(Subjects::model()->findAll("batch_id=:x", array(':x'=>$_REQUEST['id']))); ?></span><?php echo Yii::t('Batch','Subjects');?></li>
-            		<li><span><?php echo count(TimetableEntries::model()->findAll(array('condition'=>'batch_id=:x', 'group'=>'employee_id','params'=>array(':x'=>$_REQUEST['id'])))); ?></span><?php echo Yii::t('Batch','Employees');?></li>
+        			<li><span><?php echo count(Students::model()->findAll("is_deleted=:y", array(':y'=>0))); ?></span><?php echo Yii::t('Batch','Students');?></li>
+            		<li><span><?php // echo count(Subjects::model()->findAll("batch_id=:x", array(':x'=>$_REQUEST['id']))); ?></span><?php echo Yii::t('Batch','Subjects');?></li>
+            		<li><span><?php // echo count(TimetableEntries::model()->findAll(array('condition'=>'batch_id=:x', 'group'=>'employee_id','params'=>array(':x'=>$_REQUEST['id'])))); ?></span><?php echo Yii::t('Batch','Employees');?></li>
         		</ul>
      		<div class="clear"></div>
    			</div>
@@ -196,7 +196,7 @@ $(document).click(function() {
 			$subnot='<div class="cbi_green">Subjects Added</div>';
 			$sublink = '';
 		}
-		$stud=Students::model()->findByAttributes(array('batch_id'=>$batch->id,'is_active'=>1,'is_deleted'=>0));
+		$stud=Students::model()->findByAttributes(array('is_active'=>1,'is_deleted'=>0));
 		if($stud==NULL)
 		{
 			$studnot='<div class="cbi_red">No active students</div>';

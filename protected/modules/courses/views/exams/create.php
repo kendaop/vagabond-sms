@@ -38,7 +38,7 @@ $this->breadcrumbs=array(
     <div class="clear"></div>
     <div class="emp_cntntbx">
     <h1><?php echo Yii::t('Exams','Create Exams');?></h1>
-		<?php echo $this->renderPartial('_form', array('model'=>$model,'model_1'=>$model_1)); ?>
+		<?php echo $this->renderPartial('_form', array('model'=>$model,'model_1'=>$batch)); ?>
 	</div></div></div></div>
     </td>
   </tr>

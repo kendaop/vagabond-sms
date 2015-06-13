@@ -506,9 +506,10 @@ CREATE TABLE IF NOT EXISTS `batch_events` (
 --
 
 CREATE TABLE IF NOT EXISTS `batch_students` (
-  `student_id` int(11) DEFAULT NULL,
-  `batch_id` int(11) DEFAULT NULL,
-  KEY `index_batch_students_on_batch_id_and_student_id` (`batch_id`,`student_id`)
+  `student_id` int(11) NOT NULL,
+  `batch_id` int(11) NOT NULL,
+  -- KEY `index_batch_students_on_batch_id_and_student_id` (`batch_id`,`student_id`)
+  PRIMARY KEY (`student_id`, `batch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

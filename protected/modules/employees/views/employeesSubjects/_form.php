@@ -108,11 +108,11 @@ $emp_sub = EmployeesSubjects::model()->findAll("subject_id=:x", array(':x'=>$_RE
     <td><?php 
 	 $emp_name = Employees::model()->findByAttributes(array('id'=>$emp_sub_1->employee_id));
 	echo $emp_name->first_name.'  '.$emp_name->middle_name.'  '.$emp_name->last_name?></td>
-    <?php $batc = EmployeeDepartments::model()->findByAttributes(array('id'=>$emp_name->employee_department_id)); 
-	if($batc!=NULL)
+    <?php $batches = EmployeeDepartments::model()->findByAttributes(array('id'=>$emp_name->employee_department_id)); 
+	if($batches!=NULL)
 	{
 		 ?>
-		<td><?php echo $batc->name; ?></td> 
+		<td><?php echo $batches->name; ?></td> 
 	<?php }
 	else{?> <td>-</td> <?php }?>
     <td><?php echo CHtml::link(Yii::t('employees','Remove'), array('deleterow', 'id'=>$emp_sub_1->id,'sub'=>$_REQUEST['sub'],'cou'=>$_REQUEST['cou'],'dept'=>$_REQUEST['dept']), array('confirm' => 'Are you sure?','onclick'=>"show()")); ?></td>

@@ -34,14 +34,14 @@
     <li>
     <span><?php echo '<strong>'.Yii::t('students','Course&nbsp;:').'</strong>';?>&nbsp;
         <?php
-		$posts=Batches::model()->findByPk($student->batch_id);
+//		$posts=Batches::model()->findByPk($student->batch_id);
 		if($posts!=NULL)
 		echo $posts->course123->course_name
 		 ?>
          </span></li>
          <li>
         <span><?php echo '<strong>'.Yii::t('students','Batch&nbsp;:').'</strong>';?>&nbsp;<?php
-		$batch=Batches::model()->findByAttributes(array('id'=>$student->batch_id));
+//		$batch=Batches::model()->findByAttributes(array('id'=>$student->batch_id));
 		if($batch!=NULL)
 		 echo $batch->name; ?></span></li>
          <li>

@@ -200,7 +200,9 @@ class StudentsController extends RController
 						UserModule::sendMail($model->email,UserModule::t("You are registered from {site_name}",array('{site_name}'=>Yii::app()->name)),UserModule::t("Please login to your account with your email id as username and password {password}",array('{password}'=>$password)));
 						}
 					// for saving in fee table
-				  $fee_collection = FinanceFeeCollections::model()->findAll('batch_id=:x',array(':x'=>$model->batch_id));
+//				  $batches = Batch
+//				  $fee_collection = FinanceFeeCollections::model()->findAll('batch_id=:x',array(':x'=>$model->batch_id));
+//				  $fee_collection = FinanceFeeCollections::model()->findAllByAttributes('batch_id', array('in' => $batches));
 				  
 				  if($fee_collection!=NULL)
 				  {
@@ -259,8 +261,11 @@ class StudentsController extends RController
             $model->photo_file_size=$file->size;
             $model->photo_data=file_get_contents($file->tempName);
       		  }
-			if($model->save())
+			if($model->save()) {
+				$batches = explode(',', Yii::app()->request->getParam('new_enrollments'));
+				$model->addBatches($batches);
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('update',array(

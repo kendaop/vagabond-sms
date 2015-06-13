@@ -28,7 +28,7 @@ if(count($list)!=0)
 	<tr>
 	<td width="50%"><?php echo CHtml::link($list_1->first_name.'  '.$list_1->middle_name.'  '.$list_1->last_name,array('view','id'=>$list_1->id)) ?></td>	
 	<td><?php
-	$batch=Batches::model()->findByAttributes(array('id'=>$list_1->batch_id));
+//	$batch=Batches::model()->findByAttributes(array('id'=>$list_1->batch_id));
 	 echo $batch->name; ?></td>	
 	<tr>
 	<?php }

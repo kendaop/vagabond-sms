@@ -537,11 +537,11 @@ else
                               <?php }else{ ?>
                             <td><?php echo CHtml::link(ucfirst($list_1->first_name).'  '.ucfirst($list_1->middle_name).'  '.ucfirst($list_1->last_name),array('employees/employees/view','id'=>$list_1->id)) ?></td><?php } ?>
                             <td><?php echo $list_1->employee_number ?></td>
-                            <?php $batc = $batc = EmployeeDepartments::model()->findByAttributes(array('id'=>$list_1->employee_department_id)); 
-							  if($batc!=NULL)
+                            <?php $batches = $batches = EmployeeDepartments::model()->findByAttributes(array('id'=>$list_1->employee_department_id)); 
+							  if($batches!=NULL)
 							  {
 								  ?>
-								  <td><?php echo $batc->name; ?></td> 
+								  <td><?php echo $batches->name; ?></td> 
 							  <?php }
 							  else{?> <td>-</td> <?php }?>
                             <!--<td align="center"><a href="#" class="sd_action_but"></a>

@@ -47,12 +47,12 @@ $form=$this->beginWidget('CActiveForm', array(
 <?php if(!isset($_REQUEST['exam_group_id']))
 {?><table width="80%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><?php echo $form->labelEx($model_1,Yii::t('Exams','name')); ?></td>
-    <td><?php echo $form->textField($model_1,'name',array('value'=>$_SESSION['name'])); ?>
-		<?php echo $form->error($model_1,'name'); ?></td>
-    <td><?php echo $form->labelEx($model_1,Yii::t('Exams','exam_type')); ?></td>
-    <td><?php echo $form->textField($model_1,'exam_type',array('value'=>$_SESSION['type'])); ?>
-		<?php echo $form->error($model_1,'exam_type'); ?></td>
+    <td><?php echo $form->labelEx($batch,Yii::t('Exams','name')); ?></td>
+    <td><?php echo $form->textField($batch,'name',array('value'=>$_SESSION['name'])); ?>
+		<?php echo $form->error($batch,'name'); ?></td>
+    <td><?php echo $form->labelEx($batch,Yii::t('Exams','exam_type')); ?></td>
+    <td><?php echo $form->textField($batch,'exam_type',array('value'=>$_SESSION['type'])); ?>
+		<?php echo $form->error($batch,'exam_type'); ?></td>
   </tr></table>
   <?php }?>
   

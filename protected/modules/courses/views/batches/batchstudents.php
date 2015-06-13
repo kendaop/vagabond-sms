@@ -74,7 +74,7 @@ Yii::app()->clientScript->registerScript(
      <?php
                 if(isset($_REQUEST['id']))
                 {
-                $posts=Students::model()->findAll("batch_id=:x and is_deleted=:y and is_active=:z", array(':x'=>$_REQUEST['id'],':y'=>'0',':z'=>'1'));
+                $posts=Students::model()->findAll("is_deleted=:y and is_active=:z", array(':y'=>'0',':z'=>'1'));
 				if($posts!=NULL)
 				{
                 ?>
@@ -148,7 +148,7 @@ Yii::app()->clientScript->registerScript(
      <?php
                 if(isset($_REQUEST['id']))
                 {
-                $posts=Students::model()->findAll("batch_id=:x and is_deleted=:y and is_active=:z", array(':x'=>$_REQUEST['id'],':y'=>'0',':z'=>'0'));
+                $posts=Students::model()->findAll("is_deleted=:y and is_active=:z", array(':y'=>'0',':z'=>'0'));
 				if($posts!=NULL)
 				{
                 ?> <div class="table_listbx">

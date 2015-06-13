@@ -59,8 +59,8 @@ class Batches extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-		 'course123'=>array(self::BELONGS_TO, 'Courses', 'course_id'),
-        
+		 'course123' => array(self::BELONGS_TO, 'Courses', 'course_id'),
+         'students' => array(self::MANY_MANY, 'Students', 'batch_students(batch_id, student_id)')
 		);
 	}
 
@@ -109,9 +109,74 @@ class Batches extends CActiveRecord
 	{
 		return '"123"';
 	}
+	
 	 public function getCoursename()
 	{
 		$course=Courses::model()->findByAttributes(array('id'=>$this->course_id,'is_deleted'=>0));
 			return $this->name.' ('.$course->course_name.')';
+	}
+	
+	public function getUnenrolledBatches($studentId) 
+	{
+		try {
+			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+
+			// Get array of batches that the student is not enrolled in.
+			$pdo = $dbh->prepare(
+				'SELECT B.id as `id`, CONCAT(C.course_name, " - ", B.name) as `batch`
+				FROM `batches` B
+				LEFT JOIN `batch_students` BS
+				  ON B.id = BS.batch_id
+				  AND BS.student_id = :student
+				LEFT JOIN `courses` C
+				  ON B.course_id = C.id
+				WHERE BS.student_id IS NULL
+				  AND B.is_deleted = 0
+				  AND B.is_active = 1
+				  AND B.end_date > NOW();'
+			);
+
+			$pdo->execute(array(
+				':student' => $studentId
+			));
+
+			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+		}
+		catch (Exception $ex) {
+			echo 'Failed to query database: ' . $ex->getMessage();
+		}
+	}
+	
+	public function getEnrolledBatches($studentID, $falseKey = false) 
+	{
+		$key = $falseKey ? -1 : 1;
+		
+		try {
+			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+			
+			// Get array of batches that the student is enrolled in.
+			$pdo = $dbh->prepare(
+				"SELECT B.id * :key as `id`, CONCAT(C.course_name, ' - ', B.name) as `batch`
+				FROM `batches` B
+				JOIN `batch_students` BS
+				  ON B.id = BS.batch_id
+				  AND B.is_active = 1
+				  AND B.is_deleted = 0
+				  AND B.end_date > NOW()
+				  AND BS.student_id = :student
+				  JOIN `courses` C
+					ON B.course_id = C.id
+					AND B.end_date > NOW();"
+			);
+
+			$pdo->execute(array(
+				'key' => $key,
+				'student' => $studentID
+			));
+
+			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+		} catch (Exception $ex) {
+			echo 'Failed to query database: ' . $ex->getMessage();
+		}
 	}
 }

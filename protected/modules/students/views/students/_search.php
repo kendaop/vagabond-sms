@@ -41,8 +41,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'batch_id'); ?>
-		<?php echo $form->textField($model,'batch_id'); ?>
+		<?php // echo $form->label($model,'batch_id'); ?>
+		<?php // echo $form->textField($model,'batch_id'); ?>
 	</div>
 
 	<div class="row">

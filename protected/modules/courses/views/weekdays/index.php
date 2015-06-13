@@ -81,13 +81,13 @@ $this->breadcrumbs=array(
 
 <?php   
 
-$models = Batches::model()->findAll("is_deleted=:x", array(':x'=>'0'));
+$batches = Batches::model()->findAll("is_deleted=:x", array(':x'=>'0'));
 				$data = array();
 				$data['NULL'] = 'common';
-				foreach ($models as $model_1)
+				foreach ($batches as $batch)
 				{
-					$posts=Batches::model()->findByPk($model_1->id);
-					$data[$model_1->id] = $model_1->name;
+					$posts=Batches::model()->findByPk($batch->id);
+					$data[$batch->id] = $batch->name;
 				}
 	?>
      <div >
@@ -375,13 +375,13 @@ $models = Batches::model()->findAll("is_deleted=:x", array(':x'=>'0'));
 
 <?php   
 
-$models = Batches::model()->findAll("is_deleted=:x", array(':x'=>'0'));
+$batches = Batches::model()->findAll("is_deleted=:x", array(':x'=>'0'));
 				$data = array();
 				$data['NULL'] = 'common';
-				foreach ($models as $model_1)
+				foreach ($batches as $batch)
 				{
-					$posts=Batches::model()->findByPk($model_1->id);
-					$data[$model_1->id] = $model_1->name;
+					$posts=Batches::model()->findByPk($batch->id);
+					$data[$batch->id] = $batch->name;
 				}
 	?>
      <div class="bbtb">

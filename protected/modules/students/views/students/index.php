@@ -179,12 +179,16 @@ $(document).ready(function() {
                     <td align="center"><?php echo CHtml::link($list_1->first_name.'  '.$list_1->middle_name.'  '.$list_1->last_name,array('view','id'=>$list_1->id)) ?>&nbsp;</td>
                     <td align="center"><?php echo $list_1->admission_no ?></td>
                     <td align="center">
-                    <?php $batc = Batches::model()->findByAttributes(array('id'=>$list_1->batch_id)); 
-					  if($batc!=NULL)
+                    <?php 
+					$batches = $list_1->batches;
+//					$batc = Batches::model()->findByAttributes(array('id'=>$list_1->batch_id)); 
+					  if($batches!=NULL)
 					  {
-						  $cours = Courses::model()->findByAttributes(array('id'=>$batc->course_id)); ?>
-						  <?php echo $cours->course_name.' / '.$batc->name; ?> 
-					  <?php }
+						  foreach($batches as $batch) {
+							$course = Courses::model()->findByAttributes(array('id'=>$batch->course_id));
+							echo $course->course_name.' / '.$batch->name;
+						  }
+					  }
 					  else{?> - <?php }?>
                       </td>
                     <td align="center">

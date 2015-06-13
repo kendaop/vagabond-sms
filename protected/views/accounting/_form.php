@@ -70,12 +70,12 @@
     <td><?php echo $form->textField($model,'last_name',array('size'=>30,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'last_name'); ?></td>
     <td><?php echo $form->labelEx($model,'batch_id'); ?></td>
-    <td>  <?php   $models = Batches::model()->findAll("is_deleted=:x", array(':x'=>'0'));
+    <td>  <?php   $batches = Batches::model()->findAll("is_deleted=:x", array(':x'=>'0'));
 				$data = array();
-				foreach ($models as $model_1)
+				foreach ($batches as $batch)
 				{
-					$posts=Batches::model()->findByPk($model_1->id);
-					$data[$model_1->id] = $posts->course123->course_name.'-'.$model_1->name;
+					$posts=Batches::model()->findByPk($batch->id);
+					$data[$batch->id] = $posts->course123->course_name.'-'.$batch->name;
 				}
 	?>
         

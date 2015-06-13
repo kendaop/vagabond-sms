@@ -17,7 +17,7 @@ $this->breadcrumbs=array(
 
 <h1><?php echo Yii::t('courses','Create Course');?></h1><br />
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'model_1'=>$model_1)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'batch'=>$model_1)); ?>
 
  	</div>
     </td>

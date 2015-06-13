@@ -948,11 +948,11 @@ else
     <td><?php echo $i; ?></td>
     <td><?php echo CHtml::link($list_1->first_name.'  '.$list_1->middle_name.'  '.$list_1->last_name,array('view','id'=>$list_1->id)) ?></td>
     <td><?php echo $list_1->employee_number ?></td>
-	<?php $batc = EmployeeDepartments::model()->findByAttributes(array('id'=>$list_1->employee_department_id)); 
-	if($batc!=NULL)
+	<?php $batches = EmployeeDepartments::model()->findByAttributes(array('id'=>$list_1->employee_department_id)); 
+	if($batches!=NULL)
 	{
 		 ?>
-		<td><?php echo $batc->name; ?></td> 
+		<td><?php echo $batches->name; ?></td> 
 	<?php }
 	else{?> <td>-</td> <?php }?>
     

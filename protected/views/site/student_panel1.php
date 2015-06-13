@@ -531,11 +531,11 @@ else
                           <tr>
                             <td><?php echo CHtml::link(ucfirst($list_1->first_name).'  '.ucfirst($list_1->middle_name).'  '.ucfirst($list_1->last_name),array('students/students/view','id'=>$list_1->id)) ?></td>
                             <td><?php echo $list_1->admission_no ?></td>
-                            <?php $batc = Batches::model()->findByAttributes(array('id'=>$list_1->batch_id)); 
-							  if($batc!=NULL)
+                            <?php $batches = Batches::model()->findByAttributes(array('id'=>$list_1->batch_id)); 
+							  if($batches!=NULL)
 							  {
-								  $cours = Courses::model()->findByAttributes(array('id'=>$batc->course_id)); ?>
-								  <td><?php echo $cours->course_name.' / '.$batc->name; ?></td> 
+								  $course = Courses::model()->findByAttributes(array('id'=>$batches->course_id)); ?>
+								  <td><?php echo $course->course_name.' / '.$batches->name; ?></td> 
 							  <?php }
 							  else{?> <td>-</td> <?php }?>
                             <td align="center"><a href="#" class="sd_action_but"></a>

@@ -27,12 +27,12 @@ function batch()
 
 <div class="formConInner">
 <span style="font-size:14px; font-weight:bold; color:#666;">Departments</span>&nbsp;&nbsp;&nbsp;
- <?php   $models = Batches::model()->findAll("is_deleted=:x", array(':x'=>'0'));
+ <?php   $batches = Batches::model()->findAll("is_deleted=:x", array(':x'=>'0'));
 				$data = array();
-				foreach ($models as $model_1)
+				foreach ($batches as $batch)
 				{
-					$posts=Batches::model()->findByPk($model_1->id);
-					$data[$model_1->id] = $posts->course123->code.'-'.$model_1->name;
+					$posts=Batches::model()->findByPk($batch->id);
+					$data[$batch->id] = $posts->course123->code.'-'.$batch->name;
 				}
 	?>
     

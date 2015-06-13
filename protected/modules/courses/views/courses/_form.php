@@ -80,9 +80,9 @@
     <!-- Batch Form -->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="15.1%"><?php echo $form->labelEx($model_1,Yii::t('Courses','name')); ?></td>
-        <td><?php echo $form->textField($model_1,'name',array('size'=>40,'maxlength'=>255)); ?>
-		<?php echo $form->error($model_1,'name'); ?></td>
+        <td width="15.1%"><?php echo $form->labelEx($batch,Yii::t('Courses','name')); ?></td>
+        <td><?php echo $form->textField($batch,'name',array('size'=>40,'maxlength'=>255)); ?>
+		<?php echo $form->error($batch,'name'); ?></td>
       </tr>
        <tr>
   	<td>&nbsp;</td>
@@ -92,7 +92,7 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td  width="15.1%"><?php echo $form->labelEx($model_1,Yii::t('Courses','start_date')); ?></td>
+    <td  width="15.1%"><?php echo $form->labelEx($batch,Yii::t('Courses','start_date')); ?></td>
    <td> <?php //echo $form->textField($model_1,'start_date');
    				$settings=UserSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
 				if($settings!=NULL)
@@ -105,7 +105,7 @@
 					else
 					$date = 'dd-mm-yy';	
 						$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-								'model'=>$model_1,
+								'model'=>$batch,
 								'attribute'=>'start_date', 
 								// additional javascript options for the date picker plugin
 								'options'=>array(
@@ -120,17 +120,17 @@
 								),
 							));
     ?>
-		<?php echo $form->error($model_1,'start_date'); ?></td>
+		<?php echo $form->error($batch,'start_date'); ?></td>
   </tr>
    <tr>
   	<td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td  width="15.1%"><?php echo $form->labelEx($model_1,Yii::t('Courses','end_date')); ?></td>
+    <td  width="15.1%"><?php echo $form->labelEx($batch,Yii::t('Courses','end_date')); ?></td>
     <td><?php //echo $form->textField($model_1,'end_date');
 						$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-								'model'=>$model_1,
+								'model'=>$batch,
 								'attribute'=>'end_date', 
 								// additional javascript options for the date picker plugin
 								'options'=>array(
@@ -145,7 +145,7 @@
 								),
 							));
 	 ?>
-		<?php echo $form->error($model_1,'end_date'); ?></td>
+		<?php echo $form->error($batch,'end_date'); ?></td>
   </tr>
 </table>
 
@@ -157,14 +157,14 @@
 
 	<div class="row">
 		<?php //echo $form->labelEx($model_1,'is_active'); ?>
-		<?php echo $form->hiddenField($model_1,'is_active'); ?>
-		<?php echo $form->error($model_1,'is_active'); ?>
+		<?php echo $form->hiddenField($batch,'is_active'); ?>
+		<?php echo $form->error($batch,'is_active'); ?>
 	</div>
 
 	<div class="row">
 		<?php //echo $form->labelEx($model_1,'is_deleted'); ?>
-		<?php echo $form->hiddenField($model_1,'is_deleted'); ?>
-		<?php echo $form->error($model_1,'is_deleted'); ?>
+		<?php echo $form->hiddenField($batch,'is_deleted'); ?>
+		<?php echo $form->error($batch,'is_deleted'); ?>
 	</div>
 
 	<div class="row">
