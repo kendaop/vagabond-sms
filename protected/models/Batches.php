@@ -132,15 +132,23 @@ class Batches extends CActiveRecord
 				  ON B.course_id = C.id
 				WHERE BS.student_id IS NULL
 				  AND B.is_deleted = 0
-				  AND B.is_active = 1
-				  AND B.end_date > NOW();'
+				  AND B.is_active = 1;'
 			);
 
 			$pdo->execute(array(
 				':student' => $studentId
 			));
 
-			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+			$results = $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+			
+			foreach($results as $key => $result) {
+				$batch = Batches::model()->findByPk($key);
+				
+				if(!$batch->updateActiveStatus()) {
+					unset($results[$key]);
+				}
+			}
+			return $results;
 		}
 		catch (Exception $ex) {
 			echo 'Failed to query database: ' . $ex->getMessage();
@@ -162,11 +170,9 @@ class Batches extends CActiveRecord
 				  ON B.id = BS.batch_id
 				  AND B.is_active = 1
 				  AND B.is_deleted = 0
-				  AND B.end_date > NOW()
 				  AND BS.student_id = :student
 				  JOIN `courses` C
-					ON B.course_id = C.id
-					AND B.end_date > NOW();"
+					ON B.course_id = C.id;"
 			);
 
 			$pdo->execute(array(
