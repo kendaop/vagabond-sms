@@ -29,7 +29,7 @@
              	<input type="text" value="Search" class="lsearch_bar_left" name="">
                 <input type="button" class="sbut" name="">
                 <div class="clear"></div>
-  </div> --> <h1><?php echo Yii::t('Courses','Manage Courses & Batches');?></h1>
+  </div> --> <h1><?php echo Yii::t('Courses','Manage Courses & Offerings');?></h1>
                     
                     <?php
 			function t($message, $category = 'cms', $params = array(), $source = null, $language = null) 

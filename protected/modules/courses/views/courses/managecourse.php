@@ -105,22 +105,22 @@ function rowdelete(id)
          <!--class="cbtablebx"-->
          
 <div class="pdtab_Con" id="dropwin<?php echo $posts_1->id; ?>" style="display: none; padding:0px 0px 10px 0px; ">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table class="course-offerings" width="100%" border="0" cellspacing="0" cellpadding="0">
 		  <tbody>
           <!--class="cbtablebx_topbg"  class="sub_act"-->
 		  <tr class="pdtab-h">
-			<td align="center"><?php echo Yii::t('Courses','Offering');?></td>
-            <td align="center"><?php echo Yii::t('Courses','Teacher');?></td>
-			<td align="center"><?php echo Yii::t('Courses','Students');?></td>
-			<td align="center"><?php echo Yii::t('Courses','Start Date');?></td>
-			<td align="center"><?php echo Yii::t('Courses','End Date');?></td>
-			<td align="center"><?php echo Yii::t('Courses','Actions');?></td>
+			<td><?php echo Yii::t('Courses','Offering');?></td>
+            <td><?php echo Yii::t('Courses','Teacher');?></td>
+			<td><?php echo Yii::t('Courses','Students');?></td>
+			<td><?php echo Yii::t('Courses','Start Date');?></td>
+			<td><?php echo Yii::t('Courses','End Date');?></td>
+			<td><?php echo Yii::t('Courses','Actions');?></td>
 		  </tr>
           <?php 
 		  foreach($batch as $batch_1)
 				{
 					echo '<tr id="batchrow'.$batch_1->id.'">';
-					echo '<td style="text-align:left; padding-left:10px; font-weight:bold;">'.CHtml::link($batch_1->name, array('batches/batchstudents','id'=>$batch_1->id)).'</td>';
+					echo '<td style="padding-left:10px; font-weight:bold;">'.CHtml::link($batch_1->name, array('batches/batchstudents','id'=>$batch_1->id)).'</td>';
 					$settings=UserSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
 					if($settings!=NULL)
 					{	
@@ -128,8 +128,14 @@ function rowdelete(id)
 						$date2=date($settings->displaydate,strtotime($batch_1->end_date));
 
 					}
-					$teacher = Employees::model()->findByAttributes(array('id'=>$batch_1->employee_id));					
-					echo '<td align="center">';
+					$teacher = Employees::model()->findByAttributes(array('id'=>$batch_1->employee_id));	
+					$students = Students::model()->with(['batches' => [
+						'select' => false,
+						'joinType' => 'INNER JOIN',
+						'condition' => 'batch_id = ' . $batch_1->id
+					]])->findAll();
+					
+					echo '<td>';
 					if($teacher){
 						echo $teacher->first_name.' '.$teacher->last_name;
 					}
@@ -138,9 +144,10 @@ function rowdelete(id)
 						echo '-';
 					}
 					echo '</td>';
-					echo '<td align="center">'.$date1.'</td>';
-					echo '<td align="center">'.$date2.'</td>';
-					echo '<td align="center"  class="sub_act">'; ?> 
+					echo '<td>'.count($students).'</td>';
+					echo '<td>'.$date1.'</td>';
+					echo '<td>'.$date2.'</td>';
+					echo '<td class="sub_act">'; ?> 
 					<?php echo CHtml::ajaxLink(Yii::t('Courses','Edit'),$this->createUrl('batches/addupdate'),array(
         'onclick'=>'$("#jobDialog123").dialog("open"); return false;',
         'update'=>'#jobDialog123','type' =>'GET','data' => array( 'val1' =>$batch_1->id,'course_id'=>$posts_1->id ),'dataType' => 'text'),array('id'=>'showJobDialog12'.$batch_1->id,'class'=>'add')); 

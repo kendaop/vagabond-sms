@@ -12,6 +12,14 @@
 td.enrollment-buttons button {
 	position: relative;
 }
+table.course-offerings td {
+	text-align: center;
+}
+
+table.course-offerings tr[id^=batchrow] td:first-child {
+	text-align: left;
+}
+
 /////////////
 
 .required
