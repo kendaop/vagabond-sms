@@ -20,6 +20,40 @@ table.course-offerings tr[id^=batchrow] td:first-child {
 	text-align: left;
 }
 
+.header-row {
+	margin-bottom: 20px;
+}
+
+.header-row label, .header-row input[type=checkbox] {
+	float: right;
+	margin-left: 3px;
+}
+
+.header-row label {
+	position: relative;
+	top: 2px;
+}
+
+.header-row input[type=checkbox] {
+	-ms-transform: scale(1.5);
+	-moz-transform: scale(1.5);
+	-webkit-transform: scale(1.5);
+	-o-transform: scale(1.5);
+}
+
+.header-row h1{
+	display:inline;
+}
+
+.ended {
+	background-color: pink;
+	display: none;
+}
+
+.ended a {
+	color: blueviolet;
+}
+
 /////////////
 
 .required

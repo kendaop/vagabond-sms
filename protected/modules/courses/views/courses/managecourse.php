@@ -6,6 +6,27 @@
 </style>
 
 <?php
+Yii::app()->clientScript->registerScript('offeringButtons', '
+	$("#show-old-offerings").click(function() {
+		count = 0;
+		if($(this).is(":checked")) {
+			$(".ended").show();
+			$("span.count").each(function() {
+				count = $(this).attr("class").match("old-([0-9]*)");
+				count = count === null ? 0 : count[1];
+				$(this).text(count + " - Offering(s)");
+			});
+		} else {
+			$(".ended").hide();
+			$("span.count").each(function() {
+				count = $(this).attr("class").match("new-([0-9]*)");
+				count = count === null ? 0 : count[1];
+				$(this).text(count + " - Offering(s)");
+			});
+		}
+	});
+', CClientScript::POS_READY);
+
 $this->breadcrumbs=array(
 	$this->module->id,
 );
@@ -49,7 +70,13 @@ function rowdelete(id)
     </td>
     <td valign="top">
     <div class="cont_right formWrapper">
-<h1><?php echo Yii::t('Courses','Manage Courses & Offerings');?></h1>
+		<div class="header-row">
+			<h1><?php echo Yii::t('Courses','Manage Courses & Offerings');?></h1>
+			<?php 
+			echo CHtml::label('Show ended offerings', 'show-old-offerings');
+			echo CHtml::checkBox('show-old-offerings');
+			?>
+		</div>
  <div id="jobDialog">
  <div id="jobDialog1">
  <?php 
@@ -79,10 +106,20 @@ function rowdelete(id)
        
 		<?php echo $posts_1->course_name; ?>
 		<?php
-			$course=Courses::model()->findByAttributes(array('id'=>$posts_1->id,'is_deleted'=>0));
-		   $batch=Batches::model()->findAll("course_id=:x AND is_deleted=:y AND is_active=:z", array(':x'=>$posts_1->id,':y'=>0,':z'=>1));
-		 ?>
-        <span><?php echo count($batch); ?> - Offering(s)</span>
+		$course=Courses::model()->findByAttributes(array('id'=>$posts_1->id,'is_deleted'=>0));
+		$batch=Batches::model()->findAll("course_id=:x AND is_deleted=:y AND is_active=:z", array(':x'=>$posts_1->id,':y'=>0,':z'=>1));
+		$current_batches = [];
+
+		foreach($batch as $b) {
+			if($b->end_date > date('Y-m-d H:i:s')) {
+				$current_batches[] = $b;
+			}
+		}
+		$count_old = count($batch);
+		$count_new = count($current_batches);
+
+		echo "<span class='count new-$count_new old-$count_old'> $count_new - Offering(s)</span>"; 
+		?>
         </li>
         <li class="col2">
         <?php echo CHtml::ajaxLink(Yii::t('Courses','Edit'),$this->createUrl('courses/Edit'),array(
@@ -119,7 +156,8 @@ function rowdelete(id)
           <?php 
 		  foreach($batch as $batch_1)
 				{
-					echo '<tr id="batchrow'.$batch_1->id.'">';
+					$ended = $batch_1->end_date < date('Y-m-d H:i:s') ? ' class="ended"' : '';
+					echo '<tr id="batchrow'.$batch_1->id.'"' . $ended . '>';
 					echo '<td style="padding-left:10px; font-weight:bold;">'.CHtml::link($batch_1->name, array('batches/batchstudents','id'=>$batch_1->id)).'</td>';
 					$settings=UserSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
 					if($settings!=NULL)
