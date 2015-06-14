@@ -154,13 +154,13 @@ class StudentsController extends RController
 				//adding user for current student
 				$user=new User;
 		        $profile=new Profile;
-				 	    $user->username = substr(md5(uniqid(mt_rand(), true)), 0, 10);
-					    $user->email = $model->email;
-				        $user->activkey=UserModule::encrypting(microtime().$model->first_name);
-						$password = substr(md5(uniqid(mt_rand(), true)), 0, 10);
-						$user->password=UserModule::encrypting($password);
-						$user->superuser=0;
-						$user->status=1;
+				$user->username = substr(md5(uniqid(mt_rand(), true)), 0, 10);
+				$user->email = $model->email;
+				$user->activkey=UserModule::encrypting(microtime().$model->first_name);
+				$password = substr(md5(uniqid(mt_rand(), true)), 0, 10);
+				$user->password=UserModule::encrypting($password);
+				$user->superuser=0;
+				$user->status=1;
 						
 						if($user->save())
 						{
@@ -216,6 +216,9 @@ class StudentsController extends RController
 					  }
 				  }
 				
+				$batches = explode(',', Yii::app()->request->getParam('new_enrollments'));
+				$model->addBatches($batches);
+				  
 				$this->redirect(array('students/view','id'=>$model->id));
 			}
 		}
