@@ -166,138 +166,147 @@ class CoursesController extends RController
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
+//		if(Yii::app()->request->isPostRequest)
+//		{
 			// we only allow deletion via POST request
 			$this->loadModel($id);
 			//$this->is_deleted =1;
 			$id = Yii::app()->request->getQuery('id');
 			$model = Courses::model()->findByPk($id);
 			$model->is_deleted = 1;
+			
+			// Batch Deletion
+			$batches = Batches::model()->findAllByAttributes(array('course_id'=>$id)); //Selecting all batches under the course with id = $id
+			foreach($batches as $batch){
+
+				$batch->is_deleted = 1;
+				$batch->save(); // Batch Deleted
+			}
 			$model->save(false);
- 
-                                
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+//			if(!isset($_GET['ajax']))
+//				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			
+			Yii::app()->user->setFlash('success', "Course deleted!");
+			$this->redirect(array('managecourse'));           
+//		}
+//		else
+//			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 	
 	public function actionDeactivate($id)
 	{
 		
 			$model = Courses::model()->findByPk($id);
-			$model->is_deleted = 1; 
+			$model->is_active = 0; 
 			if($model->save()) // Course Deleted
 			{
-				// Batch Deletion
+				// Batch Deactivation
 				$batches = Batches::model()->findAllByAttributes(array('course_id'=>$id)); //Selecting all batches under the course with id = $id
 				foreach($batches as $batch){
 					
+					$batch->is_active = 0;
+					$batch->save(); // Batch Deleted
+				}
 					// Student Deletion
-					$students = Students::model()->findAllByAttributes(array('batch_id'=>$batch->id));
+//					$students = Students::model()->findAllByAttributes(array('batch_id'=>$batch->id));
 					
-					foreach($students as $student){
-						
-						//Making student user inactive
-						if($student->uid!=NULL and $student->uid!=0){
-							$student_user = User::model()->findByAttributes(array('id'=>$student->uid));
-							if($student_user!=NULL){
-
-								$student_user->saveAttributes(array('status'=>'0'));
-							}
-						}
-						
-						//Making parent user inactive
-						$parent = Guardians::model()->findByAttributes(array('ward_id'=>$student->id));
-						if($parent->uid!=NULL and $parent->uid!=0){
-							$parent_user = User::model()->findByAttributes(array('id'=>$parent->uid));
-							if($parent_user!=NULL){
-
-								$parent_user->saveAttributes(array('status'=>'0'));
-							}
-						}
-
-						$student->saveAttributes(array('is_active'=>'0','is_deleted'=>'1')); // Student Deleted
-						
-						
-					}
+//					foreach($students as $student){
+//						
+//						//Making student user inactive
+//						if($student->uid!=NULL and $student->uid!=0){
+//							$student_user = User::model()->findByAttributes(array('id'=>$student->uid));
+//							if($student_user!=NULL){
+//
+//								$student_user->saveAttributes(array('status'=>'0'));
+//							}
+//						}
+//						
+//						//Making parent user inactive
+//						$parent = Guardians::model()->findByAttributes(array('ward_id'=>$student->id));
+//						if($parent->uid!=NULL and $parent->uid!=0){
+//							$parent_user = User::model()->findByAttributes(array('id'=>$parent->uid));
+//							if($parent_user!=NULL){
+//
+//								$parent_user->saveAttributes(array('status'=>'0'));
+//							}
+//						}
+//
+//						$student->saveAttributes(array('is_active'=>'0','is_deleted'=>'1')); // Student Deleted
+//						
+//						
+//					}
 					
 					// Subject Association Deletion
-					$subjects = Subjects::model()->findAllByAttributes(array('batch_id'=>$batch->id));
-					foreach($subjects as $subject){
-						EmployeesSubjects::model()->DeleteAllByAttributes(array('subject_id'=>$subject->id));
-						 $subject->delete();
-					}
+//					$subjects = Subjects::model()->findAllByAttributes(array('batch_id'=>$batch->id));
+//					foreach($subjects as $subject){
+//						EmployeesSubjects::model()->DeleteAllByAttributes(array('subject_id'=>$subject->id));
+//						 $subject->delete();
+//					}
 					
 					
 					
 					// Exam Group Deletion
 					
-					$examgroups = ExamGroups::model()->findAllByAttributes(array('batch_id'=>$batch->id));
-					
-					foreach($examgroups as $examgroup){
-						
-						// Exams Deletion
-						$exams = Exams::model()->findAllByAttributes(array('exam_group_id'=>$examgroup->id));
-						foreach($exams as $exam){
-							
-							//Exam Score Deletion
-							$examscores = ExamScores::model()->DeleteAllByAttributes(array('exam_id'=>$exam->id));
-							$exam->delete(); //Exam Deleted
-							
-						}
-						
-						$examgroup->delete(); //Exam Group Deleted
-						
-					}
+//					$examgroups = ExamGroups::model()->findAllByAttributes(array('batch_id'=>$batch->id));
+//					
+//					foreach($examgroups as $examgroup){
+//						
+//						// Exams Deletion
+//						$exams = Exams::model()->findAllByAttributes(array('exam_group_id'=>$examgroup->id));
+//						foreach($exams as $exam){
+//							
+//							//Exam Score Deletion
+//							$examscores = ExamScores::model()->DeleteAllByAttributes(array('exam_id'=>$exam->id));
+//							$exam->delete(); //Exam Deleted
+//							
+//						}
+//						
+//						$examgroup->delete(); //Exam Group Deleted
+//						
+//					}
 					
 					//Fee Collection Deletion
 					
-					$collections = FinanceFeeCollections::model()->findAllByAttributes(array('batch_id'=>$batch->id));
-					foreach($collections as $collection){
-						
-						// Finance Fees Deletion
-						$student_fees = FinanceFees::model()->DeleteAllByAttributes(array('fee_collection_id'=>$collection->id)); 
-								
-						$collection->delete(); // Fee Collection Deleted
-						
-					}
-					
-					//Fee Category Deletion
-					
-					$categories = FinanceFeeCategories::model()->findAllByAttributes(array('batch_id'=>$batch->id));
-					
-					foreach($categories as $category){
-						
-						// Fee Particular Deletion	
-						$particulars = FinanceFeeParticulars::model()->DeleteAllByAttributes(array('finance_fee_category_id'=>$category->id)); 
-						
-						
-						$category->delete(); // Fee Category Deleted
-					
-					}
-					
-					//Timetable Entry Deletion
-					$periods = TimetableEntries::model()->DeleteAllByAttributes(array('batch_id'=>$batch->id)); 
-					
-					//Class Timings Deletion
-					$class_timings = ClassTimings::model()->DeleteAllByAttributes(array('batch_id'=>$batch->id)); 
-					
-					//Delete Weekdays
-					$weekdays = Weekdays::model()->DeleteAllByAttributes(array('batch_id'=>$batch->id));
-					
-					$batch->is_active = 0;
-					$batch->is_deleted = 1;
-					$batch->employee_id = ' ';
-					$batch->save(); // Batch Deleted
-					
-				}
+//					$collections = FinanceFeeCollections::model()->findAllByAttributes(array('batch_id'=>$batch->id));
+//					foreach($collections as $collection){
+//						
+//						// Finance Fees Deletion
+//						$student_fees = FinanceFees::model()->DeleteAllByAttributes(array('fee_collection_id'=>$collection->id)); 
+//								
+//						$collection->delete(); // Fee Collection Deleted
+//						
+//					}
+//					
+//					//Fee Category Deletion
+//					
+//					$categories = FinanceFeeCategories::model()->findAllByAttributes(array('batch_id'=>$batch->id));
+//					
+//					foreach($categories as $category){
+//						
+//						// Fee Particular Deletion	
+//						$particulars = FinanceFeeParticulars::model()->DeleteAllByAttributes(array('finance_fee_category_id'=>$category->id)); 
+//						
+//						
+//						$category->delete(); // Fee Category Deleted
+//					
+//					}
+//					
+//					//Timetable Entry Deletion
+//					$periods = TimetableEntries::model()->DeleteAllByAttributes(array('batch_id'=>$batch->id)); 
+//					
+//					//Class Timings Deletion
+//					$class_timings = ClassTimings::model()->DeleteAllByAttributes(array('batch_id'=>$batch->id)); 
+//					
+//					//Delete Weekdays
+//					$weekdays = Weekdays::model()->DeleteAllByAttributes(array('batch_id'=>$batch->id));
+//					
+//					$batch->is_active = 0;
+//					$batch->employee_id = ' ';	
+//				}
 				
-				Yii::app()->user->setFlash('success', "Selected Profile is deleted!");
+				Yii::app()->user->setFlash('success', "Course deleted!");
             	$this->redirect(array('managecourse'));
 			}
 	}

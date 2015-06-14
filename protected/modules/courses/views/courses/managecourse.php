@@ -107,18 +107,19 @@ function rowdelete(id)
 		<?php echo $posts_1->course_name; ?>
 		<?php
 		$course=Courses::model()->findByAttributes(array('id'=>$posts_1->id,'is_deleted'=>0));
-		$batch=Batches::model()->findAll("course_id=:x AND is_deleted=:y AND is_active=:z", array(':x'=>$posts_1->id,':y'=>0,':z'=>1));
-		$current_batches = [];
+		$batch=Batches::model()->findAll("course_id=:x AND is_deleted=:y", array(':x'=>$posts_1->id,':y'=>0));
 
+		$inactive_batches = 0;
 		foreach($batch as $b) {
-			if($b->end_date > date('Y-m-d H:i:s')) {
-				$current_batches[] = $b;
+			if($b->is_active) {
+				$inactive_batches += $b->updateActiveStatus() ? 0 : 1;
+			} else {
+				$inactive_batches++;
 			}
 		}
-		$count_old = count($batch);
-		$count_new = count($current_batches);
+		$active_batches = count($batch) - $inactive_batches;
 
-		echo "<span class='count new-$count_new old-$count_old'> $count_new - Offering(s)</span>"; 
+		echo "<span class='count new-$active_batches old-" . count($batch) . "'> $active_batches - Offering(s)</span>"; 
 		?>
         </li>
         <li class="col2">
@@ -126,7 +127,7 @@ function rowdelete(id)
         'onclick'=>'$("#jobDialog11").dialog("open"); return false;',
         'update'=>'#jobDialog1','type' =>'GET','data' => array( 'val1' =>$posts_1->id ),'dataType' => 'text'),array('id'=>'showJobDialog123'.$posts_1->id, 'class'=>'edit')); ?>
         </li>
-        <li class="col3"><?php echo CHtml::link(Yii::t('Courses','Delete'),array('deactivate','id'=>$posts_1->id),array('confirm'=>"Are you sure?\n\n Note: All details (offerings, students, timetable, fees, exam) related to this course will be deleted.",'class'=>'delete'));?></li>
+        <li class="col3"><?php echo CHtml::link(Yii::t('Courses','Delete'),array('delete','id'=>$posts_1->id),array('confirm'=>"Are you sure?\n\n Note: All details (offerings, students, timetable, fees, exam) related to this course will be deleted.",'class'=>'delete'));?></li>
         <li class="col4">
          <?php echo CHtml::ajaxLink(Yii::t('Courses','Add Offering'),$this->createUrl('batches/Addnew'),array(
         'onclick'=>'$("#jobDialog").dialog("open"); return false;',
@@ -156,7 +157,7 @@ function rowdelete(id)
           <?php 
 		  foreach($batch as $batch_1)
 				{
-					$ended = $batch_1->end_date < date('Y-m-d H:i:s') ? ' class="ended"' : '';
+					$ended = $batch_1->is_active ? "" : " class='ended'";
 					echo '<tr id="batchrow'.$batch_1->id.'"' . $ended . '>';
 					echo '<td style="padding-left:10px; font-weight:bold;">'.CHtml::link($batch_1->name, array('batches/batchstudents','id'=>$batch_1->id)).'</td>';
 					$settings=UserSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));

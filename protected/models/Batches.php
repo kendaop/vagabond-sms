@@ -179,4 +179,15 @@ class Batches extends CActiveRecord
 			echo 'Failed to query database: ' . $ex->getMessage();
 		}
 	}
+	
+	public function updateActiveStatus($status = false)
+	{
+		if(!is_int($status)) {
+			$status = $this->end_date > date('Y-m-d H:i:s') ? 1 : 0;
+		}
+		
+		$this->is_active = $status;
+		$this->save();
+		return $status;
+	}
 }
