@@ -2,10 +2,10 @@
 $this->breadcrumbs=array(
 	$this->module->id,
 );
-?>
-<?php if($list!=NULL)
-{?>
-<?php
+
+if($list!=NULL)
+{
+	
 $currdate = date('d-m-Y');
 
 	$one =date("m"); 
@@ -180,13 +180,28 @@ $(document).ready(function() {
                     <td align="center"><?php echo $list_1->admission_no ?></td>
                     <td align="center">
                     <?php 
-					$batches = $list_1->batches;
+					$batches = Batches::model()->with(['students' => [
+						'select' => false,
+						'joinType' => 'INNER JOIN',
+						'condition' => 'students.id = :student AND t.is_deleted = :deleted AND t.is_active = :active',
+						'params' => [
+							'student' => $list_1->id,
+							'deleted' => 0,
+							'active' => 1
+						]
+					]])->findAll();
 //					$batc = Batches::model()->findByAttributes(array('id'=>$list_1->batch_id)); 
 					  if($batches!=NULL)
 					  {
+						  $count = 0;
 						  foreach($batches as $batch) {
+							if($count++) {
+								echo '&nbsp;&nbsp;&nbsp;&nbsp;';
+							}  
 							$course = Courses::model()->findByAttributes(array('id'=>$batch->course_id));
 							echo $course->course_name.' / '.$batch->name;
+							if($count == 3)
+								break;
 						  }
 					  }
 					  else{?> - <?php }?>

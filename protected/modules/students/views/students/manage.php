@@ -930,17 +930,36 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                 <td><?php echo $i; ?></td>
                                 <td><?php echo CHtml::link($list_1->first_name.'  '.$list_1->middle_name.'  '.$list_1->last_name,array('view','id'=>$list_1->id)) ?></td>
                                 <td><?php echo $list_1->admission_no ?></td>
-                                <?php 
-//								$batc = Batches::model()->findByAttributes(array('id'=>$list_1->batch_id)); 
-                                if($batches!=NULL)
-                                {
-								}
-                                else{
-								?> 
-                                	<td>-</td> 
-								<?php 
-								}
-								?>
+								<td>
+									<?php 
+									$batches = Batches::model()->with(['students' => [
+										'select' => false,
+										'joinType' => 'INNER JOIN',
+										'condition' => 'students.id = :student AND t.is_deleted = :deleted AND t.is_active = :active',
+										'params' => [
+											'student' => $list_1->id,
+											'deleted' => 0,
+											'active' => 1
+										]
+									]])->findAll(); 
+
+									if($batches!=NULL)
+									{
+										$count = 0;
+										foreach($batches as $batch) {
+										  if($count++) {
+											  echo '&nbsp;&nbsp;&nbsp;&nbsp;';
+										  }  
+										  $course = Courses::model()->findByAttributes(array('id'=>$batch->course_id));
+										  echo $course->course_name.' / '.$batch->name;
+										  if($count == 3)
+											  break;
+										}
+									}
+									else{
+										echo '-';
+									} ?>
+								</td> 
                                 
                                 <td>
 									<?php 
