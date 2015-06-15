@@ -54,6 +54,12 @@ table.course-offerings tr[id^=batchrow] td:first-child {
 	color: blueviolet;
 }
 
+.batch-buttons button {
+	position: relative;
+	right: 10px;
+	margin-top: 6px;
+}
+
 /////////////
 
 .required

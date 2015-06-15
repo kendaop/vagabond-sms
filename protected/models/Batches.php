@@ -179,8 +179,18 @@ class Batches extends CActiveRecord
 				'key' => $key,
 				'student' => $studentID
 			));
+			
+			$results = $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+			
+			foreach($results as $key => $result) {
+				$batch = Batches::model()->findByPk($key);
+				
+				if(!$batch->updateActiveStatus()) {
+					unset($results[$key]);
+				}
+			}
 
-			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+			return $results;
 		} catch (Exception $ex) {
 			echo 'Failed to query database: ' . $ex->getMessage();
 		}

@@ -174,7 +174,7 @@ if ($form->errorSummary($model)) {
 				<td valign="top">
 					<?php
 					$unenrolledBatches = Batches::model()->getUnenrolledBatches($adm_no_1);
-					$enrolledBatches = Batches::model()->getEnrolledBatches($adm_no_1, true);
+					$enrolledBatches = Batches::model()->getEnrolledBatches($adm_no_1, false);
 															
 					//echo $form->textField($model,'date_of_birth');
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -297,7 +297,7 @@ if ($form->errorSummary($model)) {
 						));
 					?>
 				</td>
-				<td valign="top">
+				<td valign="top" class="batch-buttons">
 					<button id="addBatch">&#x21E8;</button>
 					<br/>
 					<button id="removeBatch">&#x21E6;</button>
