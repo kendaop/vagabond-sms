@@ -105,6 +105,7 @@ class Employees extends CActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'batches' => array(self::MANY_MANY, 'Batches', 'batch_employees(employee_id, batch_id)')
 		);
 	}
 
@@ -234,6 +235,38 @@ class Employees extends CActiveRecord {
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 		));
+	}
+	
+	public function addBatches($batchIds)
+	{
+		$count = count($batchIds);
+		$values = [];
+		
+		for($x = 0; $x < $count; $x++) {
+			$values[] = $this->id;
+			$values[] = $batchIds[$x];
+		}
+		$tuples = '(?,?)';
+		
+		foreach(array_slice($batchIds, 1) as $id) {
+			$tuples .= ', (?,?)';
+		}
+		
+		try {
+			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+			
+			// Get array of batches that the student is enrolled in.
+			$pdo = $dbh->prepare(
+				"INSERT INTO `batch_employees` (`employee_id`, `batch_id`)
+				VALUES $tuples;"
+			);
+			
+			$pdo->execute($values);
+
+			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+		} catch (Exception $ex) {
+			echo 'Failed to query database: ' . $ex->getMessage();
+		}
 	}
 
 	public function getConcatened() {

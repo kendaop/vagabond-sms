@@ -1,4 +1,39 @@
 <?php
+Yii::app()->clientScript->registerScript('offeringButtons', '
+	$("button#addBatch").click(function(event) {
+		event.preventDefault();
+		
+		$("#offerings-available option:selected").each(function() {
+			$("#offerings-teach").append($("<option/>", {
+				value: $(this).val(),
+				text:  $(this).text()
+			}));
+			
+			value = $("#new-teachings").val();
+			value = value ? (value + "," + $(this).val()) : $(this).val();
+			$("#new-teachings").val(value);
+			
+			$(this).remove();
+		});
+	});
+		$("button#removeBatch").click(function(event) {
+		event.preventDefault();
+		$("#offerings-teach option:selected").each(function() {
+			$("#offerings-available").append($("<option/>", {
+				value: $(this).val(),
+				text:  $(this).text()
+			}));
+			
+			value = $("#new-teachings").val();
+			value = value.replace($(this).val(), "");
+			value = value.replace(/^,|,,|,$/g, "");
+			$("#new-teachings").val(value);
+			
+			$(this).remove();
+		});
+	});
+', CClientScript::POS_READY);
+
 if (Yii::app()->controller->action->id == 'create') {
 	$config = Configurations::model()->findByPk(7);
 	$adm_no = '';
@@ -22,6 +57,9 @@ if (Yii::app()->controller->action->id == 'create') {
 	$dob = DateTime::createFromFormat('Y-m-d', $adm_no->date_of_birth);
 	$dob = $dob->format('m/d/Y');
 }
+
+$untaughtBatches = Batches::model()->getUntaughtBatches($adm_no->id);
+$taughtBatches = Batches::model()->getTaughtBatches($adm_no->id);
 ?>
 
 <?php
@@ -163,72 +201,6 @@ if ($form->errorSummary($model)) {
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td valign="middle"><?php echo $form->labelEx($model, Yii::t('employees', 'employee_department_id')); ?></td>
-				<td>&nbsp;</td>
-				<td valign="middle"><?php echo $form->labelEx($model, Yii::t('employees', 'employee_position_id')); ?></td>
-				<td>&nbsp;</td>
-				<td valign="middle"><?php echo $form->labelEx($model, Yii::t('employees', 'employee_category_id')); ?></td>
-			</tr>
-			<tr>
-				<td><?php echo $form->dropDownList($model, 'employee_department_id', CHtml::listData(EmployeeDepartments::model()->findAll(), 'id', 'name'), array('empty' => 'Select Department')); ?>
-					<?php echo $form->error($model, 'employee_department_id'); ?></td>
-				<td>&nbsp;</td>				
-				<?php
-				$criteria2 = new CDbCriteria;
-				$criteria2->compare('status', 1);
-				?>
-				<td valign="middle"><?php echo $form->dropDownList($model, 'employee_position_id', CHtml::listData(EmployeePositions::model()->findAll($criteria2), 'id', 'name'), array('empty' => 'Select Position')); ?>
-					<?php echo $form->error($model, 'employee_position_id'); ?></td>
-				<td>&nbsp;</td>	
-				<?php
-				$criteria1 = new CDbCriteria;
-				$criteria1->compare('status', 1);
-				?>
-				<td><?php echo $form->dropDownList($model, 'employee_category_id', CHtml::listData(EmployeeCategories::model()->findAll($criteria1), 'id', 'name'), array('empty' => 'Select Category')); ?>
-					<?php echo $form->error($model, 'employee_category_id'); ?></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td><?php echo $form->labelEx($model, Yii::t('employees', 'employee_grade_id')); ?></td>
-				<td>&nbsp;</td>
-				<td valign="middle"><?php echo $form->labelEx($model, Yii::t('employees', 'job_title')); ?></td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>				
-				<?php
-				$criteria = new CDbCriteria;
-				$criteria->compare('status', 1);
-				?>
-				<td valign="middle"><?php echo $form->dropDownList($model, 'employee_grade_id', CHtml::listData(EmployeeGrades::model()->findAll($criteria), 'id', 'name'), array('empty' => 'Select Grade')); ?>
-					<?php echo $form->error($model, 'employee_grade_id'); ?></td>
-				<td>&nbsp;</td>				
-				<td><?php echo $form->textField($model, 'job_title', array('size' => 15, 'maxlength' => 255)); ?>
-					<?php echo $form->error($model, 'job_title'); ?></td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr> 
 		</table>
 	</div>
 </div>
@@ -317,17 +289,50 @@ if ($form->errorSummary($model)) {
 
 </div>
 
+<div class="formCon add-remove-offerings">
+	<div class="formConInner">
+		<h3>Offerings</h3>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>Available Classes</th>
+				<th>&nbsp;</th>
+				<th>Classes to Teach</th>
+				<th>Scheduled Classes</th>
+			</tr>
+			<tr>
+				<td>
+					<?php echo CHtml::listBox('offerings-available', [], $untaughtBatches, array(
+							'multiple' => 'multiple'
+						)); ?>
+				</td>
+				<td valign="top" class="batch-buttons">
+					<button id="addBatch">&#x21E8;</button>
+					<br/>
+					<button id="removeBatch">&#x21E6;</button>
+				</td>
+				<td>
+					<?php echo CHtml::listBox('offerings-teach', [], [], array(
+							'multiple' => 'multiple'
+						)); ?>
+				</td>
+				<td>
+					<?php echo CHtml::listBox('offerings-scheduled', [], $taughtBatches, array()); ?>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
 <div class="formCon" style=" background:#EDF1D1; border:0px #c4da9b solid; color:#393; background:#EDF1D1 url(images/green-bg.png); border:0px #c4da9b solid; color:#393;  ">
 
     <div class="formConInner" style="padding:10px;">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-
 			<tr>
 				<td></td>
 				<td> </td>
 				<td><?php
 					if ($model->photo_data == NULL) {
-						echo $form->labelEx($model, 'upload_photo');
+						echo $form->labelEx($model, Yii::t('employees', '<strong style="color:#000">Upload Photo</strong>'));
 					} else {
 						echo $form->labelEx($model, 'Photo');
 					}
@@ -365,6 +370,7 @@ if ($form->errorSummary($model)) {
 			<?php //echo $form->labelEx($model,'photo_file_size');  ?>
 			<?php echo $form->hiddenField($model, 'photo_file_size'); ?>
 			<?php echo $form->error($model, 'photo_file_size'); ?>
+			<?php echo CHtml::hiddenField('new-teachings'); ?>
 		</div>
 
     </div>

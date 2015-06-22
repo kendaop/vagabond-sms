@@ -39,7 +39,7 @@ $this->breadcrumbs=array(
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('employees','Join Date');?></td>
+    <td class="listbx_subhdng"><?php echo Yii::t('employees','Hire Date');?></td>
     <td class="subhdng_nrmal"><?php $settings=UserSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
 										if($settings!=NULL)
 										{	
@@ -103,13 +103,6 @@ $this->breadcrumbs=array(
 										echo 'Male';
 									else 
 										echo 'Female';	 ?></td>
-  </tr>
-  <tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('employees','Status');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->status; ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('employees','Qualification');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->qualification; ?>
-	</td>
   </tr>
   <tr class="listbxtop_hdng">
     <td><?php echo Yii::t('employees','Contact');?></td>

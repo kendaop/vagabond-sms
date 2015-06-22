@@ -478,7 +478,6 @@ CREATE TABLE IF NOT EXISTS `batches` (
   `end_date` datetime DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT '1',
   `is_deleted` tinyint(1) DEFAULT '0',
-  `employee_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -2752,6 +2751,21 @@ CREATE TABLE IF NOT EXISTS `weekdays` (
   PRIMARY KEY (`id`),
   KEY `index_weekdays_on_batch_id` (`batch_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ---------------------------------------------------------
+
+-- 
+-- Table structure for table `batch_employees`
+-- 
+
+CREATE TABLE IF NOT EXISTS `batch_employees` (
+	`batch_id` INT(11) NOT NULL,
+	`employee_id` INT(11) NOT NULL,
+	PRIMARY KEY (`batch_id`, `employee_id`),
+	INDEX `FK_batch_employees_employees` (`employee_id`),
+	CONSTRAINT `FK_batch_employees_batches` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`),
+	CONSTRAINT `FK_batch_employees_employees` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Constraints for dumped tables

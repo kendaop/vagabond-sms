@@ -60,7 +60,8 @@ class Batches extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 		 'course123' => array(self::BELONGS_TO, 'Courses', 'course_id'),
-         'students' => array(self::MANY_MANY, 'Students', 'batch_students(batch_id, student_id)')
+         'students' => array(self::MANY_MANY, 'Students', 'batch_students(batch_id, student_id)'),
+		 'employees' => array(self::MANY_MANY, 'Employees', 'batch_employees(batch_id, employee_id),mmm,  m')
 		);
 	}
 
@@ -122,8 +123,8 @@ class Batches extends CActiveRecord
 			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
 
 			// Get array of batches that the student is not enrolled in.
-			$pdo = $dbh->prepare(
-				'SELECT B.id as `id`, CONCAT(C.course_name, " - ", B.name) as `batch`
+			$pdo = $dbh->prepare('
+				SELECT B.id as `id`, CONCAT(C.course_name, " - ", B.name) as `batch`
 				FROM `batches` B
 				LEFT JOIN `batch_students` BS
 				  ON B.id = BS.batch_id
@@ -132,8 +133,8 @@ class Batches extends CActiveRecord
 				  ON B.course_id = C.id
 				WHERE BS.student_id IS NULL
 				  AND B.is_deleted = 0
-				  AND B.is_active = 1;'
-			);
+				  AND B.is_active = 1;
+			');
 
 			$pdo->execute(array(
 				':student' => $studentId
@@ -163,8 +164,8 @@ class Batches extends CActiveRecord
 			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
 			
 			// Get array of batches that the student is enrolled in.
-			$pdo = $dbh->prepare(
-				"SELECT B.id * :key as `id`, CONCAT(C.course_name, ' - ', B.name) as `batch`
+			$pdo = $dbh->prepare("
+				SELECT B.id * :key as `id`, CONCAT(C.course_name, ' - ', B.name) as `batch`
 				FROM `batches` B
 				JOIN `batch_students` BS
 				  ON B.id = BS.batch_id
@@ -172,8 +173,8 @@ class Batches extends CActiveRecord
 				  AND B.is_deleted = 0
 				  AND BS.student_id = :student
 				  JOIN `courses` C
-					ON B.course_id = C.id;"
-			);
+					ON B.course_id = C.id;
+			");
 
 			$pdo->execute(array(
 				'key' => $key,
@@ -190,6 +191,75 @@ class Batches extends CActiveRecord
 				}
 			}
 
+			return $results;
+		} catch (Exception $ex) {
+			echo 'Failed to query database: ' . $ex->getMessage();
+		}
+	}
+	
+	public function getUntaughtBatches($employeeId) {
+		try {
+			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+			$pdo = $dbh->prepare("
+				SELECT B.id, CONCAT(C.course_name, ' - ', B.name)
+				FROM batches B
+				LEFT JOIN batch_employees BE
+				  ON BE.batch_id = B.id
+				  AND BE.employee_id = :employee
+				LEFT JOIN courses C
+				  ON C.id = B.course_id
+				WHERE B.is_active = 1
+				  AND B.is_deleted = 0
+				  AND ISNULL(BE.employee_id);
+			");
+			
+			$pdo->execute(array(
+				'employee' => $employeeId
+			));
+			
+			$results = $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+			
+			foreach($results as $key => $result) {
+				$batch = Batches::model()->findByPk($key);
+				
+				if(!$batch->updateActiveStatus()) {
+					unset($results[$key]);
+				}
+			}
+			
+			return $results;
+		} catch (Exception $ex) {
+			echo 'Failed to query database: ' . $ex->getMessage();
+		}
+	}
+	
+	public function getTaughtBatches($employeeId) {
+		try {
+			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+			$pdo = $dbh->prepare("
+				SELECT B.id, CONCAT(C.course_name, ' - ', B.name)
+				FROM batches B
+				JOIN batch_employees BE
+				  ON BE.batch_id = B.id
+				  AND BE.employee_id = :employee
+				JOIN courses C
+				  ON C.id = B.course_id;
+			");
+			
+			$pdo->execute(array(
+				'employee' => $employeeId
+			));
+			
+			$results = $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+			
+			foreach($results as $key => $result) {
+				$batch = Batches::model()->findByPk($key);
+				
+				if(!$batch->updateActiveStatus()) {
+					unset($results[$key]);
+				}
+			}
+			
 			return $results;
 		} catch (Exception $ex) {
 			echo 'Failed to query database: ' . $ex->getMessage();

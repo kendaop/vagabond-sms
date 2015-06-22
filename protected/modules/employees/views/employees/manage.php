@@ -262,18 +262,6 @@ echo CHtml::activeDropDownList($model,'employee_position_id',$data3,array('promp
 </div>
 </li>
 
-<li><div onClick="hide('grd')" style="cursor:pointer;"><?php echo Yii::t('employees','Grade');?></div>
-<div id="grd" style="display:none; width:195px; padding-top:0px; height:30px; left:-140px" class="drop">
-<div class="droparrow" style="left:150px;"></div>
-<?php 
-
-$data4 = CHtml::listData(EmployeeGrades::model()->findAll(array('order'=>'name DESC')),'id','name');
-echo CHtml::activeDropDownList($model,'employee_grade_id',$data4,array('prompt'=>'Select','id'=>'employee_grade_id')); ?>
-<input type="submit" value="Apply" />
-</div>
-</li>
-
-
 <li><div onClick="hide('gender')" style="cursor:pointer;"><?php echo Yii::t('employees','Gender');?></div>
 <div id="gender" style="display:none; width:200px; padding-top:0px; height:30px; left:-140px" class="drop">
 <div class="droparrow" style="left:150px;"></div>
@@ -283,30 +271,7 @@ echo CHtml::activeDropDownList($model,'gender',array('M' => 'Male', 'F' => 'Fema
  ?>
  <input type="submit" value="Apply" />
 </div>
-</li>
-
-<li><div onClick="hide('marital')" style="cursor:pointer;"><?php echo Yii::t('employees','Marital Status');?></div>
-<div id="marital" style="display:none; width:200px; padding-top:0px; height:30px;" class="drop">
-<div class="droparrow" style="left:10px;"></div>
-<?php 
-
-echo CHtml::activeDropDownList($model,'marital_status',array('Single'=>'Single','Married'=>'Married','Divorced'=>'Divorced'),array('prompt'=>'All')); 
- ?>
- <input type="submit" value="Apply" />
-</div>
-</li>
-
-<li><div onClick="hide('bloodgroup')" style="cursor:pointer;"><?php echo Yii::t('employees','Blood Group');?></div>
-<div id="bloodgroup" style="display:none; width:200px; padding-top:0px; height:30px;" class="drop" >
-<div class="droparrow" style="left:10px;"></div>
-<?php echo CHtml::activeDropDownList($model,'blood_group',
-		 							array('A+' => 'A+', 'A-' => 'A-', 'B+' => 'B+', 'B-' => 'B-', 'O+' => 'O+', 'O-' => 'O-', 'AB+' => 'AB+', 'AB-' => 'AB-'),
-									array('prompt' => 'Select')); ?>
-                                    <input type="submit" value="Apply" />
-</div>
-</li>
-                                    
-
+</li>                            
 
 <li><div onClick="hide('nationality')" style="cursor:pointer;"><?php echo Yii::t('employees','Country');?></div>
 <div id="nationality" style="display:none; width:195px; left:-180px; height:30px; padding-top:0px;" class="drop">
@@ -317,7 +282,7 @@ echo CHtml::activeDropDownList($model,'marital_status',array('Single'=>'Single',
 </li>
 
 
-<li><div onClick="hide('dob')" style="cursor:pointer;"><?php echo Yii::t('employees','Date Of Birth');?></div>
+<li><div onClick="hide('dob')" style="cursor:pointer;"><?php echo Yii::t('employees','Date of Birth');?></div>
 <div id="dob" style="display:none; width:345px; left:-210px; height:30px; padding-top:0px;" class="drop">
 <div class="droparrow" style=" left:240px"></div>
 <?php echo CHtml::activeDropDownList($model,'dobrange',array('1' => 'born before', '2' => 'born in', '3' => 'born after'),array('prompt'=>'Option')); ?>
@@ -358,7 +323,7 @@ $daterange=date('Y');
 </div>
 </li>
 
-<li><div onClick="hide('joining')" style="cursor:pointer;"><?php echo Yii::t('employees','Joining Date');?></div>
+<li><div onClick="hide('joining')" style="cursor:pointer;"><?php echo Yii::t('employees','Hire Date');?></div>
 <div id="joining" style="display:none; width:345px; left:-190px;  height:30px; padding-top:0px;" class="drop">
 <div class="droparrow" style=" left:220px"></div>
 <?php echo CHtml::activeDropDownList($model,'joinrange',array('1' => 'before', '2' => 'in', '3' => 'after'),array('prompt'=>'Option')); ?>
@@ -469,22 +434,7 @@ echo CHtml::activeDropDownList($model,'status',array('1' => 'Present', '0' => 'F
 	$gen='Female';
 	?>
     <li>Gender : <?php echo $gen?><a href="<?php echo Yii::app()->request->getUrl().'&Employees[gender]='?>"></a></li>
-    <?php } ?>
-    
-    
-    <?php if(isset($_REQUEST['Employees']['marital_status']) and $_REQUEST['Employees']['marital_status']!=NULL)
-	{
-		$j++; ?>
-    <li>Marital Status : <?php echo $_REQUEST['Employees']['marital_status']?><a href="<?php echo Yii::app()->request->getUrl().'&Employees[marital_status]='?>"></a></li>
-    <?php } ?>
-    
-    
-    <?php if(isset($_REQUEST['Employees']['blood_group']) and $_REQUEST['Employees']['blood_group']!=NULL)
-	{ 
-	   $j++; ?>
-    <li>Blood Group : <?php echo $_REQUEST['Employees']['blood_group']?><a href="<?php echo Yii::app()->request->getUrl().'&Employees[blood_group]='?>"></a></li>
-    <?php } ?>
-    
+    <?php } ?>       
     
     <?php  if(isset($_REQUEST['Employees']['nationality_id']) and $_REQUEST['Employees']['nationality_id']!=NULL)
 	{
@@ -511,7 +461,7 @@ echo CHtml::activeDropDownList($model,'status',array('1' => 'Present', '0' => 'F
 				  {
 					  $range = 'born after';
 				  }?>
-    <li>Date Of Birth : <?php echo $range.' : '.$_REQUEST['Employees']['date_of_birth']?><a href="<?php echo Yii::app()->request->getUrl().'&Employees[date_of_birth]='?>"></a></li>
+    <li>Date of Birth : <?php echo $range.' : '.$_REQUEST['Employees']['date_of_birth']?><a href="<?php echo Yii::app()->request->getUrl().'&Employees[date_of_birth]='?>"></a></li>
     <?php }} 
 	
 	elseif(isset($_REQUEST['Employees']['dobrange']) and $_REQUEST['Employees']['dobrange']==NULL)
@@ -520,7 +470,7 @@ echo CHtml::activeDropDownList($model,'status',array('1' => 'Present', '0' => 'F
 	  { $j++;
 		        $range = 'born in';  
 				  ?>
-    <li>Date Of Birth : <?php echo $range.' : '.$_REQUEST['Employees']['date_of_birth']?><a href="<?php echo Yii::app()->request->getUrl().'&Employees[date_of_birth]='?>"></a></li>
+    <li>Date of Birth : <?php echo $range.' : '.$_REQUEST['Employees']['date_of_birth']?><a href="<?php echo Yii::app()->request->getUrl().'&Employees[date_of_birth]='?>"></a></li>
     <?php }} ?>
     
     
