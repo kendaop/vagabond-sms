@@ -86,15 +86,6 @@ $this->breadcrumbs=array(
 		else 
 			echo 'Female';	 ?></td>
   </tr>
-    <tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('students','Class Roll No');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->class_roll_no; ?></td>
-      <td class="listbx_subhdng"><?php echo Yii::t('students','Category');?></td>
-    <td class="subhdng_nrmal"><?php 
-	$cat =StudentCategories::model()->findByAttributes(array('id'=>$model->student_category_id));
-	if($cat !=NULL)
-	 echo $cat->name; ?></td>
-  </tr>
   <tr class="listbxtop_hdng">
     <td><?php echo Yii::t('students','Contact');?></td>
     <td>&nbsp;</td>
@@ -133,6 +124,34 @@ $this->breadcrumbs=array(
     <td class="subhdng_nrmal"><?php echo $model->email; ?></td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
+  </tr>
+  <tr class="listbxtop_hdng">
+    <td><?php echo Yii::t('students','Courses &amp; Offerings');?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <?php 
+	$current = Batches::model()->getEnrolledBatches($model->id);
+  ?>
+  <tr>
+	<td class="listbx_subhdng"><?php echo Yii::t('students','Enrolled Classes');?></td>
+	<td class="subhdng_nrmal">
+	<?php 
+		if($current) {
+			foreach($current as $key => $batch) {
+				if($key > 0) {
+					echo '<br/>';
+				}
+				echo $batch;
+			}
+		} else {
+			echo '-';
+		}
+	?>
+	</td>
+	<td class="listbx_subhdng"><?php echo Yii::t('students','Completed Classes');?></td>
+	<td class="subhdng_nrmal"><?php echo 'Welding Masters Supercourse (1-Week Program) '; ?></td>
   </tr>
 <!--
   <tr class="listbxtop_hdng">

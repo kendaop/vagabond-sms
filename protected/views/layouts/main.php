@@ -178,18 +178,6 @@ $(".navigationbtm_wrapper_outer").show();
      <a id="print_button" href="javascript:window.print();",'_blank'>print</a>
      </div>-->
             <div class="logo_right">
-            
-<div class="searchbx">
-  
-				 <form action="<?php echo Yii::app()->request->baseUrl; ?>/index.php?r=site/search" name="search" method="post">
-                	<ul>
-                    	<li><input class="searchbar" name="char" type="text"></li>
-                        <li>
-                        <input src="images/search.png" type="image" name="555" value="submit">
-                        </li>
-                    </ul>
-                  </form>  
-                </div>
                 <div class="mssgbx">
                  	<div id="status-bar">
 						<ul id="status-infos" style="list-style:none; padding:0px;">
