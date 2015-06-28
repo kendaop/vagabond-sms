@@ -21,20 +21,10 @@ $this->breadcrumbs=array(
                  
                  
                  </ul>
-           </div> 
+			</div> 
             
-				<div class="promo_bx">
-                	
-               	  <div class="promo_txtbx">
-                   	<h1>Community Edition is feature-limited.</h1>
-					<p>Buy our premium version to get this feature and manage your institution more efficiently.</p>
-                    <a href="http://www.tryopenschool.com/index.php?r=report" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/try_bttn.png" width="75" height="38" /></a>
-                  </div> 
-                    <div class="o-s_logo" style="width:200px;"> <a href="http://open-school.org" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/o-s_promo_logo.png" width="232" height="92" /></a> </div>   
-    			</div>
-                
-                <div class="fourth_ad"><a href="http://open-school.org/contact.php" target="_blank"><img src="http://tryopenschool.com/images/o-s_ad_img.png" width="960" height="115" /></a></div>
-		
+			<div><h1>Reports</h1></div>
+			
 		</div>
 		</td>
        </tr>

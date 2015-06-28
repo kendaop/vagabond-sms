@@ -393,79 +393,79 @@ box-shadow:  0px 1px 1px #4b4b4b;
 .nav li a.active
 {color:#fff; text-shadow: 0.1em 0.1em #a0693d;}
 	
-.nav li a.ic1{background:url(../images/dashboard.png) no-repeat 0px 0px;}
-.nav li a:hover.ic1{background:url(../images/dashboard_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic1{background:url(../images/dashboard_active.png) no-repeat 0px 0px;}
+.nav li a.ic1{background:url(../images/dashboard.png) no-repeat -4px 0px;}
+.nav li a:hover.ic1{background:url(../images/dashboard_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic1{background:url(../images/dashboard_active.png) no-repeat -4px 0px;}
 
-.nav li a.ic2{background:url(../images/student.png) no-repeat 0px 0px;}
-.nav li a:hover.ic2{background:url(../images/student_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic2{background:url(../images/student_active.png) no-repeat 0px 0px;}
+.nav li a.ic2{background:url(../images/student.png) no-repeat -4px 0px;}
+.nav li a:hover.ic2{background:url(../images/student_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic2{background:url(../images/student_active.png) no-repeat -4px 0px;}
 
-.nav li a.ic3{background:url(../images/users.png) no-repeat 0px 0px;}
-.nav li a:hover.ic3{background:url(../images/users_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic3{background:url(../images/users_active.png) no-repeat 0px 0px;}
+.nav li a.ic3{background:url(../images/users.png) no-repeat -4px 0px;}
+.nav li a:hover.ic3{background:url(../images/users_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic3{background:url(../images/users_active.png) no-repeat -4px 0px;}
 
-.nav li a.ic4{background:url(../images/website.png) no-repeat 0px 0px;}
-.nav li a:hover.ic4{background:url(../images/website_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic4{background:url(../images/website_active.png) no-repeat 0px 0px;}
-
-
-.nav li a.ic5{background:url(../images/admissions.png) no-repeat 0px 0px;}
-.nav li a:hover.ic5{background:url(../images/admissions_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic5{background:url(../images/admissions_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic6{background:url(../images/Financial.png) no-repeat 0px 0px;}
-.nav li a:hover.ic6{background:url(../images/Financial_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic6{background:url(../images/Financial_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic7{background:url(../images/Accounting.png) no-repeat 0px 0px;}
-.nav li a:hover.ic7{background:url(../images/Accounting_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic7{background:url(../images/Accounting_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic8{background:url(../images/settings.png) no-repeat 0px 0px;}
-.nav li a:hover.ic8{background:url(../images/settings_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic8{background:url(../images/settings_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic9{background:url(../images/courses.png) no-repeat 0px 0px;}
-.nav li a:hover.ic9{background:url(../images/courses_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic9{background:url(../images/courses_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic10{background:url(../images/library.png) no-repeat 0px 0px;}
-.nav li a:hover.ic10{background:url(../images/library_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic10{background:url(../images/library_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic11{background:url(../images/attendence.png) no-repeat 0px 0px;}
-.nav li a:hover.ic11{background:url(../images/attendance_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic11{background:url(../images/attendance_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic12{background:url(../images/examination.png) no-repeat 0px 0px;}
-.nav li a:hover.ic12{background:url(../images/examination_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic12{background:url(../images/examination_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic13{background:url(../images/fees.png) no-repeat 0px 0px;}
-.nav li a:hover.ic13{background:url(../images/fees_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic13{background:url(../images/fees_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic14{background:url(../images/timetable.png) no-repeat 0px 0px;}
-.nav li a:hover.ic14{background:url(../images/timetable_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic14{background:url(../images/timetable_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic15{background:url(../images/hostel.png) no-repeat 0px 0px;}
-.nav li a:hover.ic15{background:url(../images/hostel_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic15{background:url(../images/hostel_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic16{background:url(../images/batches.png) no-repeat 0px 0px;}
-.nav li a:hover.ic16{background:url(../images/batches_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic16{background:url(../images/batches_active.png) no-repeat 0px 0px;}
-
-.nav li a.ic17{background:url(../images/transport.png) no-repeat 0px 0px;}
-.nav li a:hover.ic17{background:url(../images/transport_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic17{background:url(../images/transport_active.png) no-repeat 0px 0px;}
+.nav li a.ic4{background:url(../images/website.png) no-repeat -4px 0px;}
+.nav li a:hover.ic4{background:url(../images/website_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic4{background:url(../images/website_active.png) no-repeat -4px 0px;}
 
 
-.nav li a.ic18{background:url(../images/downloads.png) no-repeat 0px 0px;}
-.nav li a:hover.ic18{background:url(../images/downloads_hover.png) no-repeat 0px 0px;}
-.nav li a.active.ic18{background:url(../images/downloads_active.png) no-repeat 0px 0px;}
+.nav li a.ic5{background:url(../images/admissions.png) no-repeat -4px 0px;}
+.nav li a:hover.ic5{background:url(../images/admissions_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic5{background:url(../images/admissions_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic6{background:url(../images/Financial.png) no-repeat -4px 0px;}
+.nav li a:hover.ic6{background:url(../images/Financial_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic6{background:url(../images/Financial_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic7{background:url(../images/Accounting.png) no-repeat -4px 0px;}
+.nav li a:hover.ic7{background:url(../images/Accounting_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic7{background:url(../images/Accounting_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic8{background:url(../images/settings.png) no-repeat -4px 0px;}
+.nav li a:hover.ic8{background:url(../images/settings_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic8{background:url(../images/settings_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic9{background:url(../images/courses.png) no-repeat -4px 0px;}
+.nav li a:hover.ic9{background:url(../images/courses_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic9{background:url(../images/courses_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic10{background:url(../images/library.png) no-repeat -4px 0px;}
+.nav li a:hover.ic10{background:url(../images/library_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic10{background:url(../images/library_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic11{background:url(../images/attendence.png) no-repeat -4px 0px;}
+.nav li a:hover.ic11{background:url(../images/attendance_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic11{background:url(../images/attendance_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic12{background:url(../images/examination.png) no-repeat -4px 0px;}
+.nav li a:hover.ic12{background:url(../images/examination_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic12{background:url(../images/examination_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic13{background:url(../images/fees.png) no-repeat -4px 0px;}
+.nav li a:hover.ic13{background:url(../images/fees_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic13{background:url(../images/fees_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic14{background:url(../images/timetable.png) no-repeat -4px 0px;}
+.nav li a:hover.ic14{background:url(../images/timetable_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic14{background:url(../images/timetable_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic15{background:url(../images/hostel.png) no-repeat -4px 0px;}
+.nav li a:hover.ic15{background:url(../images/hostel_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic15{background:url(../images/hostel_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic16{background:url(../images/batches.png) no-repeat -4px 0px;}
+.nav li a:hover.ic16{background:url(../images/batches_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic16{background:url(../images/batches_active.png) no-repeat -4px 0px;}
+
+.nav li a.ic17{background:url(../images/transport.png) no-repeat -4px 0px;}
+.nav li a:hover.ic17{background:url(../images/transport_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic17{background:url(../images/transport_active.png) no-repeat -4px 0px;}
+
+
+.nav li a.ic18{background:url(../images/downloads.png) no-repeat -4px 0px;}
+.nav li a:hover.ic18{background:url(../images/downloads_hover.png) no-repeat -4px 0px;}
+.nav li a.active.ic18{background:url(../images/downloads_active.png) no-repeat -4px 0px;}
 
 .nav li.seperator
 {
