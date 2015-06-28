@@ -20,8 +20,6 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'course_name',
-		'code',
-		'section_name',
 		'is_deleted',
 		'created_at',
 		'updated_at',

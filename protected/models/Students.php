@@ -100,7 +100,8 @@ class Students extends CActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'batches' => [self::MANY_MANY, 'Batches', 'batch_students(student_id, batch_id)']
+			'batches' => [self::MANY_MANY, 'Batches', 'batch_students(student_id, batch_id)'],
+			'attendance' => [self::HAS_MANY, 'StudentAttentance', 'id']
 		);
 	}
 

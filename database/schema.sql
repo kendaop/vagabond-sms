@@ -474,6 +474,7 @@ CREATE TABLE IF NOT EXISTS `batches` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT '1',
@@ -2427,6 +2428,7 @@ CREATE TABLE IF NOT EXISTS `student_additional_fields` (
 CREATE TABLE IF NOT EXISTS `student_attentance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL,
+  `offering_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `reason` varchar(120) NOT NULL,
   PRIMARY KEY (`id`)

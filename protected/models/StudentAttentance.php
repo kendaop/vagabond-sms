@@ -55,6 +55,8 @@ class StudentAttentance extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'batches' =>[self::BELONGS_TO, 'Batches', 'id'],
+			'students' => [self::BELONGS_TO, 'Students', 'id']
 		);
 	}
 

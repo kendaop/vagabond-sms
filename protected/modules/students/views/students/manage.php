@@ -903,9 +903,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                                               
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr class="tablebx_topbg">
-                                <td><?php echo Yii::t('students','Sl. No.');?></td>	
+								<td><?php echo Yii::t('students','Student No.');?></td>
+                                <!--<td><?php echo Yii::t('students','Sl. No.');?></td>-->	
                                 <td><?php echo Yii::t('students','Student Name');?></td>
-                                <td><?php echo Yii::t('students','Admission No.');?></td>
                                 <td><?php echo Yii::t('students','Course/Batch');?></td>
                                 <td><?php echo Yii::t('students','Gender');?></td>
                                 <!--<td style="border-right:none;">Task</td>-->
@@ -927,9 +927,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                             {
 							?>
                                 <tr class=<?php echo $cls;?>>
-                                <td><?php echo $i; ?></td>
+								<td><?php echo $list_1->admission_no ?></td>
+                                <!--<td><?php echo $i; ?></td>-->
                                 <td><?php echo CHtml::link($list_1->first_name.'  '.$list_1->middle_name.'  '.$list_1->last_name,array('view','id'=>$list_1->id)) ?></td>
-                                <td><?php echo $list_1->admission_no ?></td>
 								<td>
 									<?php 
 									$batches = Batches::model()->with(['students' => [

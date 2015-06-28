@@ -126,7 +126,9 @@ class EmployeesController extends RController
 				
 				if($model->save())
 				{
-				$this->redirect(array('employees/view','id'=>$model->id));
+					$batches = explode(',', Yii::app()->request->getParam('new-teachings'));
+					$model->addBatches($batches);
+					$this->redirect(array('employees/view','id'=>$model->id));
 				}
 			//}
 		}
@@ -312,10 +314,11 @@ class EmployeesController extends RController
 					$model->photo_file_size=$file->size;
 					$model->photo_data=file_get_contents($file->tempName);
 					  }
-			if($model->save())				
+			if($model->save()) {		
 				$batches = explode(',', Yii::app()->request->getParam('new-teachings'));
 				$model->addBatches($batches);
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('update',array(

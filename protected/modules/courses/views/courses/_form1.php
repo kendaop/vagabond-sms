@@ -21,28 +21,6 @@
     <td ><?php echo $form->textField($model,'course_name',array('size'=>30,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'course_name'); ?></td>
   </tr>
-  <tr>
-  	<td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td><?php echo $form->labelEx($model,Yii::t('courses','code')); ?></td>
-    <td>&nbsp;</td>
-    <td><?php echo $form->textField($model,'code',array('size'=>30,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'code'); ?></td>
-  </tr>
-  <tr>
-  	<td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td><?php echo $form->labelEx($model,Yii::t('courses','section_name')); ?></td>
-    <td>&nbsp;</td>
-    <td><?php echo $form->textField($model,'section_name',array('size'=>30,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'section_name'); ?></td>
-  </tr>
    <tr>
   	<td>&nbsp;</td>
     <td>&nbsp;</td>

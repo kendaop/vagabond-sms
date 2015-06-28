@@ -11,7 +11,6 @@
  * @property string $end_date
  * @property integer $is_active
  * @property integer $is_deleted
- * @property string $employee_id
  */
 class Batches extends CActiveRecord
 {
@@ -41,13 +40,13 @@ class Batches extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('course_id, is_active, is_deleted', 'numerical', 'integerOnly'=>true),
-			array('name, employee_id', 'length', 'max'=>25),
+			array('name', 'length', 'max'=>25),
 			array('start_date, end_date', 'safe'),
 			// The following rule is used by search().
 			array('name, start_date, end_date', 'required'),
 			array('name','CRegularExpressionValidator', 'pattern'=>'/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/','message'=>"{attribute} should not contain any special character(s)."),
 			// Please remove those attributes that should not be searched.
-			array('id, name, course_id, start_date, end_date, is_active, is_deleted, employee_id', 'safe', 'on'=>'search'),
+			array('id, name, course_id, start_date, end_date, is_active, is_deleted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,7 +60,8 @@ class Batches extends CActiveRecord
 		return array(
 		 'course123' => array(self::BELONGS_TO, 'Courses', 'course_id'),
          'students' => array(self::MANY_MANY, 'Students', 'batch_students(batch_id, student_id)'),
-		 'employees' => array(self::MANY_MANY, 'Employees', 'batch_employees(batch_id, employee_id),mmm,  m')
+		 'employees' => array(self::MANY_MANY, 'Employees', 'batch_employees(batch_id, employee_id),mmm,  m'),
+		 'attendance' => array(self::HAS_MANY, 'StudentAttentance', 'id')
 		);
 	}
 
@@ -77,8 +77,7 @@ class Batches extends CActiveRecord
 			'start_date' => 'Start Date',
 			'end_date' => 'End Date',
 			'is_active' => 'Is Active',
-			'is_deleted' => 'Is Deleted',
-			'employee_id' => 'Employee',
+			'is_deleted' => 'Is Deleted'
 		);
 	}
 
@@ -100,7 +99,6 @@ class Batches extends CActiveRecord
 		$criteria->compare('end_date',$this->end_date,true);
 		$criteria->compare('is_active',$this->is_active);
 		$criteria->compare('is_deleted',$this->is_deleted);
-		$criteria->compare('employee_id',$this->employee_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

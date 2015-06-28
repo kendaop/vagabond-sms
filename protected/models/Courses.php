@@ -42,11 +42,11 @@ class Courses extends CActiveRecord
 			array('is_deleted', 'numerical', 'integerOnly'=>true),
 			array('course_name, code, section_name', 'length', 'max'=>255),
 			array('created_at, updated_at', 'safe'),
-			array('course_name, code, section_name', 'required'),
+			array('course_name', 'required'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, course_name, code, section_name, is_deleted, created_at, updated_at', 'safe', 'on'=>'search'),
+			array('id, course_name, is_deleted, created_at, updated_at', 'safe', 'on'=>'search'),
 		);
 	}
 

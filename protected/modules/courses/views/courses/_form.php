@@ -24,12 +24,12 @@
   	<td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
-  <tr>
+<!--  <tr>
     <td><?php echo $form->labelEx($model,Yii::t('Courses','code')); ?></td>
     <td><?php echo $form->textField($model,'code',array('size'=>40,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'code'); ?></td>
   </tr>
-   <tr>
+  <tr>
   	<td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
@@ -37,7 +37,7 @@
     <td><?php echo $form->labelEx($model,Yii::t('Courses','section_name')); ?></td>
     <td><?php echo $form->textField($model,'section_name',array('size'=>40,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'section_name'); ?></td>
-  </tr>
+  </tr>-->
  
 </table>
 <?php $daterange=date('Y')+20;
