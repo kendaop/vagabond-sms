@@ -1,3 +1,11 @@
 /application.log
 
-/application.log.*
+/application.log.1
+/application.log.2
+/application.log.3
+/application.log.4
+/application.log.5
+/application.log.6
+/application.log.7
+/application.log.8
+/application.log.9
