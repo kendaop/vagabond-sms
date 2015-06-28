@@ -74,7 +74,8 @@ class StudentsController extends RController
         # HTML2PDF has very similar syntax
         $html2pdf = Yii::app()->ePdf->HTML2PDF();
 
-        $html2pdf->WriteHTML($this->renderPartial('printpdf', array('model'=>$this->loadModel($_REQUEST['id'])), true));
+		$model = $this->loadModel($_REQUEST['id']);
+        $html2pdf->WriteHTML($this->renderPartial('printpdf', array('model'=>$model), true));
         $html2pdf->Output($student);
  
         ////////////////////////////////////////////////////////////////////////////////////

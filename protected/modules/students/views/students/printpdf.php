@@ -145,12 +145,14 @@ td.subhdng_nrmal
         </tr>
         
         <tr>
-            <td class="listbx_subhdng odd"><?php echo Yii::t('students','Batch');?></td>
+            <td class="listbx_subhdng odd"><?php echo Yii::t('students','Enrolled Classes');?></td>
             <td class="subhdng_nrmal odd">
                 <?php 
-				$posts=Batches::model()->findByAttributes(array('id'=>$model->batch_id));
-                if($posts!=NULL){
-					echo $posts->name; 
+				$batches = Batches::model()->getEnrolledBatches($model->id);
+                if($batches!=NULL){
+					foreach($batches as $batch) {
+						echo $batch; 
+					}
 				}
 				else{
 					echo '-';
@@ -158,14 +160,9 @@ td.subhdng_nrmal
 				?>
             </td>
         </tr>
-        
         <tr>
-            <td class="listbx_subhdng"><?php echo Yii::t('students','Course');?> </td>
-            <td class="subhdng_nrmal"><?php echo $posts->course123->course_name; ?></td>
-        </tr>
-        <tr>
-            <td class="listbx_subhdng odd"><?php echo Yii::t('students','Date of Birth');?></td>
-            <td class="subhdng_nrmal odd">
+            <td class="listbx_subhdng"><?php echo Yii::t('students','Date of Birth');?></td>
+            <td class="subhdng_nrmal">
 				<?php 
 						if($model->date_of_birth!=NULL)
 						{
@@ -187,22 +184,6 @@ td.subhdng_nrmal
         </tr>
         
         <tr>
-            <td class="listbx_subhdng"><?php echo Yii::t('students','Blood Group');?></td>
-            <td class="subhdng_nrmal">
-                <?php 
-					if($model->blood_group!=NULL)
-					{
-						echo $model->blood_group;
-					}
-					else
-					{
-						echo '-';
-					}
-                ?>
-            </td>
-        </tr>
-        
-        <tr>
             <td class="listbx_subhdng odd"><?php echo Yii::t('students','Gender');?>  </td>
             <td class="subhdng_nrmal odd">
                 <?php if($model->gender=='M')
@@ -214,72 +195,7 @@ td.subhdng_nrmal
             </td>
         
         </tr>
-        
-        <tr>
-            <td class="listbx_subhdng"><?php echo Yii::t('students','Nationality');?>  </td>
-            <td class="subhdng_nrmal">
-                <?php 
-				if($model->nationality_id!=NULL)
-				{
-					$natio_id=Countries::model()->findByAttributes(array('id'=>$model->nationality_id));
-					echo $natio_id->name; 
-				}
-				else{
-					echo '-';
-				}?>
-            </td>
-        </tr>
-        
-        <tr>
-            <td class="listbx_subhdng odd"><?php echo Yii::t('students','Language');?></td>
-            <td class="subhdng_nrmal odd">
-				<?php 
-				if($model->language!=NULL)
-				{
-					echo $model->language;
-				}
-				else{
-					echo '-';
-				}
-				?>
-			</td>
-        </tr>
-        
-        <tr>
-            <td class="listbx_subhdng"><?php echo Yii::t('students','Category');?></td>
-            <td class="subhdng_nrmal">
-                <?php 
-				if($model->student_category_id!=NULL)
-				{
-					$cat =StudentCategories::model()->findByAttributes(array('id'=>$model->student_category_id));
-					if($cat!=null)
-					{ 
-						echo $cat->name;  
-					}
-				}
-				else{
-					echo '-';
-				}
-				?>
-            </td>
-        </tr>
-        
-        <tr>
-            <td class="listbx_subhdng odd"><?php echo Yii::t('students','Religion');?></td>
-            <td class="subhdng_nrmal odd">
-				<?php 
-				if($model->religion!=NULL)
-				{
-					echo $model->religion; 
-				}
-				else
-				{
-					echo '-';
-				}
-				?>
-			</td>
-        </tr>
-        
+    
         <tr>
             <td class="listbx_subhdng"><?php echo Yii::t('students','Address');?></td>
             <td class="subhdng_nrmal">
@@ -394,8 +310,8 @@ td.subhdng_nrmal
         </tr><?php */?>
         
         <tr>
-            <td class="listbx_subhdng last"><?php echo Yii::t('students','Immediate Contact');?></td>
-            <td class="subhdng_nrmal last">
+            <td class="listbx_subhdng odd last"><?php echo Yii::t('students','Immediate Contact');?></td>
+            <td class="subhdng_nrmal odd last">
 				<?php 
 				$parent = Guardians::model()->findByAttributes(array('ward_id'=>$model->id));
 				if($parent!=NULL)

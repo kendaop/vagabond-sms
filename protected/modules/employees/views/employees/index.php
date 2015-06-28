@@ -11,11 +11,12 @@ $this->breadcrumbs=array(
 
 $data = '';
 
-	$empy = EmployeeDepartments::model()->findAll();
-	foreach($empy as $empy_1)
+	$courses = Batches::model()->getUnenrolledBatches(0);
+	
+	foreach($courses as $course)
 	{
-		$emp_number=Employees::model()->findAll("employee_department_id=:x", array(':x'=>$empy_1->id));
-	$data .='{name:"'.$empy_1->name.'",
+		$emp_number=Employees::model()->findAll("employee_department_id=:x", array(':x'=>$course->id));
+		$data .='{name:"'.$course->name.'",
 			y:'.count($emp_number).',
 			sliced: true,
 			selected: true,},';
@@ -25,6 +26,7 @@ $data = '';
 
 //echo $data;
 ?>
+<!--
 <script type="text/javascript">
 var chart;
 $(document).ready(function() {
@@ -36,7 +38,7 @@ $(document).ready(function() {
 			plotShadow: false
 		},
 		title: {
-			text: 'Employee Strength'
+			text: 'Employee Chart'
 		},
 		tooltip: {
 			formatter: function() {
@@ -73,6 +75,7 @@ $(document).ready(function() {
 	});
 });
 </script>
+-->
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="247" valign="top">
