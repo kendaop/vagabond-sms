@@ -60,7 +60,7 @@ class Batches extends CActiveRecord
 		return array(
 		 'course123' => array(self::BELONGS_TO, 'Courses', 'course_id'),
          'students' => array(self::MANY_MANY, 'Students', 'batch_students(batch_id, student_id)'),
-		 'employees' => array(self::MANY_MANY, 'Employees', 'batch_employees(batch_id, employee_id),mmm,  m'),
+		 'employees' => array(self::MANY_MANY, 'Employees', 'batch_employees(batch_id, employee_id)'),// ,mmm,  m'),
 		 'attendance' => array(self::HAS_MANY, 'StudentAttentance', 'id')
 		);
 	}

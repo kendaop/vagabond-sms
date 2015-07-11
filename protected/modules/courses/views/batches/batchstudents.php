@@ -80,7 +80,7 @@ Yii::app()->clientScript->registerScript(
                 ?>
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                     <tr class="listbxtop_hdng">
-                    <td ><?php echo Yii::t('Batch','Sl no.');?></td>
+                    <td ><?php echo Yii::t('Batch','Admission no.');?></td>
                     <td ><?php echo Yii::t('Batch','Student Name');?></td>
                     <td ><?php echo Yii::t('Batch','Admission Number');?></td>
                     <td ><?php echo Yii::t('Batch','Gender');?></td>
@@ -134,95 +134,10 @@ Yii::app()->clientScript->registerScript(
 				}
 				
 				}
-                ?>
-    
-    
-   
-
- 
+                ?> 
     </div>
     <br />
-    <h3><?php echo Yii::t('Batch','Inactive Students');?></h3>
     
-   
-     <?php
-                if(isset($_REQUEST['id']))
-                {
-                $posts=Students::model()->findAll("is_deleted=:y and is_active=:z", array(':y'=>'0',':z'=>'0'));
-				if($posts!=NULL)
-				{
-                ?> <div class="table_listbx">
-                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                    <tr >
-                    <td class="listbx_subhdng"><?php echo Yii::t('Batch','Sl no.');?></td>
-                    <td class="listbx_subhdng"><?php echo Yii::t('Batch','Student Name');?></td>
-                    <td class="listbx_subhdng"><?php echo Yii::t('Batch','Admission Number');?></td>
-                    <td class="listbx_subhdng"><?php echo Yii::t('Batch','Gender');?></td>
-                    <td class="listbx_subhdng"><?php echo Yii::t('Batch','Actions');?></td>
-                    </tr>
-                        <?php
-						$j=$i;
-						$i=0;
-                            foreach($posts as $posts_1)
-                            {
-								$i++;
-								$j++;
-								echo '<tr>';
-								echo '<td>'.$i.'</td>';	
-                                echo '<td>'.CHtml::link($posts_1->first_name, array('/students/students/view', 'id'=>$posts_1->id)).'</td>';
-								echo '<td>'.$posts_1->admission_no.'</td>';?>
-								<td><?php
-								  if($posts_1->gender=='M')
-								  {
-									  echo 'Male';
-								  }
-								  elseif($posts_1->gender=='F')
-								  {
-									  echo 'Female';
-								  }?></td>
-								<td >
-								<div style="position:absolute;">
-								<div  id="<?php echo $j; ?>" class="act_but"><?php echo Yii::t('Batch','Actions');?></div>
-								<div class="act_drop" id="<?php echo $j.'x'; ?>">
-									<div class="but_bg_outer"></div><div class="but_bg"><div  id="<?php echo $j; ?>" class="act_but_hover"><?php echo Yii::t('Batch','Actions');?></div></div>
-									<ul>
-										
-										<li class="edit">
-										
-										<?php echo CHtml::link(Yii::t('Batch','Make Active').'<span>'.Yii::t('Batch','make students active').'</span>', array('/students/students/active', 'sid'=>$posts_1->id,'id'=>$_REQUEST['id']),array('confirm'=>'Are You Sure , Make Active ?')) ?>
-                                        
-                                        </li>
-                                        
-                                        
-                                        
-										<li class="delete">
-										
-										<?php echo CHtml::link(Yii::t('Batch','Delete').'<span>'.Yii::t('Batch','for deleting').'</span>', array('/students/students/deletes', 'sid'=>$posts_1->id,'id'=>$_REQUEST['id']),array('confirm'=>'Are You Sure , Delete ?')) ?>
-                                        
-										 </li>
-										
-									</ul>
-								</div>
-                                <div class="clear"></div>
-                                <div id="<?php echo $posts_1->id ?>"></div>
-								</div>
-								</td>
-                            <?php }
-                            ?>
-                    </table>
-                     </div>
-                <?php    	
-                }
-				else
-				{
-					echo '<br><div class="notifications nt_red" style="padding-top:10px">'.'<i>'.Yii::t('Batch','No InActive Students In This Batch').'</i></div>'; 
-									
-				}
-				
-				}
-                ?>
-
-   
     </div>
     </div>
     

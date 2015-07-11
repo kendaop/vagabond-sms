@@ -63,6 +63,7 @@ $(document).click(function() {
           if($batch!=NULL)
 		   {
 			   $course=Courses::model()->findByAttributes(array('id'=>$batch->course_id));
+			   
 		       if($course!=NULL)
 			   {
 				   $coursename = $course->course_name; 
@@ -98,19 +99,25 @@ $(document).click(function() {
     	<div class="cb_left">
         	<ul>
             	<li><strong>Course / Batch:</strong> <?php echo $coursename; ?> / <?php echo $batchname; ?></li>
-                <li><strong><?php echo Yii::t('Batch','Class Teacher : '); ?></strong> <?php $employee=Employees::model()->findByAttributes(array('id'=>$batch->employee_id));
-		    if($employee!=NULL)
-		    {
-			   echo ucfirst($employee->first_name).' '.ucfirst($employee->middle_name).' '.ucfirst($employee->last_name); 
-		    }?></li>
+                <li><strong><?php echo Yii::t('Batch','Class Teacher : '); ?></strong> 
+					<?php
+						if($batch->employees!=NULL)
+						{
+							$first = true;
+							foreach($batch->employees as $employee) {
+								echo ($first ? '' : ' / ') . ucwords("$employee->first_name $employee->last_name");
+								$first = false;
+							}
+						}
+					?>
+				</li>
             </ul>
         </div>
         <div class="cb_right">
         	<div class="status_bx">
     			<ul>
-        			<li><span><?php echo count(Students::model()->findAll("is_deleted=:y", array(':y'=>0))); ?></span><?php echo Yii::t('Batch','Students');?></li>
-            		<li><span><?php // echo count(Subjects::model()->findAll("batch_id=:x", array(':x'=>$_REQUEST['id']))); ?></span><?php echo Yii::t('Batch','Subjects');?></li>
-            		<li><span><?php // echo count(TimetableEntries::model()->findAll(array('condition'=>'batch_id=:x', 'group'=>'employee_id','params'=>array(':x'=>$_REQUEST['id'])))); ?></span><?php echo Yii::t('Batch','Employees');?></li>
+        			<li><span><?php echo count($batch->students); ?></span><?php echo Yii::t('Batch','Student' . (count($batch->students) == 1 ? '' : 's'));?></li>
+            		<li><span><?php echo count($batch->employees); ?></span><?php echo Yii::t('Batch','Teacher' . (count($batch->employees) == 1 ? '' : 's'));?></li>
         		</ul>
      		<div class="clear"></div>
    			</div>
@@ -122,13 +129,8 @@ $(document).click(function() {
 				<div class="but_bg_outer"></div><div class="but_bg"><div id="1" class="act_but_hover">Actions</div></div>
                 <ul>
 					<li class="addstud"><?php echo CHtml::link(Yii::t('Batch','Add Student<span>for add new student</span>'), array('/students/students/create','bid'=>$_REQUEST['id'])) ?></li>
-					<li class="newsub"><?php echo CHtml::link(Yii::t('Batch','New Subject<span>for add new subject</span>'), array('#'),array('id'=>'add_subject-name-side')) ?></li>
                    	<li class="mark"><?php echo CHtml::link(Yii::t('Batch','Mark Attendance<span>for add leave</span>'), array('/courses/studentAttentance','id'=>$_REQUEST['id'])) ?></li>
-				   	<li class="promote"><?php echo CHtml::link(Yii::t('Batch','Promote Batch<span>for promote a batch</span>'), array('batches/promote','id'=>$_REQUEST['id'])) ?></li>
-                     <?php if($batch->is_active=='1')
-					{?>
-                    <li class="deactivate"><?php echo CHtml::link(Yii::t('Batch','Deactivate Batch'), array('batches/deactivate','id'=>$_REQUEST['id']),array('confirm'=>'Are You Sure,Deactivate This Batch ?')) ?></li><?php }
-	else
+                     <?php if(!$batch->is_active=='1')
 	{ ?>
     <li class="deactivate"><?php echo CHtml::link(Yii::t('Batch','Activate Batch'), array('batches/activate','id'=>$_REQUEST['id']),array('confirm'=>'Are You Sure,Activate This Batch ?')) ?></li><?php }?>
 				</ul>
@@ -151,7 +153,7 @@ $(document).click(function() {
 		else
 		{
 			$weeknot='<div class="cbi_green">Weekdays defined</div>';
-			$weeklink='';
+			$weeklink=CHtml::link(Yii::t('Batch','Change'), array('/courses/weekdays','id'=>$_REQUEST['id']));
 			
 		}
 		
@@ -183,19 +185,7 @@ $(document).click(function() {
 				  $ttablink='';
 			  }
 		}
-		
-		 $sub=Subjects::model()->findByAttributes(array('batch_id'=>$batch->id));
-		if($sub==NULL)
-		{
-			$subnot='<div class="cbi_red">No Subjects Added</div>';
-			$sublink = CHtml::link(Yii::t('Batch','Add Now'), array('#'),array('id'=>'add_subjects-side'));
-			$allgreen=0;
-		}
-		else
-		{
-			$subnot='<div class="cbi_green">Subjects Added</div>';
-			$sublink = '';
-		}
+
 		$stud=Students::model()->findByAttributes(array('is_active'=>1,'is_deleted'=>0));
 		if($stud==NULL)
 		{
@@ -218,12 +208,6 @@ $(document).click(function() {
         	<h3>Active Students</h3>
             <?php echo $studnot; ?>
             <?php echo $studlink; ?>
-        </div>
-        
-        <div class="cbi_ibx cbi_ico5">
-        	<h3>Subjects</h3>
-            <?php echo $subnot; ?>
-            <?php echo $sublink; ?>
         </div>
         
     	<div class="cbi_ibx cbi_ico1">
@@ -272,25 +256,7 @@ $(document).click(function() {
                   }
         ?>
         
-        </li>
-        
-        
-        
-        <li>
-        
-        <?php     
-                  if(Yii::app()->controller->id=='subject' or Yii::app()->controller->id=='defaultsubjects')
-                  {
-                  echo CHtml::link(Yii::t('Batch','Subjects'), array('/courses/subject','id'=>$_REQUEST['id']),array('class'=>'active'));
-                  }
-                  else
-                  {
-                  echo CHtml::link(Yii::t('Batch','Subjects'), array('/courses/subject','id'=>$_REQUEST['id']));
-                  }
-        ?>
-        
-        </li>
-        
+        </li>        
         
         <li>
         

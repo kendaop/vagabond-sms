@@ -151,7 +151,7 @@ $this->breadcrumbs=array(
 	?>
 	</td>
 	<td class="listbx_subhdng"><?php echo Yii::t('students','Completed Classes');?></td>
-	<td class="subhdng_nrmal"><?php echo 'Welding Masters Supercourse (1-Week Program) '; ?></td>
+	<td class="subhdng_nrmal"><?php echo '**COMPLETED COURSES**'; ?></td>
   </tr>
 <!--
   <tr class="listbxtop_hdng">
