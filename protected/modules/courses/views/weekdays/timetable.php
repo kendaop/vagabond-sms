@@ -36,23 +36,28 @@ $this->breadcrumbs=array(
     <div class="clear"></div>
     <div class="emp_cntntbx" style="padding-top:10px;">
     <div class="c_subbutCon" align="right" style="width:100%">
-    <div class="edit_bttns" style="width:280px; top:7px; right:-15px;">
-    <ul>
-    <li>
-    <?php echo CHtml::link('<span>'.Yii::t('weekdays','Set Week Days').'</span>', array('/courses/weekdays','id'=>$_REQUEST['id']),array('class'=>'addbttn'));?>
-    </li>
-    <li>
-    <?php echo CHtml::link('<span>'.Yii::t('weekdays','Set Class Timings').'</span>', array('/courses/classTiming','id'=>$_REQUEST['id']),array('class'=>'addbttn last'));?>
-    </li>
-    </ul>
-    <div class="clear"></div>
+		<div class="edit_bttns" style="width:280px; top:7px; right:-15px;">
+		<ul>
+	<!--    <li>
+		<?php echo CHtml::link('<span>'.Yii::t('weekdays','Set Week Days').'</span>', array('/courses/weekdays','id'=>$_REQUEST['id']),array('class'=>'addbttn'));?>
+		</li>-->
+		<li>
+		<?php echo CHtml::link('<span>'.Yii::t('weekdays','Set Class Timings').'</span>', array('/courses/classTiming','id'=>$_REQUEST['id']),array('class'=>'addbttn last'));?>
+		</li>
+		</ul>
+		<div class="clear"></div>
+		</div>
     </div>
-    </div>
-    <div style="position:absolute; top:13px; left:0px; width:240px; height:35px;">
+    <div style="position:relative; top:13px; left:0px; width:240px; height:35px;">
     <?php echo CHtml::link(Yii::t('weekdays','Publish Time Table'), array('Weekdays/Publish', 'id'=>$_REQUEST['id']),array('class'=>'cbut')); ?>&nbsp;
-<?php echo CHtml::link(Yii::t('weekdays','Generate PDF'), array('Weekdays/pdf','id'=>$_REQUEST['id']),array('class'=>'cbut','target'=>'_blank')); ?>
-  </div>
-    <div  style="width:100%">
+	<?php echo CHtml::link(Yii::t('weekdays','Generate PDF'), array('Weekdays/pdf','id'=>$_REQUEST['id']),array('class'=>'cbut','target'=>'_blank')); ?>
+	</div>
+
+<?php
+$this->renderPartial('setDay', ['model' => $model]);
+?>
+		
+<div  style="width:100%">
 
 <div class="">
 

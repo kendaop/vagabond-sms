@@ -74,15 +74,14 @@ Yii::app()->clientScript->registerScript(
      <?php
                 if(isset($_REQUEST['id']))
                 {
-                $posts=Students::model()->findAll("is_deleted=:y and is_active=:z", array(':y'=>'0',':z'=>'1'));
+					$posts = $batch->students;
 				if($posts!=NULL)
 				{
                 ?>
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                     <tr class="listbxtop_hdng">
                     <td ><?php echo Yii::t('Batch','Admission no.');?></td>
-                    <td ><?php echo Yii::t('Batch','Student Name');?></td>
-                    <td ><?php echo Yii::t('Batch','Admission Number');?></td>
+                    <td ><?php echo Yii::t('Batch','Student');?></td>
                     <td ><?php echo Yii::t('Batch','Gender');?></td>
                     <td ><?php echo Yii::t('Batch','Actions');?></td>
                     </tr>
@@ -92,9 +91,9 @@ Yii::app()->clientScript->registerScript(
                             {
 								$i++;
 								echo '<tr>';
-								echo '<td>'.$i.'</td>';	
+								echo '<td>'.$posts_1->admission_no.'</td>';	
                                 echo '<td>'.CHtml::link(ucfirst($posts_1->first_name).' '.ucfirst($posts_1->middle_name).' '.ucfirst($posts_1->last_name), array('/students/students/view', 'id'=>$posts_1->id)).'</td>';
-								echo '<td>'.$posts_1->admission_no.'</td>';?>
+						?>
 								<td><?php
 								  if($posts_1->gender=='M')
 								  {

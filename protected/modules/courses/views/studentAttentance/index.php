@@ -94,7 +94,7 @@ break;
 ?>
 <div class="ea_droplist" style="top:30px">
 <?php
-$subjects=Subjects::model()->findAll("batch_id=:x", array(':x'=>$_REQUEST['id']));
+$subjects=Subjects::model()->findAll();
 
 //echo CHtml::dropDownList('batch_id','',CHtml::listData(Subjects::model()->findAll("batch_id=:x",array(':x'=>$_REQUEST['id'])), 'id', 'name'), array('empty'=>'Select Type'));
 
@@ -168,7 +168,7 @@ if($mon_num=='12')
     }
     ?>
 </tr>
-<?php $posts=Students::model()->findAll("batch_id=:x AND is_deleted=:y", array(':x'=>$_REQUEST['id'],':y'=>0));
+<?php $posts=$batch->students;
 $j=0;
 foreach($posts as $posts_1)
 {
@@ -179,7 +179,7 @@ foreach($posts as $posts_1)
 	
  ?>
 <tr <?php echo $class; ?> >
-    <td class="name"><?php echo $posts_1->first_name; ?></td>
+    <td class="name"><?php echo "$posts_1->first_name $posts_1->last_name"; ?></td>
     <?php
     for($i=1;$i<=$num;$i++)
     {

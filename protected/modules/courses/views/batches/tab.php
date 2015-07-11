@@ -285,25 +285,8 @@ $(document).click(function() {
                   echo CHtml::link(Yii::t('Batch','Attendances'), array('/courses/studentAttentance','id'=>$_REQUEST['id']));
                   }
         ?>
-        </li>
-        
-        <li>
-        
-        <?php     
-                  if(Yii::app()->controller->id=='exam' or Yii::app()->controller->id=='exams' or Yii::app()->controller->id=='gradingLevels' or Yii::app()->controller->id=='examScores')
-                  {
-                  echo CHtml::link(Yii::t('Batch','Assessments'), array('/courses/exam','id'=>$_REQUEST['id']),array('class'=>'active'));
-                  }
-                  else
-                  {
-                  echo CHtml::link(Yii::t('Batch','Assessments'), array('/courses/exam','id'=>$_REQUEST['id']));
-                  }
-        ?>
-        
-        </li>
-        
-        
-        
+        </li>        
+
         <li>
         <?php     
                   if(Yii::app()->controller->action->id=='settings')
