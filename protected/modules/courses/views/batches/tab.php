@@ -263,11 +263,11 @@ $(document).click(function() {
         <?php     
                   if(Yii::app()->controller->id=='weekdays' or Yii::app()->controller->id=='classTiming')
                   {
-                  echo CHtml::link(Yii::t('Batch','Timetables'), array('weekdays/timetable','id'=>$_REQUEST['id']),array('class'=>'active'));
+                  echo CHtml::link(Yii::t('Batch','Timetable'), array('/courses/classTiming','id'=>$_REQUEST['id']),array('class'=>'active'));
                   }
                   else
                   {
-                  echo CHtml::link(Yii::t('Batch','Timetable'), array('weekdays/timetable','id'=>$_REQUEST['id']));
+                  echo CHtml::link(Yii::t('Batch','Timetable'), array('/courses/classTiming','id'=>$_REQUEST['id']));
                   }
         ?>
         
@@ -278,11 +278,11 @@ $(document).click(function() {
         <?php     
                   if(Yii::app()->controller->id=='studentAttentance')
                   {
-                  echo CHtml::link(Yii::t('Batch','Attendances'), array('/courses/studentAttentance','id'=>$_REQUEST['id']),array('class'=>'active'));
+                  echo CHtml::link(Yii::t('Batch','Attendance'), array('/courses/studentAttentance','id'=>$_REQUEST['id']),array('class'=>'active'));
                   }
                   else
                   {
-                  echo CHtml::link(Yii::t('Batch','Attendances'), array('/courses/studentAttentance','id'=>$_REQUEST['id']));
+                  echo CHtml::link(Yii::t('Batch','Attendance'), array('/courses/studentAttentance','id'=>$_REQUEST['id']));
                   }
         ?>
         </li>        

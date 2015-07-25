@@ -103,20 +103,14 @@ $timings = ClassTimings::model()->findAllByAttributes(['batch_id' => $batch->id]
 	<?php $this->renderPartial('../weekdays/setDay', ['model' => Weekdays::model()]); ?>
     <div  align="right" style="position:relative;" >
     <div class="edit_bttns" style="width:110px; top:10px;">
-    <ul>
-    <li>
-    <?php echo CHtml::link('<span>'.Yii::t('Timing','Time Table').'</span>', array('/courses/weekdays/timetable','id'=>$_REQUEST['id']),array('class'=>'addbttn last'));?>
-    </li>
-   
-    </ul>
     <div class="clear"></div>
     </div>
     </div>
 <div style="width:100%">
 
 <div>
-<h3><?php echo Yii::t('Timing','Class Timings');?></h3>
-<div class="pdtab_Con">
+	<h1 id="class_timings_header"><?php echo Yii::t('Timing','Class Timings');?></h1>
+<div class="pdtab_Con" id="class_timings_table">
 	
 	<?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'timings-form',

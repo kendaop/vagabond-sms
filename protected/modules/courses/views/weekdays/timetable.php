@@ -52,10 +52,6 @@ $this->breadcrumbs=array(
     <?php echo CHtml::link(Yii::t('weekdays','Publish Time Table'), array('Weekdays/Publish', 'id'=>$_REQUEST['id']),array('class'=>'cbut')); ?>&nbsp;
 	<?php echo CHtml::link(Yii::t('weekdays','Generate PDF'), array('Weekdays/pdf','id'=>$_REQUEST['id']),array('class'=>'cbut','target'=>'_blank')); ?>
 	</div>
-
-<?php
-//$this->renderPartial('setDay', ['model' => $model]);
-?>
 		
 <div  style="width:100%">
 
@@ -476,22 +472,6 @@ $set =  TimetableEntries::model()->findByAttributes(array('batch_id'=>$_REQUEST[
 	</div>
     
 </div>
-    <!--<div class="table_listbx">
-                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tbody><tr>
-                    <td class="listbx_subhdng">Sl no.</td>
-                    <td class="listbx_subhdng">Student Name</td>
-                    <td class="listbx_subhdng">Admission Number</td>
-                    <td class="listbx_subhdng">Gender</td>
-                    <td class="listbx_subhdng">Actions</td>
-                    </tr>
-                        <tr><td>1</td><td><a href="/osv2.1/osadmin/index.php?r=students/view&amp;id=1">Balusamy</a></td><td>1</td><td>fff</td><td>gggg</td>                    </tr></tbody></table>
-                    
-    
-   
-
- 
-    </div>-->
     </div>
     </div>
     

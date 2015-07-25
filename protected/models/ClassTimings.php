@@ -42,7 +42,7 @@ class ClassTimings extends CActiveRecord
 			array('batch_id, is_break', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			array('start_time, end_time', 'length', 'max'=>120),
-			array('name, start_time, end_time', 'required'),
+			array('start_time, end_time', 'required'),
 			array('name','CRegularExpressionValidator', 'pattern'=>'/^[A-Za-z0-9_ ]+$/','message'=>"{attribute} should contain only letters."),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -98,10 +98,5 @@ class ClassTimings extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-	
-	public function getClassTimings($batch_id)
-	{
-		
 	}
 }

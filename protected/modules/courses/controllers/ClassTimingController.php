@@ -253,5 +253,24 @@ public function   init() {
                            }
       }
 
+	  public function actionNew()
+	  {		
+		if(array_key_exists('start_time', $_REQUEST) && array_key_exists('end_time', $_REQUEST) && !empty($_REQUEST['start_time']) && !empty($_REQUEST['end_time'])) {
+			foreach($_REQUEST as $key=>$value) {
+				if(in_array($key, ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])) {
+					$model = new ClassTimings();
+					
+					$model->batch_id = $_REQUEST['batch_id'];
+					$model->weekday = $key;
+					$model->start_time = $_REQUEST['start_time'];
+					$model->end_time = $_REQUEST['end_time'];
+					
+					$model->save();
+				}
+			}
+		}
+		
+		$this->redirect(['/courses/classTiming', 'id'=>$_REQUEST['batch_id']]);
+	  }
 
 }

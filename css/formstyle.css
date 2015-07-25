@@ -1,4 +1,57 @@
 /* Kendall */
+div#timings-div {
+	background-color: #F0F3FF;
+	padding: 10px 5px;
+	border-radius: 6px;
+}
+
+span.note {
+	font-style: italic;
+	margin-left: 10px;
+	font-size: 11px;
+}
+
+span.note:before {
+	content: "* ";
+}
+
+#class_timings_header {
+	margin-top: 60px;
+}
+
+#class_timings_table {
+	padding-top: 0;
+}
+
+#create_timings {
+	margin-bottom: 30px;
+}
+
+#timings-row label {
+	font-weight: bold;
+	margin: 0 10px 0 15px;
+}
+
+#timings-row input {
+	width: 70px;
+	text-align: center;
+}
+
+#timings-row td {
+	padding-top: 20px;
+}
+
+tr.weekday-header-row td {
+	font-weight: bold;
+	font-size: 18px;
+	text-align: center;
+	width: 14%;
+}
+
+tr.weekday-header-row + tr span.checkbox {
+	margin-left: 40%;
+}
+
 tr.even {
 	background-color: #F2F2F2;
 }
