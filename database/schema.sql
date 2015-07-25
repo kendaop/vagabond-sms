@@ -644,6 +644,7 @@ CREATE TABLE IF NOT EXISTS `class_timings` (
   `start_time` varchar(120) COLLATE utf8_unicode_ci DEFAULT NULL,
   `end_time` varchar(120) COLLATE utf8_unicode_ci DEFAULT NULL,
   `is_break` tinyint(1) DEFAULT NULL,
+  `weekday` enum('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday') COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_class_timings_on_batch_id_and_start_time_and_end_time` (`batch_id`,`start_time`,`end_time`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

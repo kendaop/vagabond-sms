@@ -54,7 +54,7 @@ $this->breadcrumbs=array(
 	</div>
 
 <?php
-$this->renderPartial('setDay', ['model' => $model]);
+//$this->renderPartial('setDay', ['model' => $model]);
 ?>
 		
 <div  style="width:100%">

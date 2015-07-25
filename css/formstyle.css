@@ -1,4 +1,34 @@
 /* Kendall */
+tr.even {
+	background-color: #F2F2F2;
+}
+
+#timings-table .pdtab-h td {
+	font-size: 12px;
+}
+
+#timings-table td:first-of-type {
+	font-weight: bold;
+	font-size: 12px;
+}
+
+#timings-table td {
+	width: 25%;
+}
+
+.x {
+	font-size: 38px;
+	color: red;
+	line-height: 18px;
+	font-weight: bold;
+	vertical-align: middle;
+	text-shadow: 1px 2px 1px #AAA;
+}
+
+.x:hover {
+	text-shadow: 2px 0 2px #666, 0 2px 2px #666, -2px 0 2px #666, 0 -2px 2px #666;
+}
+
 .formCon th{
 	text-align: left;
 	vertical-align: bottom;
@@ -12,8 +42,12 @@
 td.enrollment-buttons button {
 	position: relative;
 }
-table.course-offerings td {
+table.course-offerings td, table.custom td, table.custom th {
 	text-align: center;
+}
+
+table.custom {
+	width: 70%;
 }
 
 table.course-offerings tr[id^=batchrow] td:first-child {
@@ -342,7 +376,7 @@ background:#f6f3f3;
 
 .mcbrow li a{font-size:10px; color:#40546c; margin:0px; padding:0px;}
 .mcbrow li.col1{width:55%; border-right:1px #eaeef1 solid;padding:10px 0px 10px 20px;}
-.mcbrow li.gtcol1{width:458px;color:#40546c; border-right:1px #e4e2e2 solid;padding:8px 0px 8px 20px;}
+.mcbrow li.gtcol1{width:450px;color:#40546c; border-right:1px #e4e2e2 solid;padding:8px 0px 8px 20px;}
 .mcbrow li.gtcol1 span{display:block; color:#778791; font-size:10px;}
 .mcbrow li.col2{width:53px;text-align:center;border-left:1px #fff solid; border-right:1px #e4e2e2 solid; padding:15px 0px 15px 0px;}
 .mcbrow li.col3{width:53px;text-align:center;border-left:1px #fff solid;  border-right:1px #e4e2e2 solid; padding:15px 0px 15px 0px;}

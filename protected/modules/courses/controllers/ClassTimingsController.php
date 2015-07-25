@@ -204,6 +204,11 @@ class ClassTimingsController extends RController
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+	
+	public static function delete($batch_id)
+	{
+		echo "ID: $id";
+	}
 
 	/**
 	 * Performs the AJAX validation.

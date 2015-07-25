@@ -64,6 +64,20 @@ public function   init() {
 			'rights', // perform access control for CRUD operations
 		);
 	}
+	
+	public function actionDelete()
+	{
+		$classTimings = ClassTimings::model()->findAllByAttributes(['batch_id' => $_POST['batch_id'], 'weekday' => $_POST['day']]);
+		foreach($classTimings as $timing) {
+			$timing->delete();
+		}
+		$url = Yii::app()->getRequest()->getUrl();
+		echo "
+			<script type='text/javascript'>
+					self.history.go(-1);
+			</script>
+		";
+	}
         
 	/**
 	 * Specifies the access control rules.
@@ -171,7 +185,7 @@ public function   init() {
         $this->renderPartial('_ajax_form', array('model'=>$model), false, true);
       }
 
-        	public function actionIndex(){
+	public function actionIndex(){
 
 		$model=new ClassTimings('search');
 		$model->unsetAttributes();  // clear any default values

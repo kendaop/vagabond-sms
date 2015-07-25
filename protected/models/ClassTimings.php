@@ -10,6 +10,7 @@
  * @property string $start_time
  * @property string $end_time
  * @property integer $is_break
+ * @property enum $weekday
  */
 class ClassTimings extends CActiveRecord
 {
@@ -72,6 +73,7 @@ class ClassTimings extends CActiveRecord
 			'start_time' => 'Start Time',
 			'end_time' => 'End Time',
 			'is_break' => 'Is Break',
+			'weekday' => 'Weekday'
 		);
 	}
 
@@ -96,5 +98,10 @@ class ClassTimings extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function getClassTimings($batch_id)
+	{
+		
 	}
 }

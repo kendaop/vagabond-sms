@@ -56,7 +56,7 @@ $(document).click(function() {
 </script>
 <?php if(isset($_REQUEST['id']))
 {?>
- <h1>Manage Batch</h1>
+ <h1>Manage Offering</h1>
  
  
  <?php    $batch=Batches::model()->findByAttributes(array('id'=>$_REQUEST['id'])); 
@@ -202,7 +202,7 @@ $(document).click(function() {
 		?>
     <?php if($allgreen==0)
 	{?>
-    <div class="cb_info_bx">
+<!--    <div class="cb_info_bx">
     
         <div class="cbi_ibx cbi_ico3" style="border-left:none">
         	<h3>Active Students</h3>
@@ -231,7 +231,7 @@ $(document).click(function() {
         </div>
          
     <div class="clear"></div>
-     </div>
+     </div>-->
      <?php }?>
 <?php $batch=Batches::model()->findByAttributes(array('id'=>$_REQUEST['id'])); ?>
 
@@ -263,7 +263,7 @@ $(document).click(function() {
         <?php     
                   if(Yii::app()->controller->id=='weekdays' or Yii::app()->controller->id=='classTiming')
                   {
-                  echo CHtml::link(Yii::t('Batch','Timetable'), array('weekdays/timetable','id'=>$_REQUEST['id']),array('class'=>'active'));
+                  echo CHtml::link(Yii::t('Batch','Timetables'), array('weekdays/timetable','id'=>$_REQUEST['id']),array('class'=>'active'));
                   }
                   else
                   {

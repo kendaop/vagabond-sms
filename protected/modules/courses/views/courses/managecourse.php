@@ -71,7 +71,7 @@ function rowdelete(id)
     <td valign="top">
     <div class="cont_right formWrapper">
 		<div class="header-row">
-			<h1><?php echo Yii::t('Courses','Manage Courses & Offerings');?></h1>
+			<h1><?php echo Yii::t('Courses','Manage Courses &amp; Offerings');?></h1>
 			<?php 
 			echo CHtml::label('Show ended offerings', 'show-old-offerings');
 			echo CHtml::checkBox('show-old-offerings');
