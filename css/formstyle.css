@@ -1,4 +1,11 @@
 /* Kendall */
+.tablesorter-container {
+    background-color: #f7f7ff;
+    margin-bottom: 40px;
+    padding: 0 2px 2px;
+    border-radius: 6px;
+}
+
 .tablesorter tr td {
 	text-align: center;
 	font-size: 12px;

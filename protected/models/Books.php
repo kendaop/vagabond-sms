@@ -11,6 +11,7 @@
  * @property string $copy
  * @property integer $status
  * @property integer $is_deleted
+ * @property string $subject
  */
 
 class Books extends CActiveRecord
