@@ -18,7 +18,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog',array(
                 ));
 				?>
 <div style="padding:10px 20px 10px 20px;">
-<h1>Mark Attentance</h1>
+<h1>Mark Attendance</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'day' =>$day,'month'=>$month,'year'=>$year,'emp_id'=>$emp_id)); ?>
 <?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>

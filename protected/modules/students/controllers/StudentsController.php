@@ -524,6 +524,14 @@ class StudentsController extends RController
 		));
 		//$this->render('fees',array('model'=>$model));
 	}
+	
+	public function actionBooks($id)
+	{
+		$this->render('books', [
+			'model' => $this->loadModel($id)
+		]);
+	}
+	
 	public function actionEvents()
 	{
 		$this->render('events');

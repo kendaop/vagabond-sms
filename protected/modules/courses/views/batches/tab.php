@@ -272,8 +272,7 @@ $(document).click(function() {
         ?>
         
         </li>
-        
-        
+		
         <li>
         <?php     
                   if(Yii::app()->controller->id=='studentAttentance')
@@ -285,23 +284,7 @@ $(document).click(function() {
                   echo CHtml::link(Yii::t('Batch','Attendance'), array('/courses/studentAttentance','id'=>$_REQUEST['id']));
                   }
         ?>
-        </li>        
-
-        <li>
-        <?php     
-                  if(Yii::app()->controller->action->id=='settings')
-                  {
-                  echo CHtml::link(Yii::t('Batch','Settings'), array('batches/settings','id'=>$_REQUEST['id']),array('class'=>'active'));
-                  }
-                  else
-                  {
-                  echo CHtml::link(Yii::t('Batch','Settings'), array('batches/settings','id'=>$_REQUEST['id']));
-                  }
-        ?>
         </li>
-        
-        
-        
         </ul>
     </div>
     <?php 

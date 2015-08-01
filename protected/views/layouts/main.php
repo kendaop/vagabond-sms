@@ -266,18 +266,6 @@ $(".navigationbtm_wrapper_outer").show();
 				}
 				?>
                 </li>-->
-                   <li>
-                 <?php 
-				if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='attendance')
-				{
-				    echo CHtml::link(Yii::t('app','Attendance'), array('/attendance'),array('class'=>'ic11 active'));
-				}
-				else
-				{
-					echo CHtml::link(Yii::t('app','Attendance'), array('/attendance'),array('class'=>'ic11'));
-				}
-				?>
-                </li>
                   <li>
                  <?php 
 				if(isset(Yii::app()->controller->module->id) and Yii::app()->controller->module->id=='timetable')

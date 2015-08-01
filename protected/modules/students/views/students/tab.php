@@ -13,23 +13,7 @@
 			  }
 	    ?>
 		</li>
-        
-        
-        
-        <li> 
-		
-        <?php     
-	          if(Yii::app()->controller->action->id=='assesments')
-	          {
-		      echo CHtml::link(Yii::t('students','Assessments'), array('assesments', 'id'=>$_REQUEST['id']),array('class'=>'active'));
-			  }
-			  else
-			  {
-	          echo CHtml::link(Yii::t('students','Assessments'), array('assesments', 'id'=>$_REQUEST['id']));
-			  }
-	    ?>
-		</li>
-        
+                
         <li> 
 		
         <?php     
@@ -40,6 +24,20 @@
 			  else
 			  {
 	          echo CHtml::link(Yii::t('students','Attendance'), array('attentance', 'id'=>$_REQUEST['id']));
+			  }
+	    ?>
+		</li>
+		
+		<li> 
+		
+        <?php     
+	          if(Yii::app()->controller->action->id=='books')
+	          {
+		      echo CHtml::link('Books', array('books', 'id'=>$_REQUEST['id']),array('class'=>'active'));
+			  }
+			  else
+			  {
+	          echo CHtml::link('Books', array('books', 'id'=>$_REQUEST['id']));
 			  }
 	    ?>
 		</li>

@@ -548,10 +548,10 @@ CREATE TABLE IF NOT EXISTS `book` (
   `book_position` varchar(120) DEFAULT NULL,
   `shelf_no` varchar(120) DEFAULT NULL,
   `date` date DEFAULT NULL,
-  `status` varchar(120) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
   `is_deleted` int(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
