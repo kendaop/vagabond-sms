@@ -101,6 +101,13 @@ class Books extends CActiveRecord
 		return self::replaceEmpty($books);
 	}
 	
+	public function checkOut($bookId, $studentId)
+	{
+		$book = self::model()->find($bookId);
+		$book->status = $studentId;
+		$book->save();
+	}
+	
 	private static function replaceEmpty($books)
 	{
 		$labels = self::attributeLabels();
