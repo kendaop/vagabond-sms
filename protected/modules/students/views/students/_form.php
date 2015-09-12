@@ -199,6 +199,23 @@ if ($form->errorSummary($model)) {
 					<?php echo $form->error($model, 'date_of_birth'); ?>
 				</td>
 			</tr>
+						<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td valign="middle">Notes:</td>
+			</tr>
+			<tr>
+				<td colspan="5">
+					<?php 
+					echo $form->textArea($model, 'status_description', [
+						'maxlength' => 255,
+						'rows' => 6,
+						'style' => "width:500px !important;"
+					]); 
+					?>
+				</td>
+			</tr>
 		</table>
     </div>
 </div>
@@ -385,13 +402,6 @@ if ($form->errorSummary($model)) {
 			<?php //echo $form->labelEx($model,'is_sms_enabled'); ?>
 			<?php echo $form->hiddenField($model, 'is_sms_enabled'); ?>
 			<?php echo $form->error($model, 'is_sms_enabled'); ?>
-		</div>
-
-
-		<div class="row">
-			<?php //echo $form->labelEx($model,'status_description'); ?>
-			<?php echo $form->hiddenField($model, 'status_description', array('size' => 60, 'maxlength' => 255)); ?>
-			<?php echo $form->error($model, 'status_description'); ?>
 		</div>
 
 		<div class="row">

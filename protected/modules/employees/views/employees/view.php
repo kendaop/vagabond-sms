@@ -58,33 +58,6 @@ $this->breadcrumbs=array(
 							  ?></td>
   </tr>
 
-  <!--<tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('employees','Category');?></td>
-    <td class="subhdng_nrmal"><?php $cat=EmployeeCategories::model()->findByAttributes(array('id'=>$model->employee_category_id));
-							  if($cat!=NULL)
-							  {
-							  echo $cat->name;	
-							  }
-							  ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('employees','Position');?></td>
-    <td class="subhdng_nrmal"><?php $pos=EmployeePositions::model()->findByAttributes(array('id'=>$model->employee_position_id));
-							  if($pos!=NULL)
-							  {
-							  echo $pos->name;	
-							  }
-							  ?></td>
-  </tr>-->
-  <!--<tr>
-    <td class="listbx_subhdng"><?php echo Yii::t('employees','Grade');?> </td>
-    <td class="subhdng_nrmal"><?php $grd=EmployeeGrades::model()->findByAttributes(array('id'=>$model->employee_grade_id));
-							  if($grd!=NULL)
-							  {
-							  echo $grd->name;	
-							  }
-							  ?></td>
-    <td class="listbx_subhdng"><?php echo Yii::t('employees','Job Title');?></td>
-    <td class="subhdng_nrmal"><?php echo $model->job_title; ?></td>
-  </tr>-->
   <tr>
 	<td class="listbx_subhdng"><?php echo Yii::t('employees','Date of Birth');?></td>
     <td class="subhdng_nrmal"><?php 
@@ -104,6 +77,17 @@ $this->breadcrumbs=array(
 									else 
 										echo 'Female';	 ?></td>
   </tr>
+<?php
+  if(strlen($model->status_description) > 0) { ?>
+	<tr>
+		<td class="listbx_subhdng">
+			Notes:
+		</td>
+		<td colspan="3">
+			<?= $model->status_description ?>
+		</td>
+	</tr>
+<?php } ?>
   <tr class="listbxtop_hdng">
     <td><?php echo Yii::t('employees','Contact');?></td>
     <td>&nbsp;</td>

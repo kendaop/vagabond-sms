@@ -201,6 +201,23 @@ if ($form->errorSummary($model)) {
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td valign="middle">Notes:</td>
+			</tr>
+			<tr>
+				<td colspan="5">
+					<?php 
+					echo $form->textArea($model, 'status_description', [
+						'maxlength' => 255,
+						'rows' => 6,
+						'style' => "width:500px !important;"
+					]);
+					?>
+				</td>
+			</tr>
 		</table>
 	</div>
 </div>

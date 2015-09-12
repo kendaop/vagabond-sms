@@ -76,7 +76,7 @@ class Students extends CActiveRecord {
 			array('admission_no', 'unique'),
 			array('email', 'check'),
 			array('admission_no, class_roll_no, first_name, middle_name, last_name, gender, address_line1, address_line2, city, state, email, photo_file_name, photo_content_type, status_description', 'length', 'max' => 255),
-			array('admission_date, date_of_birth, created_at, updated_at', 'safe'),
+			array('admission_date, date_of_birth, created_at, updated_at, status_description', 'safe'),
 			array('email', 'email'),
 			array(
 				'date_of_birth',
@@ -149,7 +149,7 @@ class Students extends CActiveRecord {
 			'photo_file_name' => 'Photo File Name',
 			'photo_content_type' => 'Photo Content Type',
 			'photo_data' => 'Photo Data',
-			'status_description' => 'Status Description',
+			'status_description' => 'Notes',
 			'is_active' => 'Is Active',
 			'is_deleted' => 'Is Deleted',
 			'created_at' => 'Created At',

@@ -86,6 +86,17 @@ $this->breadcrumbs=array(
 		else 
 			echo 'Female';	 ?></td>
   </tr>
+  <?php
+  if(strlen($model->status_description) > 0) { ?>
+	<tr>
+		<td class="listbx_subhdng">
+			Notes:
+		</td>
+		<td colspan="3">
+			<?= $model->status_description ?>
+		</td>
+	</tr>
+  <?php } ?>
   <tr class="listbxtop_hdng">
     <td><?php echo Yii::t('students','Contact');?></td>
     <td>&nbsp;</td>
