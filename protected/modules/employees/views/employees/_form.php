@@ -260,7 +260,16 @@ if ($form->errorSummary($model)) {
 			<tr>
 				<td><?php echo $form->labelEx($model, Yii::t('employees', 'home_country_id')); ?>
 				</td>
-				<td><?php echo $form->dropDownList($model, 'home_country_id', CHtml::listData(Countries::model()->findAll(), 'id', 'name'), array('empty' => 'Select Country')); ?>
+				<td><?php 
+				$countryId = $model->home_country_id ? : '186';
+				echo $form->dropDownList($model, 'home_country_id', CHtml::listData(Countries::model()->findAll(), 'id', 'name'), array(
+					'empty'		=> 'Select Country',
+					'options'	=> [
+						$countryId	=> [
+							'selected'	=> true
+						]
+					]
+				)); ?>
 					<?php echo $form->error($model, 'home_country_id'); ?></td>
 				<td><?php echo $form->labelEx($model, Yii::t('employees', 'home_pin_code')); ?>
 				</td>

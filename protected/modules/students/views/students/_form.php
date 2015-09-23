@@ -257,8 +257,15 @@ if ($form->errorSummary($model)) {
 				<td><?php echo $form->labelEx($model, Yii::t('students', 'country_id')); ?></td>
 				<td>
 					<?php
+					$countryId = $model->country_id ? : '186';
 					echo $form->dropDownList($model, 'country_id', CHtml::listData(Countries::model()->findAll(), 'id', 'name'), array(
-						'style' => 'width:140px;', 'empty' => 'Select Country'
+						'style'		=> 'width:140px;', 
+						'empty'		=> 'Select Country',
+						'options'	=> [
+							$countryId	=> [
+								'selected'	=> true
+							]
+						]
 					));
 					?>
 					<?php echo $form->error($model, 'country_id'); ?>
