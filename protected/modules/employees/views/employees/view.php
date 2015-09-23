@@ -64,7 +64,8 @@ $this->breadcrumbs=array(
 										$settings=UserSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
 										if($settings!=NULL)
 										{	
-											$date1=date($settings->displaydate,strtotime($model->date_of_birth));
+											$dob = $model->date_of_birth;
+											$date1 = is_null($dob) ? '-' : date($settings->displaydate,strtotime($model->date_of_birth));
 											echo $date1;
 		
 										}

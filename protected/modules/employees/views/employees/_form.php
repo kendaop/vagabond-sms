@@ -55,7 +55,7 @@ if (Yii::app()->controller->action->id == 'create') {
 	$adm_date = DateTime::createFromFormat('Y-m-d', $adm_no->joining_date);
 	$adm_date = $adm_date->format('m/d/Y');
 	$dob = DateTime::createFromFormat('Y-m-d', $adm_no->date_of_birth);
-	$dob = $dob->format('m/d/Y');
+	$dob = $dob ? $dob->format('m/d/Y') : '';
 }
 
 $untaughtBatches = Batches::model()->getUntaughtBatches($adm_no->id);

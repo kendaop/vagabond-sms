@@ -72,7 +72,8 @@ $this->breadcrumbs=array(
     <td class="subhdng_nrmal"><?php 
 									if($settings!=NULL)
 								{	
-									$date1=date($settings->displaydate,strtotime($model->date_of_birth));
+									$dob = $model->date_of_birth;
+									$date1 = is_null($dob) ? '-' : date($settings->displaydate,strtotime($dob));
 									echo $date1;
 		
 								}

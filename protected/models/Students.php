@@ -72,24 +72,25 @@ class Students extends CActiveRecord {
 		// will receive user inputs.
 		return array(
 			array('admission_no, parent_id, nationality_id, student_category_id, country_id, immediate_contact_id, is_sms_enabled, is_active, is_deleted, has_paid_fees, photo_file_size, phone1, phone2, user_id, uid', 'numerical', 'integerOnly' => true),
-			array('admission_no, admission_date, first_name, last_name, address_line1, city, state, pin_code, country_id, phone1, email, date_of_birth, gender', 'required',),
+			array('admission_no, admission_date, first_name, last_name, address_line1, city, state, pin_code, country_id, phone1, email, gender', 'required',),
 			array('admission_no', 'unique'),
 			array('email', 'check'),
 			array('admission_no, class_roll_no, first_name, middle_name, last_name, gender, address_line1, address_line2, city, state, email, photo_file_name, photo_content_type, status_description', 'length', 'max' => 255),
 			array('admission_date, date_of_birth, created_at, updated_at, status_description', 'safe'),
 			array('email', 'email'),
-			array(
-				'date_of_birth',
-				'compare',
-				'compareAttribute' => 'created_at',
-				'operator' => '<',
-				'allowEmpty' => false,
-				'message' => '{attribute} must be less than "{compareValue}".'
-			),
+//			array(
+//				'date_of_birth',
+//				'compare',
+//				'compareAttribute' => 'created_at',
+//				'operator' => '<',
+//				'allowEmpty' => false,
+//				'message' => '{attribute} must be less than "{compareValue}".'
+//			),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('photo_data', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
 			array('id, admission_no, parent_id, class_roll_no, admission_date, first_name, middle_name, last_name, date_of_birth, gender, blood_group, birth_place, nationality_id, language, religion, student_category_id, address_line1, address_line2, city, state, pin_code, country_id, phone1, phone2, email, immediate_contact_id, is_sms_enabled, photo_file_name, photo_content_type, photo_data, status_description, is_active, is_deleted, created_at, updated_at, has_paid_fees, photo_file_size, user_id', 'safe', 'on' => 'search'),
+			array('date_of_birth', 'default', 'setOnEmpty' => true, 'value' => null)
 		);
 	}
 

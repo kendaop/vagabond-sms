@@ -87,13 +87,14 @@ class Employees extends CActiveRecord {
 			array('employee_category_id, employee_position_id, employee_department_id, reporting_manager_id, employee_grade_id, office_country_id, photo_file_size, is_deleted, user_id, uid', 'numerical', 'integerOnly' => true),
 			array('employee_number, gender, first_name, middle_name, last_name, job_title, qualification, status_description, marital_status, father_name, mother_name, husband_name, blood_group, home_address_line1, home_address_line2, home_city, home_state, home_pin_code, office_address_line1, office_address_line2, office_city, office_state, office_pin_code, office_phone1, office_phone2, mobile_phone, home_phone, email, fax, photo_file_name, photo_content_type', 'length', 'max' => 255),
 			array('joining_date, date_of_birth, created_at, updated_at', 'safe'),
-			array('employee_number, first_name, last_name, home_address_line1, home_city, home_state, home_country_id, home_pin_code, joining_date, gender, date_of_birth, email, mobile_phone', 'required'),
+			array('employee_number, first_name, last_name, home_address_line1, home_city, home_state, home_country_id, home_pin_code, joining_date, gender, email, mobile_phone', 'required'),
 			array('employee_number', 'unique'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('photo_data', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true, 'maxSize' => 5242880),
 			array('id, employee_category_id, employee_number, joining_date, first_name, middle_name, last_name, job_title, employee_position_id, reporting_manager_id, employee_grade_id, status, status_description, date_of_birth, home_address_line1, home_address_line2, home_city, home_state, home_country_id, home_pin_code, office_address_line1, office_address_line2, office_city, office_state, office_country_id, office_pin_code, office_phone1, office_phone2, mobile_phone, home_phone, email, fax, photo_file_name, photo_content_type, photo_data, created_at, updated_at, photo_file_size, user_id', 'safe', 'on' => 'search'),
 			array('email', 'email'),
+			array('date_of_birth', 'default', 'setOnEmpty' => true, 'value' => null)
 				//array('photo_data', 'file', 'allowEmpty'=>true, 'types'=>'jpg, jpeg, gif, png')
 		);
 	}
