@@ -311,6 +311,15 @@ class StudentsController extends RController
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
+	
+	public function actionEnroll($student_id, $batch_id) {
+		$model = Students::model()->findByPk($student_id);
+		$result = $model->addBatches([$batch_id]);
+		$this->redirect([
+			'/courses/batches/batchstudents', 
+			'id'	=> $batch_id
+		]);
+	}
 
 	/**
 	 * Performs the Advance search.

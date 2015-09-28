@@ -1,4 +1,18 @@
 /* Kendall */
+
+.add_student_btn {
+	background:url(../images/add_student.png) no-repeat;
+	height: 18px;
+	width: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.add_student_btn:hover {
+	background:#f5f5f5 url(../images/add_student_hover.png) no-repeat;
+	cursor: pointer;
+}
+
 .tablesorter-container {
     background-color: #f7f7ff;
     margin-bottom: 40px;
