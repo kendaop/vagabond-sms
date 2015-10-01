@@ -287,7 +287,7 @@ class Students extends CActiveRecord {
 			$results = Yii::app()->db->createCommand()->setFetchMode(PDO::FETCH_OBJ)
 				->select('S.*')
 				->from('students S')
-				->leftJoin('batch_students BS', 'BS.student_id = S.id')
+				->leftJoin('batch_students BS', 'BS.student_id = S.id AND BS.batch_id = :batch', ['batch' => $batch_id])
 				->where('BS.batch_id IS NULL AND BS.student_id IS NULL')
 				->queryAll();
 			
