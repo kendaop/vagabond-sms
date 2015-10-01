@@ -6,6 +6,7 @@ body
 	color: #333;
 	margin:0px;
 	background:#000 url(../images/bg.png) repeat-x top;
+	background-size: auto 100%;
 	/*background:#24343e url(../images/pattern-bg.png);
 	background:url(../images/cont_left_bg.png) left repeat-y;*/
 }
