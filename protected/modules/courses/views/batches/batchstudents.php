@@ -1,4 +1,21 @@
 <?php
+$formatNameAndGender = function($obj) {
+	$obj->name = "$obj->first_name $obj->last_name";
+	
+	switch($obj->gender) {
+		case 'M':
+			$obj->gender = 'Male';
+			break;
+		case 'F':
+			$obj->gender = 'Female';
+			break;
+		default:
+			$obj->gender = '-';
+			break;
+	}
+	return $obj;
+};
+
 $this->breadcrumbs=array(
 	'Batches'=>array('/courses'),
 	'Batches',
@@ -66,14 +83,49 @@ Yii::app()->clientScript->registerScript(
     </div>
     <?php endif; ?>
     <div class="table_listbx">
+		<h4>Enrolled Students</h4>
      <?php
 		if(isset($_REQUEST['id']))
 		{
 			$posts = $batch->students;
-		if($posts!=NULL)
-		{
+			
+			if($posts!=NULL)
+			{
+				foreach($posts as $student) {
+					$student = $formatNameAndGender($student);
+					
+					$student->actions = "<a class='no-decoration' href='" . $this->createUrl('students/delete', [
+						'student_id'	=> $student->id,
+						'batch_id'		=> $batch->id
+					]) . "'><span class='red_x'></span></a>";
+				}
+				
+				$this->widget('application.extensions.tablesorter.Sorter', array(
+					'data' => $posts,
+					'columns' => [
+						[
+							'header' => 'ID',
+							'value'  => 'id'
+						],
+						'name',
+						'gender',
+						'actions'
+					],
+					'filters' => [
+						'',
+						'',
+						'filter-select',
+						'filter-false'
+					],
+					'buttons' => [
+						[
+							'action' => 'disable',
+							'edit' => 'disable'
+						]
+					]
+				));
 		?>
-			<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<!--			<table width="100%" cellspacing="0" cellpadding="0" border="0">
 			<tr class="listbxtop_hdng">
 			<td ><?php echo Yii::t('Batch','Admission no.');?></td>
 			<td ><?php echo Yii::t('Batch','Student');?></td>
@@ -106,10 +158,10 @@ Yii::app()->clientScript->registerScript(
 							<ul>
 								<li class="add"><?php echo CHtml::link(Yii::t('Batch','Add Leave').'<span>'.Yii::t('Batch','for add leave').'</span>', array('#'),array('class'=>'addevnt','name' => $posts_1->id)) ?></li>
 								<li class="delete"><?php echo CHtml::link(Yii::t('Batch','Make Inactive').'<span>'.Yii::t('Batch','make students inactive').'</span>', array('/students/students/inactive', 'sid'=>$posts_1->id,'id'=>$_REQUEST['id']),array('confirm'=>'Are You Sure , Make Inactive ?')) ?></li>
-								<!--<li class="edit"><a href="#">Edit Leave<span>for add leave</span></a></li>
+								<li class="edit"><a href="#">Edit Leave<span>for add leave</span></a></li>
 								<li class="delete"><a href="#">Delete Leave<span>for add leave</span></a></li>
 								<li class="add"><a href="#">Add Fees<span>for add leave</span></a></li>
-								<li class="add"><a href="#">Add Report<span>for add leave</span></a></li>-->
+								<li class="add"><a href="#">Add Report<span>for add leave</span></a></li>
 							</ul>
 						</div>
 						<div class="clear"></div>
@@ -118,7 +170,7 @@ Yii::app()->clientScript->registerScript(
 						</td>
 					<?php }
 					?>
-			</table>
+			</table>-->
 		<?php    	
 		}
 		else
@@ -134,18 +186,13 @@ Yii::app()->clientScript->registerScript(
     
     </div>
     </div>
+	<div class="table_listbx" style="margin-top: 50px">
     <h4>Add Students</h4>
 <?php
 	$unenrolledStudents = Students::model()->getUnenrolledStudents($batch->id);
 
 	foreach($unenrolledStudents as $student) {
-		$student->name = "$student->first_name $student->last_name";
-
-		if($student->gender === 'M') {
-			$student->gender = 'Male';
-		} elseif($student->gender === 'F') {
-			$student->gender = 'Female';
-		}
+		$student = $formatNameAndGender($student);
 		
 		$student->actions = "<a href='" . Yii::app()->createUrl('students/students/enroll', [
 			'student_id'	=> $student->id,
@@ -167,7 +214,7 @@ Yii::app()->clientScript->registerScript(
 		'filters' => [
 			'',
 			'',
-			'',
+			'filter-select',
 			'filter-false'
 		],
 		'buttons' => [
@@ -178,6 +225,7 @@ Yii::app()->clientScript->registerScript(
 		]
 	));
 ?>
+	</div>
     </div>
     </div>
      <?php    	

@@ -56,6 +56,8 @@ class Students extends CActiveRecord {
 	public $dobrange;
 	public $admissionrange;
 	public $task_type;
+	public $name;
+	public $actions;
 
 	/**
 	 * @return string the associated database table name
@@ -279,6 +281,22 @@ class Students extends CActiveRecord {
 			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
 		} catch (Exception $ex) {
 			echo 'Failed to query database: ' . $ex->getMessage();
+		}
+	}
+	
+	public function removeBatch($batchId) {
+		try {
+			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+			
+			$pdo = $dbh->prepare(
+				"DELETE FROM `batch_students`
+				WHERE `batch_id` = ?
+				AND `student_id` = ?;"
+			);
+			
+			return $pdo->execute([$batchId, $this->id]);
+		} catch (Exception $ex) {
+			echo 'Failed to delete batchStudents record: ' . $ex->getMessage();
 		}
 	}
 	
