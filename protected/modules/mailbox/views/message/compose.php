@@ -78,7 +78,7 @@ $form=$this->beginWidget('CActiveForm', array(
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><?php echo CHtml::activeLabelEx($conv,'<strong>To</strong>'); ?></td>
-    <td><?php echo $form->textField($conv,'to',array('style'=>'width:30%;','id'=>'message-to','class'=>'mailbox-input', 'edit'=>$this->module->editToField? '1' : null)); ?>
+<!--    <td><?php echo $form->textField($conv,'to',array('style'=>'width:30%;','id'=>'message-to','class'=>'mailbox-input', 'edit'=>$this->module->editToField? '1' : null)); ?>
 				<?php echo $form->error($conv,'to'); ?>
 				<?php
 
@@ -96,7 +96,25 @@ $form=$this->beginWidget('CActiveForm', array(
 						echo '</select>';
 				}
 				?>
-               </td>
+	</td>-->
+	<td>
+		<select name="Mailbox[to]" id="group-list">
+		<?php
+			$offerings = Yii::app()->db->createCommand()
+					->select("B.id, C.course_name, B.name, GROUP_CONCAT(S.email SEPARATOR ', ') as emails")
+					->from('batch_students BS')
+					->join('batches B', 'B.id = BS.batch_id AND B.is_deleted = 0 AND B.is_active = 1')
+					->join('students S', 'S.id = BS.student_id AND S.is_deleted = 0 AND S.is_active = 1')
+					->join('courses C', 'C.id = B.course_id AND C.is_deleted = 0')
+					->group('B.id')
+					->queryAll();
+
+			foreach($offerings as $offering) {
+				echo "<option value='{$offering['emails']}'>Offering: {$offering['course_name']} - {$offering['name']}</option>";
+			}
+		?>
+		</select>
+	</td>
   </tr>
   <tr>
     <td>&nbsp;</td>

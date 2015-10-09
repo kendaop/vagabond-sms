@@ -43,7 +43,7 @@
 		)); ?>
 
 	</div>
-<br /><br /> <?php if(sizeof($dataProvider->items)==0)
+<br /><br /> <?php if(sizeof($dataProvider->items)< 3)
 {;?>
 	<div class="add-assignment span-11 last">
 

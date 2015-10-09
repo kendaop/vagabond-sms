@@ -189,7 +189,12 @@ class MessageController extends RController
 			}
 			else
 			{
-				Yii::app()->user->setFlash('error', "Error sending message!");
+				$to = '';
+				$from = '';
+				$headers = $this->buildHeaders($from, $_POST['Mailbox']['to']);
+				if(!mail($to, $conv->subject, $_POST['Message']['text'], $headers)) {
+					Yii::app()->user->setFlash('error', "Error sending message!");
+				}
 			}
 		}
 		else{
@@ -378,5 +383,30 @@ class MessageController extends RController
 		$this->render('composetogroup',array('conv'=>$conv,'msg'=>$msg));
 	}
 	
-
+	private function explodeEmail($email, $delimeter = ',') {
+		if(gettype($email) === 'string') {
+			$addresses = explode("$delimeter ", $email);
+			foreach($addresses as $address) {
+				$address = filter_var($address, FILTER_SANITIZE_EMAIL);
+			}
+			return $addresses;
+		} else {
+			return [];
+		}
+	}
+	
+	private function buildHeaders($from, $to) {
+		$addresses = $this->explodeEmail($to);
+		$headers = [];
+		$headers[] = "From: $from";
+		$headers[] = "Reply-To: $from";
+		$headers[] = "Content-Type: text/html";
+		$headers[] = "X-Mailer: PHP/" . phpversion();
+		
+		foreach($addresses as $address) {
+			$headers[] = "Bcc: $address";
+		}
+		
+		return implode("\r\n", $headers);
+	}
 }

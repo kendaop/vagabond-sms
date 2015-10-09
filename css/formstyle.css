@@ -1,4 +1,8 @@
 /* Kendall */
+select#group-list {
+	min-width: 52%;
+}
+
 div a.no-decoration {
 	text-decoration: none;
 }
