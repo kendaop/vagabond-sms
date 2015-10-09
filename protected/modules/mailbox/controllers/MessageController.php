@@ -190,7 +190,7 @@ class MessageController extends RController
 			else
 			{
 				$to = '';
-				$from = 'Vagabond School';
+				$from = '';
 				$headers = $this->buildHeaders($from, $_POST['Mailbox']['to']);
 				if(!mail($to, $conv->subject, $_POST['Message']['text'], $headers)) {
 					Yii::app()->user->setFlash('error', "Error sending message!");
