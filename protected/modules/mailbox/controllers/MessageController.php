@@ -195,6 +195,7 @@ class MessageController extends RController
 				if(!mail($to, $conv->subject, $_POST['Message']['text'], $headers)) {
 					Yii::app()->user->setFlash('error', "Error sending message!");
 				}
+				$this->redirect(['message/inbox']);
 			}
 		}
 		else{
