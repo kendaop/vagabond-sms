@@ -82,7 +82,7 @@ Yii::app()->clientScript->registerScript(
         <?php echo Yii::app()->user->getFlash('success'); ?>
     </div>
     <?php endif; ?>
-    <div class="table_listbx">
+	<div class="tablesorter-container" id="enrolled">
 		<h4>Enrolled Students</h4>
      <?php
 		if(isset($_REQUEST['id']))
@@ -93,8 +93,9 @@ Yii::app()->clientScript->registerScript(
 			{
 				foreach($posts as $student) {
 					$student = $formatNameAndGender($student);
+					$student->name = "<a href='" . Yii::app()->createUrl('/students/students/view', ['id' => $student->id]) ."' class='tablesorter-link'>$student->name</a>";
 					
-					$student->actions = "<a class='no-decoration' href='" . $this->createUrl('students/delete', [
+					$student->actions = "<a class='unenroll no-decoration' href='" . $this->createUrl('students/delete', [
 						'student_id'	=> $student->id,
 						'batch_id'		=> $batch->id
 					]) . "'><span class='red_x'></span></a>";
@@ -124,54 +125,7 @@ Yii::app()->clientScript->registerScript(
 						]
 					]
 				));
-		?>
-<!--			<table width="100%" cellspacing="0" cellpadding="0" border="0">
-			<tr class="listbxtop_hdng">
-			<td ><?php echo Yii::t('Batch','Admission no.');?></td>
-			<td ><?php echo Yii::t('Batch','Student');?></td>
-			<td ><?php echo Yii::t('Batch','Gender');?></td>
-			<td ><?php echo Yii::t('Batch','Actions');?></td>
-			</tr>
-				<?php
-				$i=0;
-					foreach($posts as $posts_1)
-					{
-						$i++;
-						echo '<tr>';
-						echo '<td>'.$posts_1->admission_no.'</td>';	
-						echo '<td>'.CHtml::link(ucfirst($posts_1->first_name).' '.ucfirst($posts_1->middle_name).' '.ucfirst($posts_1->last_name), array('/students/students/view', 'id'=>$posts_1->id)).'</td>';
-				?>
-						<td><?php
-						  if($posts_1->gender=='M')
-						  {
-							  echo 'Male';
-						  }
-						  elseif($posts_1->gender=='F')
-						  {
-							  echo 'Female';
-						  }?></td>
-						<td >
-						<div style="position:absolute;">
-						<div  id="<?php echo $i; ?>" class="act_but"><?php echo Yii::t('Batch','Actions');?></div>
-						<div class="act_drop" id="<?php echo $i.'x'; ?>">
-							<div class="but_bg_outer"></div><div class="but_bg"><div  id="<?php echo $i; ?>" class="act_but_hover"><?php echo Yii::t('Batch','Actions');?></div></div>
-							<ul>
-								<li class="add"><?php echo CHtml::link(Yii::t('Batch','Add Leave').'<span>'.Yii::t('Batch','for add leave').'</span>', array('#'),array('class'=>'addevnt','name' => $posts_1->id)) ?></li>
-								<li class="delete"><?php echo CHtml::link(Yii::t('Batch','Make Inactive').'<span>'.Yii::t('Batch','make students inactive').'</span>', array('/students/students/inactive', 'sid'=>$posts_1->id,'id'=>$_REQUEST['id']),array('confirm'=>'Are You Sure , Make Inactive ?')) ?></li>
-								<li class="edit"><a href="#">Edit Leave<span>for add leave</span></a></li>
-								<li class="delete"><a href="#">Delete Leave<span>for add leave</span></a></li>
-								<li class="add"><a href="#">Add Fees<span>for add leave</span></a></li>
-								<li class="add"><a href="#">Add Report<span>for add leave</span></a></li>
-							</ul>
-						</div>
-						<div class="clear"></div>
-						<div id="<?php echo $posts_1->id ?>"></div>
-						</div>
-						</td>
-					<?php }
-					?>
-			</table>-->
-		<?php    	
+ 	
 		}
 		else
 		{
@@ -186,15 +140,16 @@ Yii::app()->clientScript->registerScript(
     
     </div>
     </div>
-	<div class="table_listbx" style="margin-top: 50px">
+	<div class="tablesorter-container" id="unenrolled">
     <h4>Add Students</h4>
 <?php
 	$unenrolledStudents = Students::model()->getUnenrolledStudents($batch->id);
 
 	foreach($unenrolledStudents as $student) {
 		$student = $formatNameAndGender($student);
+		$student->name = "<a href='" . Yii::app()->createUrl('/students/students/view', ['id' => $student->id]) ."' class='tablesorter-link'>$student->name</a>";
 		
-		$student->actions = "<a href='" . Yii::app()->createUrl('students/students/enroll', [
+		$student->actions = "<a class='enroll' href='" . Yii::app()->createUrl('students/students/enroll', [
 			'student_id'	=> $student->id,
 			'batch_id'		=> $batch->id
 		]) . "'><div class='add_student_btn'></div></a>";
@@ -246,7 +201,6 @@ Yii::app()->clientScript->registerScript(
 
 <script>
 	//CREATE 
-
     $('.addevnt').bind('click', function() {var id = $(this).attr('name');
         $.ajax({
             type: "POST",
@@ -272,11 +226,18 @@ Yii::app()->clientScript->registerScript(
         });//ajax
         return false;
     });//bind
-	
+
 	$(document).ready(function() {
-		
+		$('a.unenroll').click(function(e) {
+			var url = $(this).attr('href');
+			var confirmed = confirm("Are you sure you want to unenroll this student?");
+			
+			if(!confirmed) {
+				e.preventDefault();
+			}
+		});
 	});
-	</script>
+</script>
                
 
 

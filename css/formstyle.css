@@ -1,4 +1,9 @@
 /* Kendall */
+.tablesorter-link {
+	font-weight: bold;
+	color: #F60;
+}
+
 select#group-list {
 	min-width: 52%;
 }

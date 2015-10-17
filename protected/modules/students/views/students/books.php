@@ -131,6 +131,7 @@ echo cHTML::hiddenField('hidden-book-id', '0');
 $this->endWidget();
 ?>
 <script>
+	// Script to add alert box before checking in/out a book.
 	$(document).ready(function() {
 		$('.tablesorter-container').each(function() {
 			newClass = $(this).attr('id') == 'available' ? 'check-out' : 'check-in';
