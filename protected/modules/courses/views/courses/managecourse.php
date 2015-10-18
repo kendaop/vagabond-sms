@@ -182,9 +182,11 @@ function rowdelete(id)
 					
 					echo '<td>';
 					if($teachers) {
+						$string = '';
 						foreach($teachers as $key => $teacher) {
-							echo ($key > 0 ? '<br/>' : '') . $teacher->first_name.' '.$teacher->last_name;
+							$string .= ($key > 0 ? '<br/>' : '') . $teacher->first_name.' '.$teacher->last_name;
 						}
+						echo $string;
 					}
 					else
 					{

@@ -274,4 +274,70 @@ class Batches extends CActiveRecord
 		$this->save();
 		return $status;
 	}
+	
+	public function addEmployees(array $employeeIds) {		
+		try {
+			$count = count($employeeIds);
+			$values = [];
+
+			foreach($employeeIds as $id) {
+				$values[] = $this->id;
+				$values[] = $id;
+			}
+			$tuples = '(?,?)';
+
+			foreach(array_slice($employeeIds, 1) as $id) {
+				$tuples .= ', (?,?)';
+			}
+			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+			
+			// Get array of batches that the student is enrolled in.
+			$pdo = $dbh->prepare(
+				"INSERT INTO `batch_employees` (`batch_id`, `employee_id`)
+				VALUES $tuples;"
+			);
+			
+			$pdo->execute($values);
+		} catch (Exception $ex) {
+			echo 'Failed to query database: ' . $ex->getMessage();
+		}
+	}
+	
+	public function removeEmployees(array $employeeIds) {
+		$values = implode(', ', $employeeIds);
+		
+		try {
+			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+			
+			// Get array of batches that the student is enrolled in.
+			$pdo = $dbh->prepare(
+				"DELETE FROM `batch_employees`
+				WHERE `batch_id` = :batch_id
+				AND `employee_id` IN ($values)"				
+			);
+			
+			return $pdo->execute(['batch_id' => $this->id]);
+		} catch (Exception $ex) {
+			echo 'Failed to query database: ' . $ex->getMessage();
+		}
+	}
+	
+	public function updateEmployees(array $employeeIds) {
+		$currentEmployees = $this->employees;
+		foreach($currentEmployees as &$emp) {
+			$emp = $emp->id;
+		}
+		
+		$delete = array_diff($currentEmployees, $employeeIds);
+		$add = array_diff($employeeIds, $currentEmployees);
+		
+		if(!empty($delete)) {
+			$removeResult = $this->removeEmployees($delete);
+		}
+		
+		if(!empty($add)) {
+			$addResult = $this->addEmployees($add);
+		}
+		return $this->employees;
+	}
 }

@@ -237,37 +237,65 @@ class Employees extends CActiveRecord {
 			'criteria' => $criteria,
 		));
 	}
+	// LOOK IN Batches.php for an example on how to fix this.	
+	public function updateBatches($batchIds) {
+//		$currentBatches = $this->batches;
+//		$delete = array_diff($currentBatches, $batchIds);
+//		$add = array_diff($batchIds, $currentBatches);
+//		
+//		if(!empty($delete)) {
+//			$this->deleteBatches($delete);
+//		}
+//		
+//		if(!empty($add)) {
+//			$this->addBatches($add);
+//		}
+//		return $this->batches;
+	}
 	
-	public function addBatches($batchIds)
+	// LOOK IN Batches.php for an example on how to fix this.
+	public function addBatches(array $batchIds)
 	{
-		$count = count($batchIds);
-		$values = [];
-		
-		for($x = 0; $x < $count; $x++) {
-			$values[] = $this->id;
-			$values[] = $batchIds[$x];
-		}
-		$tuples = '(?,?)';
-		
-		foreach(array_slice($batchIds, 1) as $id) {
-			$tuples .= ', (?,?)';
-		}
-		
-		try {
-			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
-			
-			// Get array of batches that the student is enrolled in.
-			$pdo = $dbh->prepare(
-				"INSERT INTO `batch_employees` (`employee_id`, `batch_id`)
-				VALUES $tuples;"
-			);
-			
-			$pdo->execute($values);
-
-			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
-		} catch (Exception $ex) {
-			echo 'Failed to query database: ' . $ex->getMessage();
-		}
+//		$count = count($batchIds);
+//		$values = [];
+//		
+//		for($x = 0; $x < $count; $x++) {
+//			$values[] = $this->id;
+//			$values[] = $batchIds[$x];
+//		}
+//		$tuples = '(?,?)';
+//		
+//		foreach(array_slice($batchIds, 1) as $id) {
+//			$tuples .= ', (?,?)';
+//		}
+//		
+//		try {
+//			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+//			
+//			// Get array of batches that the student is enrolled in.
+//			$pdo = $dbh->prepare(
+//				"INSERT INTO `batch_employees` (`employee_id`, `batch_id`)
+//				VALUES $tuples;"
+//			);
+//			
+//			$pdo->execute($values);
+//
+//			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+//		} catch (Exception $ex) {
+//			echo 'Failed to query database: ' . $ex->getMessage();
+//		}
+	}
+	
+	// LOOK IN Batches.php for an example on how to fix this.
+	public function deleteBatches(array $batchIds) {
+//		$values = implode(', ', $batchIds);
+//		
+//		try {
+//			Yii::app()->db->createCommand()
+//				->delete('batch_employees', 'employee_id = :employee_id AND batch_id IN (:batch_ids)', [':employee_id' => $this->id, ':batch_ids' => $values]);
+//		} catch (Exception $ex) {
+//			echo 'Failed to query database: ' . $ex->getMessage();
+//		}
 	}
 
 	public function getConcatened() {

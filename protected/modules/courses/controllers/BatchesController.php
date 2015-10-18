@@ -197,16 +197,26 @@ class BatchesController extends RController
         // new jon.
 		
 		$flag=true;
+		
+		// Populate model with current values first.
 	   	if(isset($_POST['Batches']))
         {   
 			$flag=false;
 			$model=Batches::model()->findByPk($_GET['val1']);
+			
+			// Overwrite old values with new values.
 			$model->attributes=$_POST['Batches'];
+			
+			// Update teachers for this batch.
+			$employees = array_key_exists('employees', $_POST['Batches']) ? $_POST['Batches']['employees'] : [];
+			$model->updateEmployees($employees);
+			
 			$model->start_date=date('Y-m-d', strtotime($model->start_date)); 
 			$model->end_date=date('Y-m-d', strtotime($model->end_date)); 
 			$model->save();
 			exit;
 		}
+		
 		if($flag) {
 			$model=Batches::model()->findByPk($_GET['val1']);
 			$settings=UserSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
@@ -214,9 +224,8 @@ class BatchesController extends RController
 			{	
 				$date1=date($settings->displaydate,strtotime($model->start_date));
 				$date2=date($settings->displaydate,strtotime($model->end_date));
-			
-
 			}
+			
 		$model->start_date=$date1;
 		$model->end_date=$date2;
 			Yii::app()->clientScript->scriptMap['jquery.js'] = false;

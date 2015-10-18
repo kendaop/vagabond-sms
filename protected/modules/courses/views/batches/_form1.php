@@ -98,7 +98,7 @@
 		$criteria->condition='is_deleted=:is_del';
 		$criteria->params=array(':is_del'=>0);
 	?>
-    <td><?php echo $form->dropDownList($model,'employee_id',CHtml::listData(Employees::model()->findAll($criteria),'id','concatened'),array('empty' => 'Select Class Teacher')); ?>
+    <td><?php echo $form->dropDownList($model,'employees',CHtml::listData(Employees::model()->findAll($criteria),'id','concatened'),array('multiple' => true)); ?>
 		<?php echo $form->error($model,'employee_id'); ?></td>
   </tr>
   <tr>
