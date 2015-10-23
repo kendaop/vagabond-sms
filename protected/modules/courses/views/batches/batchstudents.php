@@ -54,7 +54,19 @@ Yii::app()->clientScript->registerScript(
 ?>
 
 
-<?php $batch=Batches::model()->findByAttributes(array('id'=>$_REQUEST['id'])); ?>
+<?php 
+	$batch=Batches::model()->findByAttributes(array('id'=>$_REQUEST['id'])); 
+	$unenrolledStudents = Students::getUnenrolledStudents($batch->id);
+	foreach($unenrolledStudents as &$student) {
+		$student->name = "$student->first_name $student->last_name";
+		$student->name = "<a href='" . Yii::app()->createUrl('/students/students/view', ['id' => $student->id]) ."' class='tablesorter-link'>$student->name</a>";
+		$student->gender = $student->gender === 'M' ? 'Male' : ($student->gender === 'F' ? 'Female' : '-');
+		$student->actions = "<a class='enroll no-decoration' href='" . $this->createUrl('students/enroll', [
+				'student_id'	=> $student->id,
+				'batch_id'		=> $batch->id
+			]) . "'><span class='add_student_btn'></span></a>";
+	}
+?>
           
 <div style="background:#FFF;">
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -67,42 +79,69 @@ Yii::app()->clientScript->registerScript(
     <div style="padding:20px;">
     <div class="clear"></div>
     <div class="emp_right_contner">
-    <div class="emp_tabwrapper">
-     <?php $this->renderPartial('tab');?>
+		<div class="emp_tabwrapper">
+		<?php $this->renderPartial('tab');?>
     
-    <div class="clear"></div>
-    <div class="emp_cntntbx" style="padding-top:10px;">
-    <div class="c_subbutCon" align="right" style="width:100%; height:40px; position:relative">
-    <div class="edit_bttns" style="top:0px; right:-6px">
-    <div class="clear"></div>
-    </div>
-    </div>
+		<div class="clear"></div>
+		<div class="emp_cntntbx" style="padding-top:10px;">
     <?php if(Yii::app()->user->hasFlash('success')):?>
-    <div class="info" style="background-color:#C30; width:800px; height:30px">
-        <?php echo Yii::app()->user->getFlash('success'); ?>
-    </div>
-    <?php endif; ?>
-	<div class="tablesorter-container" id="enrolled">
-		<h4>Enrolled Students</h4>
-     <?php
+		<div class="info" style="background-color:#C30; width:800px; height:30px">
+			<?php echo Yii::app()->user->getFlash('success'); ?>
+		</div>
+    <?php endif;
 		if(isset($_REQUEST['id']))
 		{
 			$posts = $batch->students;
 			
 			if($posts!=NULL)
 			{
-				foreach($posts as $student) {
-					$student = $formatNameAndGender($student);
-					$student->name = "<a href='" . Yii::app()->createUrl('/students/students/view', ['id' => $student->id]) ."' class='tablesorter-link'>$student->name</a>";
-					
-					$student->actions = "<a class='unenroll no-decoration' href='" . $this->createUrl('students/delete', [
-						'student_id'	=> $student->id,
-						'batch_id'		=> $batch->id
-					]) . "'><span class='red_x'></span></a>";
+	?>
+		<div class="pdtab_Con" style="width:97%" id="enrolled">
+		<h4>Enrolled Students</h4>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr class="pdtab-h">
+				  <td>Name</td>
+				  <td>Gender</td>
+				  <td>Email</td>
+				  <td>Phone</td>
+				  <td>Payment Status</td>
+				  <td>Actions</td>
+				</tr>
+			</tbody>
+	<?php
+		foreach($posts as $student) {
+			$student = $formatNameAndGender($student);
+			$student->name = "<a href='" . Yii::app()->createUrl('/students/students/view', ['id' => $student->id]) ."' class='tablesorter-link'>$student->name</a>";
+
+			$student->actions = "<a class='unenroll no-decoration' href='" . $this->createUrl('students/delete', [
+				'student_id'	=> $student->id,
+				'batch_id'		=> $batch->id
+			]) . "'><span class='red_x'></span></a>";
+	?>
+		<tr>
+			<td><?= $student->name ?></td>
+			<td><?= $student->gender ?></td>
+			<td><?= $student->email ?></td>
+			<td><?= $student->phone1 ?></td>
+			<td><i>Unknown</i></td>
+			<td><?= $student->actions ?></td>
+		</tr>
+	<?php
 				}
-				
+		}
+		else
+		{
+			echo '<br><div class="notifications nt_red" style="padding-top:10px">'.'<i>'.Yii::t('Batch','No Active Students In This Batch').'</i></div>'; 
+
+		}
+		?> 
+		</table> 
+		<div class="tablesorter-container" id="unenrolled">
+			<h4>Add Students</h4>
+			<?php
 				$this->widget('application.extensions.tablesorter.Sorter', array(
-					'data' => $posts,
+					'data' => $unenrolledStudents,
 					'columns' => [
 						[
 							'header' => 'ID',
@@ -120,69 +159,23 @@ Yii::app()->clientScript->registerScript(
 					],
 					'buttons' => [
 						[
-							'action' => 'disable',
-							'edit' => 'disable'
+							'action'	=> 'disable',
+							'delete'	=> 'disable'
 						]
 					]
 				));
- 	
-		}
-		else
-		{
-			echo '<br><div class="notifications nt_red" style="padding-top:10px">'.'<i>'.Yii::t('Batch','No Active Students In This Batch').'</i></div>'; 
-
-		}
-
-		}
-		?> 
-    </div>
+			?>		
+		</div>
     <br />
     
     </div>
     </div>
-	<div class="tablesorter-container" id="unenrolled">
-    <h4>Add Students</h4>
-<?php
-	$unenrolledStudents = Students::model()->getUnenrolledStudents($batch->id);
-
-	foreach($unenrolledStudents as $student) {
-		$student = $formatNameAndGender($student);
-		$student->name = "<a href='" . Yii::app()->createUrl('/students/students/view', ['id' => $student->id]) ."' class='tablesorter-link'>$student->name</a>";
-		
-		$student->actions = "<a class='enroll' href='" . Yii::app()->createUrl('students/students/enroll', [
-			'student_id'	=> $student->id,
-			'batch_id'		=> $batch->id
-		]) . "'><div class='add_student_btn'></div></a>";
-	}
-
-	$this->widget('application.extensions.tablesorter.Sorter', array(
-		'data' => $unenrolledStudents,
-		'columns' => [
-			[
-				'header' => 'ID',
-				'value'  => 'id'
-			],
-			'name',
-			'gender',
-			'actions'
-		],
-		'filters' => [
-			'',
-			'',
-			'filter-select',
-			'filter-false'
-		],
-		'buttons' => [
-			[
-				'action'	=> 'disable',
-				'delete'	=> 'disable'
-			]
-		]
-	));
+		<?php
+		}
 ?>
 	</div>
     </div>
-    </div>
+	</div>
      <?php    	
                 }
 				else

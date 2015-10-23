@@ -153,7 +153,7 @@ $(document).ready(function() {
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody>
                     <tr class="pdtab-h">
-                      <td align="center" height="18"><?php echo Yii::t('students','Date');?></td>
+                      <td align="center"><?php echo Yii::t('students','Date');?></td>
                       <td align="center"><?php echo Yii::t('students','Student Name');?></td>
                       <td align="center"><?php echo Yii::t('students','Admission No.');?></td>
                       <td align="center"><?php echo Yii::t('students','Course/Batch');?></td>
