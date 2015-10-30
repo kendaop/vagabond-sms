@@ -57,7 +57,7 @@ Yii::app()->clientScript->registerScript(
 <?php 
 	$batch=Batches::model()->findByAttributes(array('id'=>$_REQUEST['id'])); 
 	$unenrolledStudents = Students::getUnenrolledStudents($batch->id);
-	foreach($unenrolledStudents as &$student) {
+	foreach($unenrolledStudents as $student) {
 		$student->name = "$student->first_name $student->last_name";
 		$student->name = "<a href='" . Yii::app()->createUrl('/students/students/view', ['id' => $student->id]) ."' class='tablesorter-link'>$student->name</a>";
 		$student->gender = $student->gender === 'M' ? 'Male' : ($student->gender === 'F' ? 'Female' : '-');
