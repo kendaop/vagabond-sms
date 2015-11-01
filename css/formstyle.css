@@ -1,4 +1,16 @@
 /* Kendall */
+.modal-table tr td:first-of-type, .modal-table tr td:nth-of-type(3) {
+	width: 45%;
+}
+
+.modal-table tr td:nth-of-type(2) {
+	width: 5%;
+}
+
+#batch-price {
+	margin-left: 10%;
+}
+
 .tablesorter-link {
 	font-weight: bold;
 	color: #F60;
@@ -1040,7 +1052,8 @@ table.detail-view td{
 	padding:8px 8px 8px 20px;
 	margin:0px;
 	float:left;
-	width:400px;
+	/*width:400px;*/
+	width: 55%;
 }
 .cb_left ul{
 	padding:0px;

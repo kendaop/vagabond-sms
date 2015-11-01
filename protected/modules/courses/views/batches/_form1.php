@@ -6,14 +6,14 @@
 )); ?>
 
 	<?php
-    Yii::app()->clientScript->registerScript(
-       'myHideEffect',
-       '$(".success_msg").animate({opacity: 1.0}, 4000).fadeOut("slow");',
-       CClientScript::POS_READY
-    );
+//    Yii::app()->clientScript->registerScript(
+//       'myHideEffect',
+//       '$(".success_msg").animate({opacity: 1.0}, 4000).fadeOut("slow");',
+//       CClientScript::POS_READY
+//    );
 ?>
 
-	<span id="success_msg" class="success_msg" style="font-size:14px; color:#C00; font-weight:bold; padding-left:20px; padding-top:5px;"></span>
+	<!--<span id="success_msg" class="success_msg" style="font-size:14px; color:#C00; font-weight:bold; padding-left:20px; padding-top:5px;"></span>-->
 	<p style="padding-left:20px;">Fields with <span class="required">*</span> are required.</p>
 <div style="padding:0 0 0 20px;">
 	<?php echo $form->errorSummary($model); ?>
@@ -36,8 +36,6 @@
 			if($settings!=NULL)
 			{
 				$date=$settings->dateformat;
-		
-		
 			}
 			else
 				$date = 'dd-mm-yy';	
@@ -91,15 +89,31 @@
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
-   <td><?php echo $form->labelEx($model,Yii::t('Batch','Teacher')); ?></td>
+  <tr>
+   <td>Teacher</td>
     <td>&nbsp;</td>
     <?php
 		$criteria=new CDbCriteria;
 		$criteria->condition='is_deleted=:is_del';
 		$criteria->params=array(':is_del'=>0);
 	?>
-    <td><?php echo $form->dropDownList($model,'employees',CHtml::listData(Employees::model()->findAll($criteria),'id','concatened'),array('multiple' => true)); ?>
+    <td><?php echo $form->dropDownList($model,'employees',CHtml::listData(Employees::model()->findAll($criteria),'id','concatened'),array('multiple' => true, 'style' => 'min-width: 85%')); ?>
 		<?php echo $form->error($model,'employee_id'); ?></td>
+  </tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+  <tr>
+	  <td><?php echo $form->labelEx($model,Yii::t('batch','price')); ?></td>
+	  <td>&nbsp;</td>
+	  <td>$
+	<?php
+		echo $form->textField($model, 'price', ['size' => "8", 'placeholder' => '0.00']);
+		echo $form->error($model, 'price');
+	?>
+	  </td>
   </tr>
   <tr>
   	<td>&nbsp;</td>

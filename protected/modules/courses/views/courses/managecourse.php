@@ -87,17 +87,6 @@ function rowdelete(id)
  </div>
   </div>
     <div class="mcb_Con">
-<!--<div class="mcbrow hd_bg">
-	<ul>
-    	<li class="col1">Course Name</li>
-        <li class="col2">Edit</li>
-        <li class="col3">Delete</li>
-        <li class="col4">Add Batch</li>
-        <li class="col5">View Batch</li>
-    </ul>
- <div class="clear"></div>
-</div>-->
-
 <?php foreach($posts as $posts_1)
 { ?>
 <div class="mcbrow" id="jobDialog1">
@@ -147,12 +136,13 @@ function rowdelete(id)
 		  <tbody>
           <!--class="cbtablebx_topbg"  class="sub_act"-->
 		  <tr class="pdtab-h">
-			<td><?php echo Yii::t('Courses','Offering');?></td>
-            <td><?php echo Yii::t('Courses','Teacher');?></td>
-			<td><?php echo Yii::t('Courses','Students');?></td>
-			<td><?php echo Yii::t('Courses','Start Date');?></td>
-			<td><?php echo Yii::t('Courses','End Date');?></td>
-			<td><?php echo Yii::t('Courses','Actions');?></td>
+			<td>Offering</td>
+            <td>Teacher</td>
+			<td>Students</td>
+			<td>Start Date</td>
+			<td>End Date</td>
+			<td>Price</td>
+			<td>Actions</td>
 		  </tr>
           <?php 
 		  foreach($batch as $batch_1)
@@ -196,6 +186,7 @@ function rowdelete(id)
 					echo '<td>'.count($students).'</td>';
 					echo '<td>'.$date1.'</td>';
 					echo '<td>'.$date2.'</td>';
+					echo '<td>$'.$batch_1->price.'</td>';
 					echo '<td class="sub_act">';
 					echo CHtml::ajaxLink(Yii::t('Courses','Edit'),$this->createUrl('batches/addupdate'),array(
 					'onclick'=>'$("#jobDialog123").dialog("open"); return false;',

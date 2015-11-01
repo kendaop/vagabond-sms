@@ -479,9 +479,10 @@ CREATE TABLE IF NOT EXISTS `batches` (
   `end_date` datetime DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT '1',
   `is_deleted` tinyint(1) DEFAULT '0',
+  `price` decimal(5,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 

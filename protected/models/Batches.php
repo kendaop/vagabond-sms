@@ -11,6 +11,7 @@
  * @property string $end_date
  * @property integer $is_active
  * @property integer $is_deleted
+ * @property float $price
  */
 class Batches extends CActiveRecord
 {
@@ -43,8 +44,9 @@ class Batches extends CActiveRecord
 			array('name', 'length', 'max'=>25),
 			array('start_date, end_date', 'safe'),
 			// The following rule is used by search().
-			array('name, start_date, end_date', 'required'),
+			array('name, start_date, end_date, price', 'required'),
 			array('name','CRegularExpressionValidator', 'pattern'=>'/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/','message'=>"{attribute} should not contain any special character(s)."),
+			array('price','CRegularExpressionValidator', 'pattern'=>'/^[0-9]{1,3}(\.[0-9]{2})$/','message'=>"{attribute} is not valid."),
 			// Please remove those attributes that should not be searched.
 			array('id, name, course_id, start_date, end_date, is_active, is_deleted', 'safe', 'on'=>'search'),
 		);
@@ -77,7 +79,8 @@ class Batches extends CActiveRecord
 			'start_date' => 'Start Date',
 			'end_date' => 'End Date',
 			'is_active' => 'Is Active',
-			'is_deleted' => 'Is Deleted'
+			'is_deleted' => 'Is Deleted',
+			'price' => 'Price'
 		);
 	}
 
@@ -99,6 +102,7 @@ class Batches extends CActiveRecord
 		$criteria->compare('end_date',$this->end_date,true);
 		$criteria->compare('is_active',$this->is_active);
 		$criteria->compare('is_deleted',$this->is_deleted);
+		$criteria->compare('price',$this->price);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

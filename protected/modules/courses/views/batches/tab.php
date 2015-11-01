@@ -98,7 +98,9 @@ $(document).click(function() {
    
     	<div class="cb_left">
         	<ul>
-            	<li><strong>Course / Batch:</strong> <?php echo $coursename; ?> / <?php echo $batchname; ?></li>
+				<li><strong>Course / Batch:</strong> <?php echo $coursename; ?> / <?php echo $batchname; ?>
+					<span id="batch-price"><strong>Price:</strong> $<?= $batch->price ?></span>
+				</li>
                 <li><strong><?php echo Yii::t('Batch','Class Teacher : '); ?></strong> 
 					<?php
 						if($batch->employees!=NULL)
