@@ -200,7 +200,7 @@ class BatchesController extends RController
 		
 		// Populate model with current values first.
 	   	if(isset($_POST['Batches']))
-        {   
+        {
 			$flag=false;
 			$model=Batches::model()->findByPk($_GET['val1']);
 			
@@ -214,6 +214,7 @@ class BatchesController extends RController
 			$model->start_date=date('Y-m-d', strtotime($model->start_date)); 
 			$model->end_date=date('Y-m-d', strtotime($model->end_date)); 
 			$model->save();
+			$model->updateActiveStatus();
 			exit;
 		}
 		

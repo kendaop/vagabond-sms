@@ -90,7 +90,7 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
-   <td>Teacher</td>
+   <td><?php echo $form->labelEx($model,Yii::t('batch','teacher')); ?></td>
     <td>&nbsp;</td>
     <?php
 		$criteria=new CDbCriteria;
@@ -100,6 +100,11 @@
     <td><?php echo $form->dropDownList($model,'employees',CHtml::listData(Employees::model()->findAll($criteria),'id','concatened'),array('multiple' => true, 'style' => 'min-width: 85%')); ?>
 		<?php echo $form->error($model,'employee_id'); ?></td>
   </tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td><span class="note">Hold Ctrl to select multiple teachers.</span></td>
+	</tr>
 	<tr>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>

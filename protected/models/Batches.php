@@ -271,7 +271,7 @@ class Batches extends CActiveRecord
 	public function updateActiveStatus($status = false)
 	{
 		if(!is_int($status)) {
-			$status = $this->end_date > date('Y-m-d H:i:s') ? 1 : 0;
+			$status = $this->end_date >= date('Y-m-d') ? 1 : 0;
 		}
 		
 		$this->is_active = $status;
