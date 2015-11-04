@@ -148,10 +148,17 @@ Yii::app()->clientScript->registerScript(
 							'value'  => 'id'
 						],
 						'name',
+						'email',
+						[
+							'header'	=> 'Phone',
+							'value'		=> 'phone1'
+						],
 						'gender',
 						'actions'
 					],
 					'filters' => [
+						'',
+						'',
 						'',
 						'',
 						'filter-select',
