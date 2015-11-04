@@ -61,7 +61,7 @@ Yii::app()->clientScript->registerScript(
 		$student->name = "$student->first_name $student->last_name";
 		$student->name = "<a href='" . Yii::app()->createUrl('/students/students/view', ['id' => $student->id]) ."' class='tablesorter-link'>$student->name</a>";
 		$student->gender = $student->gender === 'M' ? 'Male' : ($student->gender === 'F' ? 'Female' : '-');
-		$student->actions = "<a class='enroll no-decoration' href='" . $this->createUrl('students/enroll', [
+		$student->actions = "<a class='enroll no-decoration' href='" . $this->createUrl('/students/students/enroll', [
 				'student_id'	=> $student->id,
 				'batch_id'		=> $batch->id
 			]) . "'><span class='add_student_btn'></span></a>";

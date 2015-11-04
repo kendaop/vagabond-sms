@@ -50,6 +50,7 @@ div a.no-decoration {
 	width: 20px;
 	margin-left: auto;
 	margin-right: auto;
+	display: block;
 }
 
 .add_student_btn:hover {
