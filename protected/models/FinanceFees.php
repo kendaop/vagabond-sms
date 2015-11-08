@@ -5,10 +5,13 @@
  *
  * The followings are the available columns in table 'finance_fees':
  * @property integer $id
- * @property integer $fee_collection_id
- * @property string $transaction_id
+ * @property integer $batch_id
+ * @property float $charge_amount
  * @property integer $student_id
  * @property integer $is_paid
+ * @property float $paid_amount
+ * @property string $payment_type
+ * @property string $description
  */
 class FinanceFees extends CActiveRecord
 {
@@ -37,11 +40,11 @@ class FinanceFees extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('fee_collection_id, student_id, is_paid', 'numerical', 'integerOnly'=>true),
-			array('transaction_id', 'length', 'max'=>255),
-			// The following rule is used by search().
+			array('batch_id, student_id, is_paid', 'numerical', 'integerOnly'=>true),
+			array('description', 'length', 'max'=>255),
+			// The following rule is used by search().aw  
 			// Please remove those attributes that should not be searched.
-			array('id, fee_collection_id, transaction_id, student_id, is_paid', 'safe', 'on'=>'search'),
+			array('id, batch_id, charge_amount, student_id, is_paid', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,6 +56,8 @@ class FinanceFees extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'student' => array(self::BELONGS_TO, 'Students', 'student_id'),
+			'offering' => array(self::BELONGS_TO, 'Batches', 'batch_id')
 		);
 	}
 
@@ -63,10 +68,13 @@ class FinanceFees extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'fee_collection_id' => 'Fee Collection',
-			'transaction_id' => 'Transaction',
+			'batch_id' => 'Offering ID',
+			'charge_amount' => 'Charge',
 			'student_id' => 'Student',
 			'is_paid' => 'Is Paid',
+			'paid_amount' => 'Amount Paid',
+			'payment_type' => 'Payment Type',
+			'description' => 'Description'
 		);
 	}
 
@@ -82,8 +90,8 @@ class FinanceFees extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('fee_collection_id',$this->fee_collection_id);
-		$criteria->compare('transaction_id',$this->transaction_id,true);
+		$criteria->compare('batch_id',$this->fee_collection_id);
+		$criteria->compare('charge_amount',$this->charge_amount,true);
 		$criteria->compare('student_id',$this->student_id);
 		$criteria->compare('is_paid',$this->is_paid);
 

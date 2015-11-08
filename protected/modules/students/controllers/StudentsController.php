@@ -268,6 +268,17 @@ class StudentsController extends RController
 			if($model->save()) {
 				$batches = explode(',', Yii::app()->request->getParam('new_enrollments'));
 				$model->addBatches($batches);
+				
+				foreach($batches as $batch_id) {
+					$batch = Batches::model()->findByPk($batch_id);
+					
+					$model->addTransaction($batch_id, [
+						'charge_amount' => floatval($batch->price),
+						'paid_amount' => 0.0,
+						'description' => "$model->first_name $model->last_name",
+						'payment_type' => 'Cash'
+					]);
+				}
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -313,8 +324,16 @@ class StudentsController extends RController
 	}
 	
 	public function actionEnroll($student_id, $batch_id) {
-		$model = Students::model()->findByPk($student_id);
+		$model = $this->loadMoadel($student_id);
 		$result = $model->addBatches([$batch_id]);
+		
+		if($result) {
+			$model->addTransaction($batch_id, [
+				'charge_amount' => Batches::model()->findByPk($batch_id)->price,
+				'description' => "$model->first_name $model->last_name"
+			]);
+		}
+		
 		$this->redirect([
 			'/courses/batches/batchstudents', 
 			'id'	=> $batch_id

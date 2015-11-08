@@ -251,6 +251,16 @@ class Students extends CActiveRecord {
 		
 		return $number;
 	}
+	
+	public function addTransaction($batchId, array $transaction) {
+		$finance_fee = new FinanceFees();
+		$finance_fee->batch_id = intval($batchId);
+		$finance_fee->student_id = $this->id;
+		foreach($transaction as $property => $value) {
+			$finance_fee->$property = $value;
+		}
+		return $finance_fee->save();
+	}
 
 	public function addBatches($batchIds)
 	{
@@ -277,7 +287,7 @@ class Students extends CActiveRecord {
 			);
 			
 			$pdo->execute($values);
-
+			
 			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
 		} catch (Exception $ex) {
 			echo 'Failed to query database: ' . $ex->getMessage();
