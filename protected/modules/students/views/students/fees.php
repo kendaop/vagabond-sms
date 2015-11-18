@@ -54,10 +54,10 @@ $this->breadcrumbs=array(
     <div class="tableinnerlist"> 
         
     <?php 
-	$res=FinanceFees::model()->findAll(array('condition'=>'student_id=:vwid AND is_paid=:vpid','params'=>array(':vwid'=>$_REQUEST['id'], ':vpid'=>0)));
+	$pendingTransactions=FinanceFees::model()->findAll(array('condition'=>'student_id=:vwid AND is_paid=:vpid','params'=>array(':vwid'=>$_REQUEST['id'], ':vpid'=>0)));
 	$currency=Configurations::model()->findByPk(5);
 
-	if(count($res)=='0')
+	if(count($pendingTransactions)=='0')
 	{
 	 echo Yii::t('students','<i>No Pending Fees</i>');	
 	}
@@ -75,10 +75,10 @@ $this->breadcrumbs=array(
         </tr> 
      
     <?php
-	foreach($res as $res_1)
+	foreach($pendingTransactions as $transaction)
 	{
-		$posts = FinanceFeeCollections::model()->findByAttributes(array('id'=>$res_1->fee_collection_id));
-		$cat = FinanceFeeCategories::model()->findByAttributes(array('id'=>$posts->fee_category_id));
+//		$posts = FinanceFeeCollections::model()->findByAttributes(array('id'=>$res_1->fee_collection_id));
+//		$cat = FinanceFeeCategories::model()->findByAttributes(array('id'=>$posts->fee_category_id));
 
 		?>
 
@@ -134,7 +134,7 @@ $this->breadcrumbs=array(
 			 
 			?>
 			</td>
-            <td> <?php echo CHtml::link(Yii::t('students','Pay Now'), array('payfees', 'id'=>$res_1->id)); ?></td>
+            <td> <?php echo CHtml::link(Yii::t('students','Pay Now'), array('payfees', 'id'=>$transaction->id)); ?></td>
         </tr>
       
         <?php 
@@ -144,18 +144,19 @@ $this->breadcrumbs=array(
 	}?> 
         
        </div><br /> 
-        <h3><?php echo Yii::t('students','Paid Fees');?></h3>
+        <h3>Transaction History</h3>
           <div class="tableinnerlist"> 
         <table width="95%" cellpadding="0" cellspacing="0">
         <tr>
-          <th><?php echo Yii::t('students','Category Name');?></th>
-          <th><?php echo Yii::t('students','Collection Name');?></th>
-           <th><?php echo Yii::t('students','Amount');?></th>
-             
+			<th>Date</th>
+			<th>Offering</th>
+			<th>Description</th>
+			<th>Amount Billed</th>
+			<th>Amount Paid</th>
         </tr>
          <?php 
-	$res=FinanceFees::model()->findAll(array('condition'=>'student_id=:vwid AND is_paid=:vpid','params'=>array(':vwid'=>$_REQUEST['id'], ':vpid'=>1)));
-	if(count($res)==0)
+	$transactionHistory=FinanceFees::model()->findAll(array('condition'=>'student_id=:id','params'=>array(':id'=>$_REQUEST['id'])));
+	if(count($transactionHistory)==0)
 	{
 	?>
     	<tr>
@@ -165,65 +166,19 @@ $this->breadcrumbs=array(
 	}
 	else
 	{
-		foreach($res as $res_1)
-		{
-			$amount = 0;
-			$posts = FinanceFeeCollections::model()->findByAttributes(array('id'=>$res_1->fee_collection_id));
-			$cat = FinanceFeeCategories::model()->findByAttributes(array('id'=>$posts->fee_category_id));
-			/*$particular = FinanceFeeParticulars::model()->findAllByAttributes(array('finance_fee_category_id'=>$posts->fee_category_id));
-			if($particular!=NULL)
-			{
-				foreach($particular as $particulars)
-				{
-					$amount = $amount+$particulars->amount;
-				}
-			}*/
-			?>
+		foreach($transactionHistory as $transaction)
+		{	?>
 		  
 			<tr>
-			  <td><?php if(@$cat) echo $cat->name ?></td>
-			   <td><?php echo $posts->name ?></td>
-				<td>
-					<?php
-					$check_admission_no = FinanceFeeParticulars::model()->findAllByAttributes(array('finance_fee_category_id'=>$posts->fee_category_id,'admission_no'=>$model->admission_no));
-					if(count($check_admission_no)>0){ // If any particular is present for this student
-						$adm_amount = 0;
-						foreach($check_admission_no as $adm_no){
-							$adm_amount = $adm_amount + $adm_no->amount;
-						}
-						echo $adm_amount.' '.$currency->config_value;	
-					}
-					else{ // If any particular is present for this student category
-						$check_student_category = FinanceFeeParticulars::model()->findAllByAttributes(array('finance_fee_category_id'=>$posts->fee_category_id,'student_category_id'=>$model->student_category_id,'admission_no'=>''));
-						if(count($check_student_category)>0){
-							$cat_amount = 0;
-							foreach($check_student_category as $stu_cat){
-								$cat_amount = $cat_amount + $stu_cat->amount;
-							}
-							echo $cat_amount.' '.$currency->config_value;		
-						}
-						else{ //If no particular is present for this student or student category
-							$check_all = FinanceFeeParticulars::model()->findAllByAttributes(array('finance_fee_category_id'=>$posts->fee_category_id,'student_category_id'=>NULL,'admission_no'=>''));
-							if(count($check_all)>0){
-								$all_amount = 0;
-								foreach($check_all as $all){
-									$all_amount = $all_amount + $all->amount;
-								}
-								echo $all_amount.' '.$currency->config_value;
-							}
-							else{
-								echo '-'; // If no particular is found.
-							}
-						}
-					}
-					
-				 
-				?>
-				</td>
-				
+				<td><?php echo date('M. m, Y', strtotime($transaction->created_at)); ?></td>
+				<td><?php echo $transaction->offering->getOfferingName('/'); ?></td>
+				<td><?php echo $transaction->description; ?></td>
+				<td>$<?php echo $transaction->charge_amount; ?></td>
+				<td>$<?php echo $transaction->paid_amount; ?></td>
 			</tr>
 		   
-			<?php }
+			<?php 
+		}
 	}
 		 ?>
      </table>

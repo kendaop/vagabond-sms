@@ -197,9 +197,8 @@ $(document).ready(function() {
 						  foreach($batches as $batch) {
 							if($count++) {
 								echo '&nbsp;&nbsp;&nbsp;&nbsp;';
-							}  
-							$course = Courses::model()->findByAttributes(array('id'=>$batch->course_id));
-							echo $course->course_name.' / '.$batch->name;
+							}
+							echo $batch->getOfferingName('/');
 							if($count == 3)
 								break;
 						  }

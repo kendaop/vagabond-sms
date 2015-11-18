@@ -119,6 +119,11 @@ class Batches extends CActiveRecord
 			return $this->name.' ('.$course->course_name.')';
 	}
 	
+	public function getOfferingName($separator = '-')
+	{
+		return "{$this->course123->course_name} $separator $this->name";
+	}
+	
 	public function getUnenrolledBatches($studentId) 
 	{
 		try {
