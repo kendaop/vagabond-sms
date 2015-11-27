@@ -50,7 +50,7 @@
 									'dateFormat'=>$date,
 									'changeMonth'=> true,
 									'changeYear'=>true,
-									'yearRange'=>'1900:'
+									'yearRange'=>'2010:'.(date('Y')+10)
 								),
 								'htmlOptions'=>array(
 									'style'=>'height:20px;'
@@ -76,7 +76,7 @@
 									'dateFormat'=>$date,
 									'changeMonth'=> true,
 									'changeYear'=>true,
-									'yearRange'=>'1900:'.(date('Y')+30),
+									'yearRange'=>'2010:'.(date('Y')+10),
 								),
 								'htmlOptions'=>array(
 									'style'=>'height:20px;'
