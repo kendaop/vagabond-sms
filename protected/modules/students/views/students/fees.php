@@ -63,36 +63,56 @@ $this->breadcrumbs=array(
 	else
 	{
 	?>
-    <table width="95%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th>Offering</th>
-          <th>Amount Billed</th>
-          <th>Amount Paid</th>
-          <th>Payment Status</th>
-          <th><?php echo Yii::t('students','Action');?></th>
-        </tr> 
-     
-    <?php
-	foreach($studentBalances as $studentBalance)
-	{
-		$charged = number_format((float) $studentBalance->charge_sum, 2);
-		$paid = number_format((float) $studentBalance->paid_sum, 2);
-		
-		if($charged !== $paid) {
-			$batch = Batches::model()->findByPk((int) $studentBalance->batch_id);
-	?>
+		<table width="95%" cellpadding="0" cellspacing="0">
 			<tr>
-				<td><?= $batch->getOfferingName() ?></td>
-				<td>$<?= $charged ?></td>
-				<td>$<?= $paid ?></td>
-				<td>$<?php echo $charged > $paid ? (number_format($charged - $paid, 2) . ' Outstanding') : (number_format($paid - $charged, 2) . ' Overpaid'); ?></td>
-				<td> <?php //echo CHtml::link(Yii::t('students','Pay Now'), array('payfees', 'id'=>$studentBalance->id)); ?></td>
-			</tr>
+			  <th>Offering</th>
+			  <th>Amount Billed</th>
+			  <th>Amount Paid</th>
+			  <th>Payment Status</th>
+			  <th><?php echo Yii::t('students','Action');?></th>
+			</tr> 
+
+		<?php
+		foreach($studentBalances as $studentBalance)
+		{
+			$charged = number_format((float) $studentBalance->charge_sum, 2);
+			$paid = number_format((float) $studentBalance->paid_sum, 2);
+
+			if($charged !== $paid) {
+				$batch = Batches::model()->findByPk((int) $studentBalance->batch_id);
+		?>
+				<tr>
+					<td><?= $batch->getOfferingName() ?></td>
+					<td>$<?= $charged ?></td>
+					<td>$<?= $paid ?></td>
+					<td>$<?php echo $charged > $paid ? (number_format($charged - $paid, 2) . ' Outstanding') : (number_format($paid - $charged, 2) . ' Overpaid'); ?></td>
+					<td>
+					<?php 
+						echo CHtml::ajaxLink(
+							'Add Payment',
+							$this->createUrl('fees/Add'), 
+							[
+								'onclick' => '$("#feeDialog").dialog("open"); return false;',
+								'update' => '#feeDialog',
+								'type' => 'GET',
+								'data' => [],
+								'dataType' => 'text'
+							], 
+							[
+								'id' => 'showFeeDialog' . $batch->id
+							]
+						); 
+					?>
+					</td>
+				</tr>
 		<?php 
+			}
 		}
+		?>
+		</table> 
+		<?php
 	}
-	echo '</table>';
-	}?> 
+	?> 
         
        </div><br /> 
         <h3>Transaction History</h3>
@@ -157,4 +177,4 @@ $this->breadcrumbs=array(
     </td>
   </tr>
 </table>
-		
+<div id="feeDialog">Fee Dialog</div>

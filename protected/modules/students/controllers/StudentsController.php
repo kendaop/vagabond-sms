@@ -537,12 +537,16 @@ class StudentsController extends RController
 	}
 	
 	
-	public function actionPayfees()
+	public function actionPayfees($batchId, $paidAmount, $paymentType)
 	{
-		$list  = FinanceFees::model()->findByAttributes(array('id'=>$_REQUEST['id']));
-		$list->is_paid = 1;
-		$list->save();
-			$this->redirect(array('fees','id'=>$list->student_id));
+		$newFee = new FinanceFees();
+		$newFee->student_id = $this->id;
+		$newFee->batch_id = $batchId;
+		$newFee->paid_amount = $paidAmount;
+		$newFee->payment_type = $paymentType;
+		$newFee->save();
+		
+		$this->redirect(array('fees','id'=>$this->id));
 	}
 	public function actionFees($id)
 	{
