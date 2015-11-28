@@ -104,7 +104,8 @@ class Students extends CActiveRecord {
 		// class name for the relations automatically generated below.
 		return array(
 			'batches' => [self::MANY_MANY, 'Batches', 'batch_students(student_id, batch_id)'],
-			'attendance' => [self::HAS_MANY, 'StudentAttentance', 'id']
+			'attendance' => [self::HAS_MANY, 'StudentAttentance', 'id'],
+			'fees' => [self::HAS_MANY, 'FinanceFees', 'student_id']
 		);
 	}
 
@@ -223,7 +224,7 @@ class Students extends CActiveRecord {
 	public function getFullname() {
 
 		return '</td><td  style="padding:0 0 0 20px;" >' . CHtml::link($this->first_name, array('/students/students/view', 'id' => $this->id)) . '
-								   </td><td  style="padding:0 0 0 20px;">' . $this->admission_no . '</td>' .
+					</td><td  style="padding:0 0 0 20px;">' . $this->admission_no . '</td>' .
 				'</tr>';
 	}
 
@@ -324,5 +325,14 @@ class Students extends CActiveRecord {
 		catch (Exception $ex) {
 			echo 'Failed to query database: ' . $ex->getMessage();
 		}
+	}
+	
+	public function getOutstandingBalances() {
+		return Yii::app()->db->createCommand(
+			"SELECT id, student_id, batch_id, SUM(charge_amount) as charge_sum, SUM(paid_amount) as paid_sum
+			FROM `finance_fees`
+			WHERE student_id = $this->id
+			GROUP BY batch_id, student_id"
+		)->setFetchMode(PDO::FETCH_OBJ)->queryAll();
 	}
 }

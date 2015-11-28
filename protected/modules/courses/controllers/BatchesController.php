@@ -212,7 +212,7 @@ class BatchesController extends RController
 			$model->updateEmployees($employees);
 			
 			$model->start_date=date('Y-m-d', strtotime($model->start_date)); 
-			$model->end_date=date('Y-m-d', strtotime($model->end_date)); 
+			$model->end_date=date('Y-m-d', strtotime($model->end_date));
 			$model->save();
 			$model->updateActiveStatus();
 			exit;

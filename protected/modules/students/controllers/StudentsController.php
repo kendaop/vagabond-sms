@@ -275,7 +275,7 @@ class StudentsController extends RController
 					$model->addTransaction($batch_id, [
 						'charge_amount' => floatval($batch->price),
 						'paid_amount' => 0.0,
-						'description' => "$model->first_name $model->last_name",
+						'description' => 'Enrollment',
 						'payment_type' => 'Cash'
 					]);
 				}

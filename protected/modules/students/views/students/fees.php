@@ -50,95 +50,46 @@ $this->breadcrumbs=array(
     <div>
      <div class="formCon">
     <div class="formConInner">
-    <h3><?php echo Yii::t('students','Pending Fees');?></h3>
+    <h3>Outstanding Payments</h3>
     <div class="tableinnerlist"> 
         
     <?php 
-	$pendingTransactions=FinanceFees::model()->findAll(array('condition'=>'student_id=:vwid AND is_paid=:vpid','params'=>array(':vwid'=>$_REQUEST['id'], ':vpid'=>0)));
-	$currency=Configurations::model()->findByPk(5);
+	$studentBalances = $model->getOutstandingBalances();
 
-	if(count($pendingTransactions)=='0')
+	if(count($studentBalances)=='0')
 	{
 	 echo Yii::t('students','<i>No Pending Fees</i>');	
 	}
 	else
 	{
-		
 	?>
     <table width="95%" cellpadding="0" cellspacing="0">
         <tr>
-          <th><?php echo Yii::t('students','Category Name');?></th>
-          <th><?php echo Yii::t('students','Collection Name');?></th>
-          <th><?php echo Yii::t('students','Last Date');?></th>
-           <th><?php echo Yii::t('students','Amount');?></th>
-             <th><?php echo Yii::t('students','Action');?></th>
+          <th>Offering</th>
+          <th>Amount Billed</th>
+          <th>Amount Paid</th>
+          <th>Payment Status</th>
+          <th><?php echo Yii::t('students','Action');?></th>
         </tr> 
      
     <?php
-	foreach($pendingTransactions as $transaction)
+	foreach($studentBalances as $studentBalance)
 	{
-//		$posts = FinanceFeeCollections::model()->findByAttributes(array('id'=>$res_1->fee_collection_id));
-//		$cat = FinanceFeeCategories::model()->findByAttributes(array('id'=>$posts->fee_category_id));
-
-		?>
-
-        <tr>
-          <td><?php if(@$cat) echo $cat->name; ?></td>
-           <td><?php echo $posts->name; ?></td>
-		   <td>
-		   		<?php 
-					$settings=UserSettings::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
-					if($settings!=NULL)
-					{	
-						echo date($settings->displaydate,strtotime($posts->due_date));
-						
-					}
-					else
-					echo $posts->due_date; 
-				?>
-			</td>
-            <td>
-				<?php
-				$check_admission_no = FinanceFeeParticulars::model()->findAllByAttributes(array('finance_fee_category_id'=>$posts->fee_category_id,'admission_no'=>$model->admission_no));
-				if(count($check_admission_no)>0){ // If any particular is present for this student
-					$adm_amount = 0;
-					foreach($check_admission_no as $adm_no){
-						$adm_amount = $adm_amount + $adm_no->amount;
-					}
-					echo $adm_amount.' '.$currency->config_value;	
-				}
-				else{ // If any particular is present for this student category
-					$check_student_category = FinanceFeeParticulars::model()->findAllByAttributes(array('finance_fee_category_id'=>$posts->fee_category_id,'student_category_id'=>$model->student_category_id,'admission_no'=>''));
-					if(count($check_student_category)>0){
-						$cat_amount = 0;
-						foreach($check_student_category as $stu_cat){
-							$cat_amount = $cat_amount + $stu_cat->amount;
-						}
-						echo $cat_amount.' '.$currency->config_value;		
-					}
-					else{ //If no particular is present for this student or student category
-						$check_all = FinanceFeeParticulars::model()->findAllByAttributes(array('finance_fee_category_id'=>$posts->fee_category_id,'student_category_id'=>NULL,'admission_no'=>''));
-						if(count($check_all)>0){
-							$all_amount = 0;
-							foreach($check_all as $all){
-								$all_amount = $all_amount + $all->amount;
-							}
-							echo $all_amount.' '.$currency->config_value;
-						}
-						else{
-							echo '-'; // If no particular is found.
-						}
-					}
-				}
-				
-			 
-			?>
-			</td>
-            <td> <?php echo CHtml::link(Yii::t('students','Pay Now'), array('payfees', 'id'=>$transaction->id)); ?></td>
-        </tr>
-      
-        <?php 
+		$charged = number_format((float) $studentBalance->charge_sum, 2);
+		$paid = number_format((float) $studentBalance->paid_sum, 2);
 		
+		if($charged !== $paid) {
+			$batch = Batches::model()->findByPk((int) $studentBalance->batch_id);
+	?>
+			<tr>
+				<td><?= $batch->getOfferingName() ?></td>
+				<td>$<?= $charged ?></td>
+				<td>$<?= $paid ?></td>
+				<td>$<?php echo $charged > $paid ? (number_format($charged - $paid, 2) . ' Outstanding') : (number_format($paid - $charged, 2) . ' Overpaid'); ?></td>
+				<td> <?php //echo CHtml::link(Yii::t('students','Pay Now'), array('payfees', 'id'=>$studentBalance->id)); ?></td>
+			</tr>
+		<?php 
+		}
 	}
 	echo '</table>';
 	}?> 
@@ -148,11 +99,20 @@ $this->breadcrumbs=array(
           <div class="tableinnerlist"> 
         <table width="95%" cellpadding="0" cellspacing="0">
         <tr>
-			<th>Date</th>
-			<th>Offering</th>
-			<th>Description</th>
-			<th>Amount Billed</th>
-			<th>Amount Paid</th>
+		<?php 
+			$tableHeaders = [
+				'Date',
+				'Offering',
+				'Description',
+				'Amount Billed',
+				'Amount Paid'
+			];
+			foreach($tableHeaders as $th) { 
+		?>
+			<th><?=$th?></th>
+		<?php
+			}
+		?>
         </tr>
          <?php 
 	$transactionHistory=FinanceFees::model()->findAll(array('condition'=>'student_id=:id','params'=>array(':id'=>$_REQUEST['id'])));
@@ -160,7 +120,7 @@ $this->breadcrumbs=array(
 	{
 	?>
     	<tr>
-          <td colspan="3"><?php echo Yii::t('students','No details of the fees paid available.');?></td>             
+          <td colspan="<?php echo count($tableHeaders); ?>"><?php echo Yii::t('students','No transaction details.');?></td>             
         </tr>
 	<?php
 	}
@@ -197,3 +157,4 @@ $this->breadcrumbs=array(
     </td>
   </tr>
 </table>
+		
