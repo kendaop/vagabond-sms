@@ -94,8 +94,11 @@ $this->breadcrumbs=array(
 							[
 								'onclick' => '$("#feeDialog").dialog("open"); return false;',
 								'update' => '#feeDialog',
-								'type' => 'GET',
-								'data' => [],
+								'type' => 'POST',
+								'data' => [
+									'studentId' => $model->id,
+									'batchId'	=> $batch->id
+								],
 								'dataType' => 'text'
 							], 
 							[
@@ -177,4 +180,4 @@ $this->breadcrumbs=array(
     </td>
   </tr>
 </table>
-<div id="feeDialog">Fee Dialog</div>
+<div id="feeDialog"></div>

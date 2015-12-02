@@ -42,6 +42,7 @@ class FinanceFees extends CActiveRecord
 		return array(
 			array('batch_id, student_id, is_paid', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>255),
+			array('charge_amount, paid_amount', 'numerical'),
 			// The following rule is used by search().aw  
 			// Please remove those attributes that should not be searched.
 			array('id, batch_id, charge_amount, student_id, is_paid', 'safe', 'on'=>'search'),
