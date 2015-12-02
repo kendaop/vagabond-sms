@@ -163,7 +163,7 @@ $this->breadcrumbs=array(
 		{	?>
 		  
 			<tr>
-				<td><?php echo date('M. m, Y', strtotime($transaction->created_at)); ?></td>
+				<td><?php echo date('M. j, Y', strtotime($transaction->created_at . ' UTC')); ?></td>
 				<td><?php echo $transaction->offering->getOfferingName('/'); ?></td>
 				<td><?php echo $transaction->payment_type; ?></td>
 				<td><?php echo $transaction->description; ?></td>
