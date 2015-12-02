@@ -50,7 +50,7 @@ $this->breadcrumbs=array(
     <div>
      <div class="formCon">
     <div class="formConInner">
-    <h3>Outstanding Payments</h3>
+    <h3>Outstanding Fees</h3>
     <div class="tableinnerlist"> 
         
     <?php 
@@ -58,7 +58,7 @@ $this->breadcrumbs=array(
 
 	if(count($studentBalances)=='0')
 	{
-	 echo Yii::t('students','<i>No Pending Fees</i>');	
+	 echo Yii::t('students','<i>No Outstanding Fees</i>');	
 	}
 	else
 	{
@@ -80,31 +80,40 @@ $this->breadcrumbs=array(
 
 			if($charged !== $paid) {
 				$batch = Batches::model()->findByPk((int) $studentBalance->batch_id);
+				$difference = $charged > $paid ? number_format($charged - $paid, 2) : number_format($paid - $charged, 2);
+				$status = $charged > $paid ? 'Outstanding' : 'Overpaid';
 		?>
 				<tr>
 					<td><?= $batch->getOfferingName() ?></td>
 					<td>$<?= $charged ?></td>
 					<td>$<?= $paid ?></td>
-					<td>$<?php echo $charged > $paid ? (number_format($charged - $paid, 2) . ' Outstanding') : (number_format($paid - $charged, 2) . ' Overpaid'); ?></td>
+					<td class="<?php 
+						echo strtolower($status) === 'outstanding' ? 'red' : 'green'; 
+					?>">$<?php echo "$difference $status"; ?></td>
 					<td>
 					<?php 
-						echo CHtml::ajaxLink(
-							'Add Payment',
-							$this->createUrl('fees/Add'), 
-							[
-								'onclick' => '$("#feeDialog").dialog("open"); return false;',
-								'update' => '#feeDialog',
-								'type' => 'POST',
-								'data' => [
-									'studentId' => $model->id,
-									'batchId'	=> $batch->id
-								],
-								'dataType' => 'text'
-							], 
-							[
-								'id' => 'showFeeDialog' . $batch->id
-							]
-						); 
+						if($charged > $paid) {
+							echo CHtml::ajaxLink(
+								'Add Payment',
+								$this->createUrl('fees/Add'), 
+								[
+									'onclick' => '$("#feeDialog").dialog("open"); return false;',
+									'update' => '#feeDialog',
+									'type' => 'POST',
+									'data' => [
+										'studentId'		=> $model->id,
+										'batchId'		=> $batch->id,
+										'difference'	=> $difference
+									],
+									'dataType' => 'text'
+								], 
+								[
+									'id' => 'showFeeDialog' . $batch->id
+								]
+							); 
+						} else {
+							echo '-';
+						}
 					?>
 					</td>
 				</tr>
@@ -126,9 +135,10 @@ $this->breadcrumbs=array(
 			$tableHeaders = [
 				'Date',
 				'Offering',
+				'Method',
 				'Description',
-				'Amount Billed',
-				'Amount Paid'
+				'Billed',
+				'Paid'
 			];
 			foreach($tableHeaders as $th) { 
 		?>
@@ -155,6 +165,7 @@ $this->breadcrumbs=array(
 			<tr>
 				<td><?php echo date('M. m, Y', strtotime($transaction->created_at)); ?></td>
 				<td><?php echo $transaction->offering->getOfferingName('/'); ?></td>
+				<td><?php echo $transaction->payment_type; ?></td>
 				<td><?php echo $transaction->description; ?></td>
 				<td>$<?php echo $transaction->charge_amount; ?></td>
 				<td>$<?php echo $transaction->paid_amount; ?></td>

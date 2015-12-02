@@ -13,20 +13,30 @@
     <h3 style="padding-left:20px;">Add Payment</h3>
     <div style="padding:0 0 0 20px;">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <th>Offering</th>
-    <td width="3%">&nbsp;</td>
-    <td><?= $batch->getOfferingName() ?></td>
-  </tr>
-  <tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-  </tr>
 	<tr>
 		<th>Student</th>
 		<td>&nbsp;</td>
 		<td><?= $student->getStudentName() ?></td>
+	</tr>
+	<tr>
+		  <td>&nbsp;</td>
+		  <td>&nbsp;</td>
+		  <td>&nbsp;</td>
+	</tr>
+	<tr>
+	  <th>Offering</th>
+	  <td width="3%">&nbsp;</td>
+	  <td><?= $batch->getOfferingName() ?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th>Remaining Owed</th>
+		<td>&nbsp;</td>
+		<td>$<?= $difference ?></td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
@@ -38,12 +48,45 @@
 	  <td>&nbsp;</td>
 	  <td>
 		<?php 
-			echo $form->textField($newFee, 'charge_amount');
-//			echo $form->hiddenField($newFee, 'charge_amount');
-			echo $form->error($newFee, 'charge_amount');
+			echo $form->textField($newFee, 'paid_amount');
+//			echo $form->hiddenField($newFee, 'paid_amount');
+			echo $form->error($newFee, 'paid_amount');
 		?>
 	  
 	  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th>Payment Type</th>
+		<td>&nbsp;</td>
+		<td>
+		<?php
+			echo $form->dropDownList($newFee, 'payment_type', [
+				'Cash'			=> 'Cash',
+				'Check'			=> 'Check',
+				'Credit Card'	=> 'Credit Card',
+				'Voucher'		=> 'Voucher'
+			]);
+		?>
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th>Description</th>
+		<td>&nbsp;</td>
+		<td>
+		<?php
+			echo $form->textField($newFee, 'description');
+		?>
+		</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
@@ -71,32 +114,17 @@
 	<tr>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
-	  <td>&nbsp;</td>
+	  <td>
+		<?php 
+			echo $form->hiddenField($newFee, 'batch_id', ['value' => $batchId]);
+			echo $form->hiddenField($newFee, 'student_id', ['value' => $studentId]);
+			echo $form->hiddenField($newFee, 'charge_amount', ['value' => '0.00']);
+		?>
+	  </td>
 	</tr>
  <?php // $this->renderPartial('_flash',array('model'=>$model,'id'=>jobDialog)); ?>
 </table>
-</div>
-	<div class="row">
-		<?php //echo $form->labelEx($model,'is_deleted'); ?>
-		<?php // echo $form->hiddenField($model,'is_deleted'); ?>
-		<?php // echo $form->error($model,'is_deleted'); ?>
-	</div>
-
-	<div class="row">
-   
-		<?php //echo $form->labelEx($model,'created_at')
-  
-//		 echo $form->hiddenField($model,'created_at'); ?>
-		<?php // echo $form->error($model,'created_at'); ?>
-	</div>
-
-	<div class="row">
-		<?php //echo $form->labelEx($model,'updated_at'); ?>
-		<?php // echo $form->hiddenField($model,'updated_at',array('value'=>date('d-m-Y'))); ?>
-		<?php // echo $form->error($model,'updated_at'); ?>
-	</div>
-
-  
+</div>  
     
     <!-- Batch Form Ends -->
 	<div style="padding:0px 0 0 0px; text-align:left">

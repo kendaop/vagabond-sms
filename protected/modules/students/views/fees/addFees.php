@@ -14,7 +14,8 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog',array(
                 
 <?php 
 echo $this->renderPartial('_form', [
-	'studentId'	=> $studentId,
-	'batchId'	=> $batchId
+	'studentId'		=> $studentId,
+	'batchId'		=> $batchId,
+	'difference'	=> $difference
 	]); ?>
 <?php $this->endWidget('zii.widgets.jui.CJuiDialog');

@@ -4,24 +4,20 @@ class FeesController extends RController
 {
 	public function actionAdd() {
 		$this->renderPartial('addFees',[
-			'studentId' => $_POST['studentId'],
-			'batchId'	=> $_POST['batchId']
+			'studentId'		=> $_POST['studentId'],
+			'batchId'		=> $_POST['batchId'],
+			'difference'	=> $_POST['difference']
 		],false,true);
-		
-//	   	if(isset($_POST['Fee']))
-//        {       $flag=false;
-//		    	$model=$this->loadModel($_GET['val1']);
-//				$model->attributes=$_POST['Courses'];
-//				$model->save();
-//		}
-//		
-//		if($flag) {
-//			Yii::app()->clientScript->scriptMap['jquery.js'] = false;
-//			$this->renderPartial('addFees',array('model'=>$model,'val1'=>$_GET['val1']),false,true);
-//		}
 	}
 	
 	public function actionCreate() {
-		$x = 0;
+		$model = new FinanceFees;
+		
+		if(isset($_POST['FinanceFees'])) {
+			$model->attributes = $_POST['FinanceFees'];
+			$model->payment_type = $_POST['FinanceFees']['payment_type'];
+			
+			return $model->save();
+		}
 	}
 }

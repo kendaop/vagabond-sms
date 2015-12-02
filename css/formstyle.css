@@ -1,4 +1,12 @@
 /* Kendall */
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
+
 .modal-table tr td:first-of-type, .modal-table tr td:nth-of-type(3) {
 	width: 45%;
 }

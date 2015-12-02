@@ -328,11 +328,13 @@ class Students extends CActiveRecord {
 	}
 	
 	public function getOutstandingBalances() {
-		return Yii::app()->db->createCommand(
+		return array_filter(Yii::app()->db->createCommand(
 			"SELECT id, student_id, batch_id, SUM(charge_amount) as charge_sum, SUM(paid_amount) as paid_sum
 			FROM `finance_fees`
 			WHERE student_id = $this->id
 			GROUP BY batch_id, student_id"
-		)->setFetchMode(PDO::FETCH_OBJ)->queryAll();
+		)->setFetchMode(PDO::FETCH_OBJ)->queryAll(), function($v) {
+			return $v->charge_sum !== $v->paid_sum;
+		});
 	}
 }
