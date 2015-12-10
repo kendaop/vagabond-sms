@@ -1,5 +1,5 @@
 	<div id="othleft-sidebar">
-        
+
         <h1>My Account</h1>  
         <?php
         function t($message, $category = 'cms', $params = array(), $source = null, $language = null) 
@@ -11,13 +11,12 @@
         'activateItems'=>true,
         'activeCssClass'=>'list_active',
         'items'=>array(
-			
-			array('label'=>t('Mailbox<span>All Received Messages</span>'), 'url'=>array('/mailbox'),
-			'active'=> ((Yii::app()->controller->module->id=='mailbox' and  Yii::app()->controller->id!='news') ? true : false),'linkOptions'=>array('class'=>'inbox_ico')),
-			
+
 			array('label'=>t('News<span>All Site News</span>'), 'url'=>array('/mailbox/news'),
 			'active'=> ((Yii::app()->controller->id=='news') ? true : false),'linkOptions'=>array('class'=>'news_ico')),
 			
+			array('label'=>t('Mailbox<span>All Received Messages</span>'), 'url'=>array('/mailbox'),
+			'active'=> ((Yii::app()->controller->module->id=='mailbox' and  Yii::app()->controller->id!='news') ? true : false),'linkOptions'=>array('class'=>'inbox_ico')),
 			
 			array('label'=>''.t('<h1>Events</h1>'),
 			'active'=> ((Yii::app()->controller->module->id=='cal') ? true : false)),

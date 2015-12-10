@@ -12,12 +12,11 @@
 	'activeCssClass'=>'list_active',
 	'items'=>array(
 		
-		array('label'=>Yii::t('dashboard','Mailbox('.Yii::app()->getModule("mailbox")->getNewMsgs(Yii::app()->user->id).')<span>'.Yii::t('dashboard','All Received Messages').'</span>'), 'url'=>array('/mailbox'),
-		'active'=> ((Yii::app()->controller->module->id=='mailbox' and  Yii::app()->controller->id!='news') ? true : false),'linkOptions'=>array('class'=>'inbox_ico')),
-		
 		array('label'=>Yii::t('dashboard','News').'<span>'.Yii::t('dashboard','All Site News').'</span>', 'url'=>array('/mailbox/news'),
 		'active'=> ((Yii::app()->controller->id=='news') ? true : false),'linkOptions'=>array('class'=>'news_ico')),
 		
+		array('label'=>Yii::t('dashboard','Mailbox('.Yii::app()->getModule("mailbox")->getNewMsgs(Yii::app()->user->id).')<span>'.Yii::t('dashboard','All Received Messages').'</span>'), 'url'=>array('/mailbox'),
+		'active'=> ((Yii::app()->controller->module->id=='mailbox' and  Yii::app()->controller->id!='news') ? true : false),'linkOptions'=>array('class'=>'inbox_ico')),
 		
 		array('label'=>''.'<h1>'.Yii::t('dashboard','Events').'</h1>',
 		
@@ -31,8 +30,6 @@
 		
 		array('label'=>t('Event Types<span>Manage Event Types</span>'), 'url'=>array('/cal/eventsType'),
 			'active'=> ((Yii::app()->controller->id=='eventsType') ? true : false),'linkOptions'=>array('class'=>'evnttype_ico')),
-		
-		
 		
 		),
 	));  
