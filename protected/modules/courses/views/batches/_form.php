@@ -141,7 +141,7 @@
         
         <?php	echo CHtml::ajaxSubmitButton(Yii::t('job','Save'),CHtml::normalizeUrl(array('batches/create','render'=>false)),array('success'=>'js: function(data) { $("#jobDialog").dialog("close"); window.location.reload();
                        
-                    }'),array('id'=>'closeJobDialog','name'=>'Submit')); ?>
+        }'),array('id'=>'closeJobDialog','name'=>'Submit')); ?>
 	</td>
   </tr>
 </table>

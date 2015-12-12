@@ -85,8 +85,13 @@ class BatchesController extends RController
 					}
 			$model->start_date=$s_d;
 			$model->end_date=$e_d;
-			if($model->save())
+			
+			if($model->save()) {
+				// Update teachers for this batch.
+				$employees = array_key_exists('employees', $_POST['Batches']) ? $_POST['Batches']['employees'] : [];
+				$model->updateEmployees($employees);
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('create',array(

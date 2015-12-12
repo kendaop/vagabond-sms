@@ -50,7 +50,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog',array(
                 ),
                 ));
 				?>
-<?php echo $this->renderPartial('_form', array('model'=>$model,'val1'=>$_GET['val1']));
+<?php echo $this->renderPartial('_form1', array('model'=>$model,'val1'=>$_GET['val1'], 'edit' => false));
 
  ?>
 <?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>

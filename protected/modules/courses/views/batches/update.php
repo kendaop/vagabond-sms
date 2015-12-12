@@ -24,5 +24,5 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog',array(
                 
 
 <?php 
-echo $this->renderPartial('_form1', array('model'=>$model,'val1'=>$course_id,'batch_id'=>$val1)); ?>
+echo $this->renderPartial('_form1', array('model'=>$model,'val1'=>$course_id,'batch_id'=>$val1, 'edit' => true)); ?>
 <?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>

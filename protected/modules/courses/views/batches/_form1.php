@@ -130,16 +130,22 @@
     <td>&nbsp;</td>
     <td><?php //echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
         <?php	
-		echo CHtml::ajaxSubmitButton(Yii::t('job','Save'),CHtml::normalizeUrl(array('Batches/Addupdate&val1='.$batch_id,'render'=>false)),
-		array('success'=>'js: function(data) {
-									 $("#success_msg").html("Batch updated successfully!");
-									 setTimeout(function() {
-											$("#jobDialog123").dialog("close"); 
-									 		window.location.reload();
-									 }, 1000);
-									 
-									 }',),
-		array('id'=>'closeJobDialog','name'=>'Submit')); ?></td>
+		if($edit) {
+			echo CHtml::ajaxSubmitButton(Yii::t('job','Save'),CHtml::normalizeUrl(array('Batches/Addupdate&val1='.$batch_id,'render'=>false)),
+			array('success'=>'js: function(data) {
+										 $("#success_msg").html("Batch updated successfully!");
+										 setTimeout(function() {
+												$("#jobDialog123").dialog("close"); 
+												window.location.reload();
+										 }, 1000);
+
+										 }',),
+			array('id'=>'closeJobDialog','name'=>'Submit'));
+		} else {
+			echo CHtml::ajaxSubmitButton(Yii::t('job','Save'),CHtml::normalizeUrl(array('batches/create','render'=>false)),array('success'=>'js: function(data) { $("#jobDialog").dialog("close"); window.location.reload();
+			}'),array('id'=>'closeJobDialog','name'=>'Submit'));
+		}?>
+	</td>
   </tr>
 </table>
 </div>
