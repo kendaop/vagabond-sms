@@ -223,20 +223,6 @@ class EmployeesController extends RController
 							
 							$sms_settings = SmsSettings::model()->findAll();
 							$to = '';
-							if($sms_settings[0]->is_enabled=='1' and $sms_settings[4]->is_enabled=='1'){ // Check if SMS is enabled
-								if($model->mobile_phone){
-									$to = $model->mobile_phone;	
-								}
-								if($to!=''){ //If phone number is provided, send SMS
-									$college=Configurations::model()->findByPk(1);
-									$from = $college->config_value;
-									$message = 'Welcome to '.$college->config_value;
-									SmsSettings::model()->sendSms($to,$from,$message);
-								} // End send SMS
-							} // Check if SMS is provided
-							
-							
-							UserModule::sendMail($model->email,UserModule::t("You are registered from {site_name}",array('{site_name}'=>Yii::app()->name)),UserModule::t("Please login to your account with your email id as username and password {password}",array('{password}'=>$password)));
 						}
 				
 				$this->redirect(array('view','id'=>$model->id));

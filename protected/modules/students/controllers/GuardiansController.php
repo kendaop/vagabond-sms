@@ -125,40 +125,25 @@ class GuardiansController extends RController
 					if($user->save())
 					{
 						
-					//assign role
-					$authorizer = Yii::app()->getModule("rights")->getAuthorizer();
-					$authorizer->authManager->assign('parent', $user->id);
-					
-					//profile
-					$profile->firstname = $model->first_name;
-					$profile->lastname = $model->last_name;
-					$profile->user_id=$user->id;
-					$profile->save();
-					
-					//saving user id to guardian table.
-					$model->saveAttributes(array('uid'=>$user->id));
-					//$model->uid = $user->id;
-					//$model->save();
-					
-					// for sending sms
-					$sms_settings = SmsSettings::model()->findAll();
-					$to = '';
-					if($sms_settings[0]->is_enabled=='1' and $sms_settings[2]->is_enabled=='1'){ // Checking if SMS is enabled.
-						if($model->mobile_phone){
-							$to = $model->mobile_phone;	
-						}
-						
-						if($to!=''){ // Send SMS if phone number is provided
-							$college=Configurations::model()->findByPk(1);
-							$from = $college->config_value;
-							$message = 'Welcome to '.$college->config_value;
-							SmsSettings::model()->sendSms($to,$from,$message);
-						} // End send SMS
-					} // End check if SMS is enabled
-					
-					UserModule::sendMail($model->email,UserModule::t("You registered from {site_name}",array('{site_name}'=>Yii::app()->name)),UserModule::t("Please login to your account with your email id as username and password {password}",array('{password}'=>$password)));
-					}
-						
+						//assign role
+						$authorizer = Yii::app()->getModule("rights")->getAuthorizer();
+						$authorizer->authManager->assign('parent', $user->id);
+
+						//profile
+						$profile->firstname = $model->first_name;
+						$profile->lastname = $model->last_name;
+						$profile->user_id=$user->id;
+						$profile->save();
+
+						//saving user id to guardian table.
+						$model->saveAttributes(array('uid'=>$user->id));
+						//$model->uid = $user->id;
+						//$model->save();
+
+						// for sending sms
+						$sms_settings = SmsSettings::model()->findAll();
+						$to = '';
+					}						
 				}
 				$this->redirect(array('addguardian','id'=>$model->ward_id));
 			}
