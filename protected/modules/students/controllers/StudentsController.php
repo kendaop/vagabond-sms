@@ -266,7 +266,7 @@ class StudentsController extends RController
             $model->photo_data=file_get_contents($file->tempName);
       		  }
 			if($model->save()) {
-				$batches = explode(',', Yii::app()->request->getParam('new_enrollments'));
+				$batches = array_filter(explode(',', Yii::app()->request->getParam('new_enrollments')));
 				$model->addBatches($batches);
 				
 				foreach($batches as $batch_id) {
