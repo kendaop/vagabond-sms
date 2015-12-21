@@ -324,7 +324,7 @@ class StudentsController extends RController
 	}
 	
 	public function actionEnroll($student_id, $batch_id) {
-		$model = $this->loadMoadel($student_id);
+		$model = $this->loadModel($student_id);
 		$result = $model->addBatches([$batch_id]);
 		
 		if($result) {
