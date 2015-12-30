@@ -24,6 +24,18 @@ Yii::app()->clientScript->registerScript('offeringButtons', '
 				$(this).text(count + " - Offering(s)");
 			});
 		}
+		
+		$("div.mcbrow").each(function() {
+			count = $(this).find(".count").html().match(/([0-9]+) - Offering\(s\)/);
+			count = count === null ? 0 : count[1];
+			if(count > 0) {
+				$(this).show();
+				// $(this).next(".pdtab_Con").hide();
+			} else {
+				$(this).hide();
+				$(this).next(".pdtab_Con").hide();
+			}
+		});
 	});
 ', CClientScript::POS_READY);
 
@@ -79,37 +91,32 @@ function rowdelete(id)
 		</div>
  <div id="jobDialog">
  <div id="jobDialog1">
- <?php 
-  $posts=Courses::model()->findAll("is_deleted 	=:x", array(':x'=>0));
-   ?>
+ <?php
+   $posts=Courses::model()->findAll(['condition' => "is_deleted =:x", 'order' => 'course_name ASC', 'params' => [':x'=>0]]);
+  ?>
  <?php $this->renderPartial('_flash');?>
 
  </div>
   </div>
     <div class="mcb_Con">
 <?php foreach($posts as $posts_1)
-{ ?>
-<div class="mcbrow" id="jobDialog1">
-	<ul>
-    	<li class="gtcol1" onclick="details('<?php echo $posts_1->id;?>');" style="cursor:pointer;">
-       
-		<?php echo $posts_1->course_name; ?>
-		<?php
-		$course=Courses::model()->findByAttributes(array('id'=>$posts_1->id,'is_deleted'=>0));
-		$batch=Batches::model()->findAll("course_id=:x AND is_deleted=:y", array(':x'=>$posts_1->id,':y'=>0));
-
-		$inactive_batches = 0;
-		foreach($batch as $b) {
-			if($b->is_active) {
-				$inactive_batches += $b->updateActiveStatus() ? 0 : 1;
-			} else {
-				$inactive_batches++;
-			}
+{ 
+	$course=Courses::model()->findByAttributes(array('id'=>$posts_1->id,'is_deleted'=>0));
+	$batch=Batches::model()->findAll("course_id=:x AND is_deleted=:y", array(':x'=>$posts_1->id,':y'=>0));
+	$inactive_batches = 0;
+	foreach($batch as $b) {
+		if($b->is_active) {
+			$inactive_batches += $b->updateActiveStatus() ? 0 : 1;
+		} else {
+			$inactive_batches++;
 		}
-		$active_batches = count($batch) - $inactive_batches;
-
-		echo "<span class='count new-$active_batches old-" . count($batch) . "'> $active_batches - Offering(s)</span>"; 
-		?>
+	}
+	$active_batches = count($batch) - $inactive_batches;
+?>
+<div class="mcbrow" id="jobDialog1"<?php echo $active_batches > 0 ? '' : ' style="display: none;"'; ?>>
+	<ul>
+    	<li class="gtcol1" onclick="details('<?php echo $posts_1->id;?>');" style="cursor:pointer;"><?= $posts_1->course_name; ?>
+		<span class="count new-<?=$active_batches?> old-<?php echo count($batch); ?>"> <?=$active_batches?> - Offering(s)</span>
         </li>
         <li class="col2">
         <?php echo CHtml::ajaxLink(Yii::t('Courses','Edit'),$this->createUrl('courses/Edit'),array(
