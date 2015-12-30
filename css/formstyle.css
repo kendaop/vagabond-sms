@@ -192,17 +192,17 @@ table.course-offerings tr[id^=batchrow] td:first-child {
 }
 
 .header-row {
-	margin-bottom: 20px;
+	margin-bottom: 35px;
 }
 
-.header-row label, .header-row input[type=checkbox] {
-	float: right;
-	margin-left: 3px;
+.cbox_cont {
+	display: inline-block;
+	position: absolute;
+	left: 75%;
 }
 
 .header-row label {
-	position: relative;
-	top: 2px;
+	margin-left: 10px;
 }
 
 .header-row input[type=checkbox] {

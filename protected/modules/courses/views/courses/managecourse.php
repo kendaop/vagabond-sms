@@ -7,8 +7,28 @@
 
 <?php
 Yii::app()->clientScript->registerScript('offeringButtons', '
+	function showHideCourses(showEmpty) {
+		$("div.mcbrow").each(function() {
+			count = $(this).find(".count").html().match(/([0-9]+) - Offering\(s\)/);
+			count = count === null ? 0 : count[1];
+			if(count > 0 || showEmpty) {
+				$(this).show();
+			} else {
+				$(this).hide();
+				$(this).next(".pdtab_Con").hide();
+			}
+		});
+	}
+	
+	$("#show-empty-courses").click(function() {
+		showEmpty = $("#show-empty-courses").is(":checked");
+		showHideCourses(showEmpty);
+	});
+	
 	$("#show-old-offerings").click(function() {
 		count = 0;
+		showEmpty = $("#show-empty-courses").is(":checked");
+		
 		if($(this).is(":checked")) {
 			$(".ended").show();
 			$("span.count").each(function() {
@@ -25,17 +45,7 @@ Yii::app()->clientScript->registerScript('offeringButtons', '
 			});
 		}
 		
-		$("div.mcbrow").each(function() {
-			count = $(this).find(".count").html().match(/([0-9]+) - Offering\(s\)/);
-			count = count === null ? 0 : count[1];
-			if(count > 0) {
-				$(this).show();
-				// $(this).next(".pdtab_Con").hide();
-			} else {
-				$(this).hide();
-				$(this).next(".pdtab_Con").hide();
-			}
-		});
+		showHideCourses(showEmpty);
 	});
 ', CClientScript::POS_READY);
 
@@ -84,10 +94,19 @@ function rowdelete(id)
     <div class="cont_right formWrapper">
 		<div class="header-row">
 			<h1><?php echo Yii::t('Courses','Manage Courses &amp; Offerings');?></h1>
+			<div class="cbox_cont">
 			<?php 
-			echo CHtml::label('Show ended offerings', 'show-old-offerings');
-			echo CHtml::checkBox('show-old-offerings');
+				echo CHtml::checkBox('show-empty-courses');
+				echo CHtml::label('Show empty courses', 'show-empty-courses');
 			?>
+			</div>
+			<br/>
+			<div class="cbox_cont">
+			<?php
+				echo CHtml::checkBox('show-old-offerings');
+				echo CHtml::label('Show ended offerings', 'show-old-offerings');
+			?>
+			</div>
 		</div>
  <div id="jobDialog">
  <div id="jobDialog1">
