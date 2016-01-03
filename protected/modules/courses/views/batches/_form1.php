@@ -90,6 +90,16 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
+	  <td><?php echo $form->labelEx($model,Yii::t('batch','num_slots')); ?></td>
+	  <td>&nbsp;</td>
+	  <td><?php echo $form->textField($model, 'num_slots', ['size' => "3", 'placeholder' => '0']); ?></td>
+  </tr>
+  <tr>
+  	<td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
    <td><?php echo $form->labelEx($model,Yii::t('batch','teacher')); ?></td>
     <td>&nbsp;</td>
     <?php

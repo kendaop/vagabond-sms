@@ -12,6 +12,7 @@
  * @property integer $is_active
  * @property integer $is_deleted
  * @property float $price
+ * @property integer $num_slots
  */
 class Batches extends CActiveRecord
 {
@@ -40,11 +41,11 @@ class Batches extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('course_id, is_active, is_deleted', 'numerical', 'integerOnly'=>true),
+			array('course_id, is_active, is_deleted, num_slots', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>25),
 			array('start_date, end_date', 'safe'),
 			// The following rule is used by search().
-			array('name, start_date, end_date, price', 'required'),
+			array('name, start_date, end_date, price, num_slots', 'required'),
 			array('name','CRegularExpressionValidator', 'pattern'=>'/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/','message'=>"{attribute} should not contain any special character(s)."),
 			array('price','CRegularExpressionValidator', 'pattern'=>'/^[0-9]{1,5}(\.[0-9]{2})?$/','message'=>"{attribute} is not valid."),
 			// Please remove those attributes that should not be searched.
@@ -76,6 +77,7 @@ class Batches extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'course_id' => 'Course',
+			'num_slots' => 'Openings',
 			'start_date' => 'Start Date',
 			'end_date' => 'End Date',
 			'is_active' => 'Is Active',
@@ -122,6 +124,10 @@ class Batches extends CActiveRecord
 	public function getOfferingName($separator = '-')
 	{
 		return "{$this->course123->course_name} $separator $this->name";
+	}
+	
+	public function openSlots() {
+		return $this->num_slots - count($this->students);
 	}
 	
 	public function getUnenrolledBatches($studentId) 

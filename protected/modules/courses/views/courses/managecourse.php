@@ -164,7 +164,7 @@ function rowdelete(id)
 		  <tr class="pdtab-h">
 			<td>Offering</td>
             <td>Teacher</td>
-			<td>Students</td>
+			<td>Openings</td>
 			<td>Start Date</td>
 			<td>End Date</td>
 			<td>Price</td>
@@ -209,7 +209,7 @@ function rowdelete(id)
 						echo '-';
 					}
 					echo '</td>';
-					echo '<td>'.count($students).'</td>';
+					echo '<td>'. $batch_1->openSlots() . ' / ' . $batch_1->num_slots . '</td>';
 					echo '<td>'.$date1.'</td>';
 					echo '<td>'.$date2.'</td>';
 					echo '<td>$'.$batch_1->price.'</td>';
