@@ -323,21 +323,55 @@ class StudentsController extends RController
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 	
-	public function actionEnroll($student_id, $batch_id) {
-		$model = $this->loadModel($student_id);
-		$result = $model->addBatches([$batch_id]);
+	public function actionEnroll($student_id, $batch_id, $paidAmount = '0.00', $paymentType = '1') {
+//	public function actionEnroll($student_id, $batch_id, array $transaction = []) {
+//		$student = $this->loadModel($POST['student_id']);
+//		$result = $student->addBatches([$_POST['batch_id']]);
+//		$paidAmount = 0;
+//		$paymentType = 'Cash';
 		
-		if($result) {
-			$model->addTransaction($batch_id, [
-				'charge_amount' => Batches::model()->findByPk($batch_id)->price,
-				'description' => "$model->first_name $model->last_name"
+		$student = $this->loadModel($student_id);
+		
+		$result = $student->addBatches([$batch_id]);
+		
+//		foreach($_POST as $key => $value) {
+//			switch($key) {
+//				case 'batch_id':
+//					$batch_id = $value;
+//					$result = $student->addBatches([$batch_id]);
+//					break;
+//				case 'paid_amount':
+//					$paidAmount = $value;
+//					break;
+//				case 'payment_type':
+//					$paymentType = $value;
+//					break;
+//				default:
+//					break;
+//			}
+//		}
+		
+		if(isset($student) && isset($result) && isset($paidAmount) && isset($paymentType)) {
+			if($result) {
+				$student->addTransaction($batch_id, [
+					'charge_amount' => Batches::model()->findByPk($batch_id)->price,
+					'description' => "Enrollment",
+					'paid_amount' => $paidAmount,
+					'payment_type' => FinanceFees::model()->getPaymentMethods()[intval($paymentType)]
+				]);
+			} else {
+				throw new Exception('Failed adding student to batch.');
+			}
+		
+			$this->redirect([
+				'/courses/batches/batchstudents',
+				'id' => $batch_id
 			]);
+		} else {
+			throw new Exception("Not all parameters were passed to actionEnroll.");
 		}
 		
-		$this->redirect([
-			'/courses/batches/batchstudents', 
-			'id'	=> $batch_id
-		]);
+
 	}
 
 	/**

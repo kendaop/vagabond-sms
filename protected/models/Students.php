@@ -263,7 +263,7 @@ class Students extends CActiveRecord {
 		return $finance_fee->save();
 	}
 
-	public function addBatches($batchIds)
+	public function addBatches(array $batchIds)
 	{
 		$count = count($batchIds);
 		$values = [];
@@ -287,9 +287,11 @@ class Students extends CActiveRecord {
 				VALUES $tuples;"
 			);
 			
-			$pdo->execute($values);
+			if(!$pdo->execute($values)) {
+				throw new Exception('Failed enrolling student in offering.');
+			}
 			
-			return $pdo->fetchAll(PDO::FETCH_KEY_PAIR);
+			return $values;
 		} catch (Exception $ex) {
 			echo 'Failed to query database: ' . $ex->getMessage();
 		}

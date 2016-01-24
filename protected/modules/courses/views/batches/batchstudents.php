@@ -61,13 +61,37 @@ Yii::app()->clientScript->registerScript(
 		$student->name = "$student->first_name $student->last_name";
 		$student->name = "<a href='" . Yii::app()->createUrl('/students/students/view', ['id' => $student->id]) ."' class='tablesorter-link'>$student->name</a>";
 		$student->gender = $student->gender === 'M' ? 'Male' : ($student->gender === 'F' ? 'Female' : '-');
-		$student->actions = "<a class='enroll no-decoration' href='" . $this->createUrl('/students/students/enroll', [
-				'student_id'	=> $student->id,
-				'batch_id'		=> $batch->id
-			]) . "'><span class='add_student_btn'></span></a>";
+//		$student->actions = "<a class='enroll no-decoration' href='" . $this->createUrl('/students/students/enroll', [
+//				'student_id'	=> $student->id,
+//				'batch_id'		=> $batch->id
+//			]) . "'><span class='add_student_btn'></span></a>";
+		
+//		$student->actions = "<a class='enroll no-decoration' href='" . $this->createUrl('/courses/batches/enroll', [
+//				'studentId'	=> $student->id,
+//				'batchId'		=> $batch->id
+//			]) . "'><span class='add_student_btn'></span></a>";
+		
+		$student->actions = CHtml::ajaxLink(
+			'<span class="add_student_btn"></span>', 
+			$this->createUrl('/courses/batches/enroll'),
+			[
+				'onclick'=>'$("#jobDialogEnroll").dialog("open"); return false;',
+				'update' => '#jobDialogEnroll',
+				'type'	=> 'GET',
+				'data'	=> [
+					'studentId'	=> $student->id,
+					'batchId'	=> $batch->id
+				],
+				'dataType'	=> 'text'
+			], 
+			[
+				'id'	=> 'showEnrollDialog',
+				'class' => 'enroll no-decoration'
+			]
+		);
 	}
 ?>
-          
+
 <div style="background:#FFF;">
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
   <tbody><tr>
@@ -198,6 +222,7 @@ Yii::app()->clientScript->registerScript(
 </tbody></table>
 </div>
 
+<div id="jobDialogEnroll"></div>
 
 <script>
 	//CREATE 

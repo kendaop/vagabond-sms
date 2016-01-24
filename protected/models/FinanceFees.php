@@ -100,4 +100,8 @@ class FinanceFees extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function getPaymentMethods() {
+		return [1 => 'Cash', 2 => 'Check', 3 => 'Credit Card', 4 => 'Voucher'];
+	}
 }

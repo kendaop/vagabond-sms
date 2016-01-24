@@ -12,7 +12,7 @@ $this->breadcrumbs=array(
 $this->beginWidget('zii.widgets.jui.CJuiDialog',array(
                 'id'=>'jobDialog123',
                 'options'=>array(
-                    'title'=>Yii::t('job','Update'),
+                    'title'=>Yii::t('job','Update Offering'),
                     'autoOpen'=>true,
                     'modal'=>'true',
                     'width'=>'400',

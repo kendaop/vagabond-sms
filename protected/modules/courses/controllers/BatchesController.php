@@ -390,6 +390,23 @@ class BatchesController extends RController
 			'model'=>$model,
 		));
 	}
+	
+	public function actionEnroll($batchId, $studentId) {
+		if(isset($_POST['paid_amount'])) {
+//		if(Yii::app()->getRequest()->getIsAjaxRequest()) {
+			$this->redirect(['/students/students/enroll',
+				'student_id' => $studentId,
+				'batch_id' => $batchId,
+				'paidAmount' => $_POST['paid_amount'],
+				'paymentType' => $_POST['payment_type']
+			]);
+		} else {
+			$this->renderPartial('enroll', [
+				'batchId'		=> $batchId,
+				'studentId'	=> $studentId
+			]);
+		}
+	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
