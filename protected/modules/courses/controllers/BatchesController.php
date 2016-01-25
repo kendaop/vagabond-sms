@@ -107,7 +107,8 @@ class BatchesController extends RController
         $html2pdf = Yii::app()->ePdf->HTML2PDF();
 
 		$model = $this->loadModel($_REQUEST['id']);
-        $html2pdf->WriteHTML($this->renderPartial('printpdf', array('batch'=>$batch), true));
+		$html = $this->renderPartial('printpdf', array('batch'=>$batch), true);
+        $html2pdf->WriteHTML($html);
         $html2pdf->Output($filename);
 	}
 

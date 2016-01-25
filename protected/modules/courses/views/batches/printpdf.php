@@ -138,6 +138,10 @@ td.subhdng_nrmal
 				echo ($firstEmployee ? "$employeeCell" : "<tr><td></td>$employeeCell") . '</tr>';
 				$firstEmployee = false;
 			}
+			
+			if($firstEmployee === true) {
+				echo '</tr>';
+			}
 			?>
 	</table>
 	<!-- End Class Info -->
