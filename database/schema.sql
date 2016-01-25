@@ -474,7 +474,7 @@ CREATE TABLE IF NOT EXISTS `batches` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
-  `num_slots` INT(11) NULL DEFAULT NULL,
+  `num_slots` INT(11) NULL DEFAULT 0,
   `employee_id` int(11) DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,

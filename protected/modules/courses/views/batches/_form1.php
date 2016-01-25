@@ -18,7 +18,7 @@
 <div style="padding:0 0 0 20px;">
 	<?php echo $form->errorSummary($model); ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
+	<tr>
     <td><?php echo $form->labelEx($model,Yii::t('batch','name')); ?></td>
     <td width="5%">&nbsp;</td>
     <td><?php echo $form->textField($model,'name',array('size'=>30,'maxlength'=>255)); ?>
@@ -150,10 +150,10 @@
 										 }, 1000);
 
 										 }',),
-			array('id'=>'closeJobDialog','name'=>'Submit'));
+			array('id'=>"closeJobDialog$batch_id",'name'=>'Submit'));
 		} else {
 			echo CHtml::ajaxSubmitButton(Yii::t('job','Save'),CHtml::normalizeUrl(array('batches/create','render'=>false)),array('success'=>'js: function(data) { $("#jobDialog").dialog("close"); window.location.reload();
-			}'),array('id'=>'closeJobDialog','name'=>'Submit'));
+			}'),array('id'=>"closeJobDialog$batch_id",'name'=>'Submit'));
 		}?>
 	</td>
   </tr>
