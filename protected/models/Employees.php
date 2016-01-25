@@ -322,4 +322,7 @@ class Employees extends CActiveRecord {
 		return $number;
 	}
 
+	public function getName($getMiddleName = false) {
+		return $this->first_name . ($getMiddleName ? " $this->middle_name" : '') . " $this->last_name";
+	}
 }

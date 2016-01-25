@@ -355,4 +355,14 @@ class Batches extends CActiveRecord
 		}
 		return $this->employees;
 	}
+	
+	public function getDate($whichDate, $format = 'n/d/Y') {
+		$date = date_create($this->start_date);
+		
+		if(is_string($whichDate) && strtolower($whichDate) === 'end') {
+			$date = date_create($this->end_date);
+		}
+		
+		return date_format($date, $format);
+	}
 }

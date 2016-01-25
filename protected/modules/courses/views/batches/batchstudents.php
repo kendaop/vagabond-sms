@@ -97,7 +97,16 @@ Yii::app()->clientScript->registerScript(
 			{
 	?>
 		<div class="pdtab_Con" style="width:97%" id="enrolled">
-		<h4>Enrolled Students</h4>
+			<h4 style="display: inline-block">Enrolled Students</h4>
+			<?php 
+			echo CHtml::link(
+				'<img src="images/pdf-but.png">', 
+				['Batches/pdf','id'=>$_REQUEST['id']],
+				[
+					'target'	=> '_blank',
+					'style'		=> 'float: right; margin: 16px 0'
+				]
+			); ?>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tbody>
 				<tr class="pdtab-h">
