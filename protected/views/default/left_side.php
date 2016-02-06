@@ -38,13 +38,13 @@ foreach($roles as $role)
 				//),
 				
 				
+				array('label'=>t('News<span>All Site News</span>'), 'url'=>array('/mailbox/news'),
+				'active'=> ((Yii::app()->controller->id=='news') ? true : false),'linkOptions'=>array('class'=>'news_ico')),
+				
 				// The MailBox Link
 				
 				array('label'=>t('Mailbox<span>All Received Messages</span>'), 'url'=>array('/mailbox'),
 				'active'=> ((Yii::app()->controller->module->id=='mailbox' and  Yii::app()->controller->id!='news') ? true : false),'linkOptions'=>array('class'=>'inbox_ico')),
-				
-				array('label'=>t('News<span>All Site News</span>'), 'url'=>array('/mailbox/news'),
-				'active'=> ((Yii::app()->controller->id=='news') ? true : false),'linkOptions'=>array('class'=>'news_ico')),
 				
 				//The Events Link
 				//'label'=>''.t('Events'), 'url'=>'javascript:void(0);', 'itemOptions'=>array('id'=>'menu_2'),
