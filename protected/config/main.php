@@ -15,7 +15,7 @@ return array(
 	
 	'preload'=>array('log','translate'),
 	
-	'defaultController'=>'message/index',
+	'defaultController'=>'default',
 
 	// autoloading model and component classes
 	'import'=>array(
