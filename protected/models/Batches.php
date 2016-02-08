@@ -396,7 +396,7 @@ class Batches extends CActiveRecord
 			}
 			
 			$result->students = count($batch->students);
-			$result->name = $batch->getOfferingName();
+			$result->name = '<strong>' . $batch->getOfferingName('</strong><br>');
 		}
 		return $results;
 	}

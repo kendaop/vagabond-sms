@@ -33,10 +33,10 @@ $upcoming = Batches::model()->getUpcomingOfferings();
 if(count($upcoming) > 0) {
 ?>
 	 <h1 style="margin: 10px 10px 0">Offerings Beginning in the Next 7 Days</h1>
-	<div style="width: 600px; height: 400px; margin: 0 auto">
+	<div style="width: 600px; margin: 0 auto">
 	<?php
 		foreach($upcoming as $key => $offering) { ?> 
-			<div id="container-gauge-<?= $key ?>" style="width: 200px; height: 200px; float: left"></div> 
+			<div id="container-gauge-<?= $key ?>" style="width: 300px; height: 200px; float: left"></div> 
 		<?php }
 	?>
 	</div>
@@ -78,7 +78,7 @@ if(count($upcoming) > 0) {
 					lineWidth: 0,
 					tickWidth: 0,
 					title: {
-						y: -50
+						y: -65
 					},
 					labels: {
 						y: 16
