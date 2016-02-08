@@ -15,7 +15,7 @@ return array(
 	
 	'preload'=>array('log','translate'),
 	
-	'defaultController'=>'default',
+	'defaultController'=>'mailbox/news',
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -83,7 +83,7 @@ return array(
 				'hash' => 'md5',
 	 
 				# send activation email
-				'sendActivationMail' => true,
+				'sendActivationMail' => false,
 	 
 				# allow access for non-activated users
 				'loginNotActiv' => false,

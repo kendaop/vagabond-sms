@@ -9,13 +9,7 @@ tr.mailbox-item > td > div{padding:4px 4px 15px !important;}
 
 <?php
 
-if($this->getAction()->getId()!='index') 
-$this->breadcrumbs=array(
-		ucfirst($this->module->id)=>array('news/'),
-		ucfirst($this->getAction()->getId()) 
-);
-else
-	$this->breadcrumbs=array('Site News'); ?>
+$this->breadcrumbs=array('News'); ?>
     
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -31,69 +25,142 @@ else
          <div class="cont_right formWrapper" style="padding:0px; width:753px;">
       <div id="parent_rightSect">
       <div class="parentright_innercon">
-     <div class="mail_head">Site News<span>Latest news listed here</span></div>
+     <div class="mail_head">News<span>Important news shown here</span></div>
     <?php 
 
-//$this->renderpartial('_menu');
+$upcoming = Batches::model()->getUpcomingOfferings();
 
-if(isset($_GET['Mailbox_sort']))
-	$sortby = $_GET['Mailbox_sort'];
-else
-	$sortby = '';
-
-echo '<div class="news-list ui-helper-clearfix" sortby="'.$sortby.'">';
-
-$this->renderpartial('../message/_flash');
-
-if($dataProvider->getItemCount() > 0) {
+if(count($upcoming) > 0) {
 ?>
-
-<form id="message-list-form" action="<?php echo $this->createUrl($this->getId().'/'.$this->getAction()->getId()); ?>" method="post">
-	<div class="mailbox-clistview-container ui-helper-clearfix">
+	 <h1 style="margin: 10px 10px 0">Offerings Beginning in the Next 7 Days</h1>
+	<div style="width: 600px; height: 400px; margin: 0 auto">
 	<?php
-	if($this->module->isAdmin() && $dataProvider->getItemCount() > 1) : ?>
-		<div class="btn-group mailbox-checkall-buttons">
-            <input type="checkbox"  name="ch1" class="chkbox checkall" /> Select All
-            
-			<!--<button class="checkall" />Check All</button>
-			<button class="uncheckall" />Uncheck All</button>-->
-		</div>
-	<?php
-	endif;
-
-$this->widget('zii.widgets.CListView', array(
-    'id'=>'mailbox',
-    'dataProvider'=>$dataProvider,
-    'itemView'=>'_news_list',
-	/*'summaryText'=>Yii::t('zii','Result {start}-{end} of {count}.'),*/
-    'itemsTagName'=>'table',
-    'template'=>'<div class="mailbox-summary">{summary}</div>{sorter}<div id="mailbox-items" class="ui-helper-clearfix">{items}</div>{pager}',
-    'sortableAttributes'=>array('modified'=>'Sort by'),
-    'loadingCssClass'=>'mailbox-loading',
-    'ajaxUpdate'=>'mailbox-list',
-    'afterAjaxUpdate'=>'$.yiimailbox.updateMailbox',
-    'emptyText'=>'<div style="width:100%"><h3>No news to report.</h3></div>',
-    //'htmlOptions'=>array('class'=>'ui-helper-clearfix'),
-    'sorterHeader'=>'', 
-    'sorterCssClass'=>'mailbox-sorter',
-    'itemsCssClass'=>'mailbox-items-tbl ui-helper-clearfix',
-    'pagerCssClass'=>'mailbox-pager',
-    //'updateSelector'=>'.inbox',
-));
-?>
-	<?php if($this->module->isAdmin()) : ?>
-<div style="clear:left; padding-left:20px;"> <span class="mailbox-buttons-label">  </span> 
-	<input type="submit" id="mailbox-action-delete" class="btn mailbox-button" name="button[delete]" value="delete"  onclick="return del();"/> 
-	
-</div>	<?php endif; ?>
+		foreach($upcoming as $key => $offering) { ?> 
+			<div id="container-gauge-<?= $key ?>" style="width: 200px; height: 200px; float: left"></div> 
+		<?php }
+	?>
 	</div>
-</form>
+	 
+	<script type="text/javascript">
+		$(function () {
+			Highcharts.setOptions({
+				chart: {
+					type: 'solidgauge'
+				},
 
+				title: 'Upcoming Offerings',
+
+				pane: {
+					center: ['50%', '85%'],
+					size: '100%',
+					startAngle: -90,
+					endAngle: 90,
+					background: {
+						backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+						innerRadius: '60%',
+						outerRadius: '100%',
+						shape: 'arc'
+					}
+				},
+
+				tooltip: {
+					enabled: false
+				},
+
+				// the value axis
+				yAxis: {
+					stops: [
+						[0.5, '#DF5353'], // red
+						[0.75, '#DDDF0D'], // yellow
+						[0.9, '#55BF3B'], // green
+						[1.0, '#5FCCFF']
+					],
+					lineWidth: 0,
+					tickWidth: 0,
+					title: {
+						y: -50
+					},
+					labels: {
+						y: 16
+					}
+				},
+
+				plotOptions: {
+					solidgauge: {
+						dataLabels: {
+							y: 18,
+							borderWidth: 0,
+							useHTML: true
+						}
+					}
+				}
+			});
+		<?php
+			foreach($upcoming as $key => $offering) { ?>
+				var chart = new Highcharts.Chart({
+					chart: {
+						renderTo: 'container-gauge-<?= $key ?>',
+						type: 'solidgauge',
+						plotBorderColor: 'Red'
+					},
+					yAxis: {
+						min: 0,
+						max: <?= (int) $offering->num_slots ?>,
+						title: {
+							text: '<?= $offering->name ?>'
+						},
+						minorTickInterval: <?php echo (int)$offering->num_slots / 10; ?>,
+						tickInterval: <?= (int)$offering->num_slots ?>
+					},
+
+					credits: {
+						enabled: false
+					},
+
+					series: [{
+						name: 'students',
+						data: [<?= $offering->students ?>],
+						dataLabels: {
+							format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+								((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '"><?= (int) $offering->num_slots - $offering->students ?></span><br/>' +
+								   '<span style="font-size:12px;color:silver">opening<?php echo ((int) $offering->num_slots - $offering->students) === 1 ? '' : 's'; ?></span></div>'
+						},
+						tooltip: {
+							valueSuffix: ' openings'
+						}
+					}]
+
+				});
+
+				// Bring life to the dials
+				setTimeout(function () {
+					// Speed
+					var chart = $('#container-gauge-<?= $key ?>').highcharts(),
+						point,
+						newVal,
+						inc;
+
+					if (chart) {
+						point = chart.series[0].points[0];
+						inc = Math.round((Math.random() - 0.5) * 100);
+						newVal = point.y + inc;
+
+						if (newVal < 0 || newVal > <?= $offering->num_slots ?>) {
+							newVal = point.y - inc;
+						}
+
+						point.update(newVal);
+					}
+				}, 2000);
+		<?php 
+			}
+		?>
+		});
+	</script>
 <?php
-
 }
 else {
-	echo '<div class="mailbox-empty">No news to report.</div>';
+	echo '<div class="mailbox-empty">No upcoming offerings.</div>';
 }
 
 echo '</div>';

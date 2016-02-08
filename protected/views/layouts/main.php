@@ -40,14 +40,17 @@ along with Open-School.  If not, see <http://www.gnu.org/licenses/>.*/
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/formstyle.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/dashboard.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/formelements.css" />
-    <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/coda-slider-2.0.css" type="text/css" media="screen" />  
-   
-     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.7.1.min.js"></script>
-      <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/chart/highcharts.js"></script>
+    <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/coda-slider-2.0.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/custom-form-elements.js"></script>   
-   </script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui.min.js"></script>
 
+	<!-- Kendall -->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+	<!-- /KENDALL -->
+	
     <script>
 	$(document).ready(function() {
 	$("#lodrop").click(function(){
@@ -203,16 +206,16 @@ $(".navigationbtm_wrapper_outer").show();
 				 if(isset(Yii::app()->controller->module->id)) {
 				 if(Yii::app()->controller->module->id=='mailbox'||Yii::app()->controller->module->id=='dashboard' ||Yii::app()->controller->module->id=='cal')
 				 {
-				 echo CHtml::link(Yii::t('app','Home'), array('/default'),array('class'=>'ic1 active'));
+				 echo CHtml::link(Yii::t('app','Home'), array('/'),array('class'=>'ic1 active'));
 				 }else{
-					 echo CHtml::link(Yii::t('app','Home'), array('/default'),array('class'=>'ic1'));
+					 echo CHtml::link(Yii::t('app','Home'), array('/'),array('class'=>'ic1'));
 				 }
 				 }else if(Yii::app()->controller->id=='default')
 				 {
-					  echo CHtml::link(Yii::t('app','Home'), array('/default'),array('class'=>'ic1 active'));
+					  echo CHtml::link(Yii::t('app','Home'), array('/'),array('class'=>'ic1 active'));
 				 }else
 				 {
-					 echo CHtml::link(Yii::t('app','Home'), array('/default'),array('class'=>'ic1'));
+					 echo CHtml::link(Yii::t('app','Home'), array('/'),array('class'=>'ic1'));
 				 }
 				 ?>
                 </li>

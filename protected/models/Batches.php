@@ -365,4 +365,39 @@ class Batches extends CActiveRecord
 		
 		return date_format($date, $format);
 	}
+	
+	public function getUpcomingOfferings($days = 7) {
+		if(!is_int($days)) {
+			return false;
+		}
+		
+		$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+			
+		// Get array of batches that the student is enrolled in.
+		$pdo = $dbh->prepare(
+			"SELECT *
+			FROM batches
+			WHERE DATE(start_date) > DATE(NOW())
+			AND DATE(start_date) <= ADDDATE(CURDATE(), INTERVAL $days DAY)
+			AND is_active = 1
+			AND is_deleted = 0;"
+		);
+
+		$pdo->execute();
+		
+		$results = $pdo->fetchAll(PDO::FETCH_CLASS);
+			
+		foreach($results as $key => $result) {
+			$batch = Batches::model()->findByPk((int)$result->id);
+
+			if(!$batch->updateActiveStatus()) {
+				unset($results[$key]);
+				break;
+			}
+			
+			$result->students = count($batch->students);
+			$result->name = $batch->getOfferingName();
+		}
+		return $results;
+	}
 }
