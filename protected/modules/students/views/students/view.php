@@ -147,7 +147,7 @@ $this->breadcrumbs=array(
 	$current = Batches::model()->getEnrolledBatches($model->id);
   ?>
   <tr>
-	<td class="listbx_subhdng"><?php echo Yii::t('students','Enrolled Classes');?></td>
+	<td class="listbx_subhdng">Currently Enrolled: </td>
 	<td class="subhdng_nrmal">
 	<?php 
 		if($current) {
@@ -162,8 +162,26 @@ $this->breadcrumbs=array(
 		}
 	?>
 	</td>
-	<td class="listbx_subhdng"><?php echo Yii::t('students','Completed Classes');?></td>
-	<td class="subhdng_nrmal"><?php echo '**COMPLETED COURSES**'; ?></td>
+	<td></td>
+	<td></td>
+  </tr>
+  <tr>
+	<td class="listbx_subhdng"><?php echo Yii::t('students','Completed: ');?></td>
+	<td class="subhdng_nrmal">
+<?php
+	if(count($completedOfferings) > 0) {
+		$firstOffering = true;
+		foreach($completedOfferings as $offering) {
+			echo ($firstOffering ? '' : '<br />') . $offering;
+			$firstOffering = false;
+		}		
+	} else {
+		echo "Student has not completed any courses....yet!";
+	}
+?>
+	</td>
+	<td></td>
+	<td></td>
   </tr>
 <!--
   <tr class="listbxtop_hdng">

@@ -337,4 +337,35 @@ class Students extends CActiveRecord {
 			return $v->charge_sum !== $v->paid_sum;
 		});
 	}
+	
+	public function getCompletedOfferings($id = null) {
+		if(!is_int($id)) {
+			$id = $this->id;
+		}
+		
+		try {
+			$dbh = new PDO(DB_CONNECTION, DB_USER, DB_PWD);
+			
+			$pdo = $dbh->prepare(
+				"SELECT CONCAT(C.course_name, ' - ', B.name)
+				FROM `students` S
+				JOIN `batch_students` BS
+					ON S.id = BS.student_id
+					AND S.id = ?
+				JOIN `batches` B
+					ON BS.batch_id = B.id
+					AND B.is_active = 0
+					AND B.is_deleted = 0
+				JOIN `courses` C
+					ON B.course_id = C.id
+				ORDER BY B.end_date DESC"
+			);
+			
+			$pdo->execute([$id]);
+			
+			return $pdo->fetchAll(PDO::FETCH_COLUMN);
+		} catch (Exception $ex) {
+			echo 'Failed to delete batchStudents record: ' . $ex->getMessage();
+		}
+	}
 }

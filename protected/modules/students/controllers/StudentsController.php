@@ -50,11 +50,11 @@ class StudentsController extends RController
 	 */
 	public function actionView($id)
 	{
-		//$this->layout='';
-		//header("Content-type: image/jpeg");
-		//echo $model->photo_data;
+		$model = $this->loadModel($id);
+		
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'					=> $model,
+			'completedOfferings'	=> $model->getCompletedOfferings()
 		));
 	}
 	public function actionPrintpdf()
