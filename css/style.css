@@ -2489,7 +2489,7 @@ box-shadow: inner 0 0 5px #888;
 }
 .table_listbx td
 {
-	padding:10px 0px 10px 20px;
+	padding:10px 10px 10px 20px;
 	margin:0px;
 	border-bottom:#eaeef1 solid 1px;
 	/*border-top:#f8fafb solid 1px;*/

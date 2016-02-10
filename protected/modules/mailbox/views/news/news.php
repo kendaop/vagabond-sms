@@ -97,7 +97,9 @@ if(count($upcoming) > 0) {
 				}
 			});
 		<?php
-			foreach($upcoming as $key => $offering) { ?>
+			foreach($upcoming as $key => $offering) { 
+				$gaugeMax = (int)$offering->num_slots === 0 ? $offering->students : (int)$offering->num_slots;
+		?>
 				var chart = new Highcharts.Chart({
 					chart: {
 						renderTo: 'container-gauge-<?= $key ?>',
@@ -106,12 +108,12 @@ if(count($upcoming) > 0) {
 					},
 					yAxis: {
 						min: 0,
-						max: <?= (int) $offering->num_slots ?>,
+						max: <?= $gaugeMax ?>,
 						title: {
 							text: '<?= $offering->name ?>'
 						},
-						minorTickInterval: <?php echo (int)$offering->num_slots / 10; ?>,
-						tickInterval: <?= (int)$offering->num_slots ?>
+						minorTickInterval: <?php echo ($gaugeMax / 10); ?>,
+						tickInterval: <?= $gaugeMax ?>
 					},
 
 					credits: {

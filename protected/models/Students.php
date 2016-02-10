@@ -358,7 +358,7 @@ class Students extends CActiveRecord {
 					AND B.is_deleted = 0
 				JOIN `courses` C
 					ON B.course_id = C.id
-				ORDER BY B.end_date DESC"
+				ORDER BY B.start_date DESC"
 			);
 			
 			$pdo->execute([$id]);
