@@ -28,11 +28,12 @@ $this->breadcrumbs=array('News'); ?>
      <div class="mail_head">News<span>Important news shown here</span></div>
     <?php 
 
-$upcoming = Batches::model()->getUpcomingOfferings();
+$lookahead = 30;
+$upcoming = Batches::model()->getUpcomingOfferings($lookahead);
 
 if(count($upcoming) > 0) {
 ?>
-	 <h1 style="margin: 10px 10px 0">Offerings Beginning in the Next 7 Days</h1>
+	 <h1 style="margin: 10px 10px 0">Offerings Beginning in the Next <?= $lookahead ?> Days</h1>
 	<div style="width: 600px; margin: 0 auto">
 	<?php
 		foreach($upcoming as $key => $offering) { ?> 
